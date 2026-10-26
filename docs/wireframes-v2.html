@@ -1,0 +1,865 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CareNest v2 Wireframes</title>
+<style>
+:root{
+  --canvas:#f6f6f8;--surface:#fff;--sunken:#f0f0f3;--line:#dcdce2;--line-strong:#b9b9c4;
+  --fg:#1d1d24;--fg2:#4c4c5a;--muted:#7a7a88;--ph:#e3e3e9;
+  --accent:#2f5bd8;--accent-soft:#e8eefc;
+  --new:#b26a00;--new-soft:#fff1d6;--new-line:#e9b455;
+  --danger:#c0272d;--danger-soft:#fdeaea;
+  --ok:#1f7a48;--ok-soft:#e3f4ea;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--canvas);color:var(--fg);font:14px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;-webkit-font-smoothing:antialiased}
+.wrap{max-width:1180px;margin:0 auto;padding:40px 24px 80px}
+h1{margin:0;font-size:30px;line-height:1.2;letter-spacing:-.02em}
+h2{margin:56px 0 4px;font-size:22px;letter-spacing:-.01em}
+h3{margin:0 0 2px;font-size:15px}
+p{margin:0}
+.brandrow{display:flex;align-items:center;gap:22px;flex-wrap:wrap}
+.lockup{height:104px;width:auto;padding:12px 18px;border-radius:14px;background:#fff;border:1px solid var(--line)}
+.meta{margin-top:8px;color:var(--muted);font-size:13px;display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.badge{display:inline-block;padding:2px 10px;border-radius:99px;background:var(--new-soft);color:var(--new);font-size:12px;font-weight:600;border:1px solid var(--new-line)}
+.lede{margin-top:14px;max-width:720px;color:var(--fg2);font-size:15px}
+.sub{color:var(--muted);margin-bottom:20px}
+nav{margin-top:20px;display:flex;flex-wrap:wrap;gap:8px}
+nav a{padding:6px 14px;border:1px solid var(--line);border-radius:99px;background:var(--surface);color:var(--fg);text-decoration:none;font-size:13px;font-weight:500}
+nav a:hover{border-color:var(--line-strong)}
+.changes{margin-top:28px;display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:12px}
+.changes div{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:14px 16px}
+.changes b{display:block;margin-bottom:2px}
+.changes span{color:var(--fg2);font-size:13px}
+.legend{margin-top:20px;display:flex;flex-wrap:wrap;gap:18px;font-size:13px;color:var(--fg2);align-items:center}
+.new{display:inline-block;padding:0 6px;border-radius:4px;background:var(--new-soft);color:var(--new);border:1px solid var(--new-line);font-size:10px;font-weight:700;letter-spacing:.04em;line-height:16px;vertical-align:middle}
+.hl{outline:2px dashed var(--new-line);outline-offset:3px;border-radius:8px}
+
+/* phones */
+.phones{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:36px 24px}
+figure{margin:0}
+.phone{width:250px;height:500px;margin:0 auto;border:2px solid var(--fg);border-radius:30px;background:var(--surface);padding:10px;display:flex;flex-direction:column;overflow:hidden}
+.status{display:flex;justify-content:space-between;font-size:10px;font-weight:600;padding:0 8px 6px;color:var(--fg2)}
+.appbar{display:flex;align-items:center;gap:8px;padding:6px 6px 10px;font-weight:600;font-size:14px;border-bottom:1px solid var(--line)}
+.appbar i{font-style:normal;color:var(--muted);font-size:16px}
+.body{flex:1;padding:12px 6px 0;display:flex;flex-direction:column;gap:10px;font-size:12px;min-height:0}
+.foot{padding:10px 6px 4px}
+.btn{display:block;text-align:center;padding:10px;border-radius:8px;background:var(--accent);color:#fff;font-weight:600;font-size:13px}
+.btn.ghost{background:var(--surface);color:var(--fg);border:1px solid var(--line-strong)}
+.btn.off{background:var(--ph);color:var(--muted)}
+.btn.red{background:var(--danger)}
+.btn.sm{display:inline-block;padding:5px 10px;font-size:12px;border-radius:6px}
+.lbl{font-size:10px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;color:var(--muted)}
+.days{display:flex;gap:4px}
+.day{flex:1;text-align:center;border:1px solid var(--line);border-radius:7px;padding:4px 0;font-size:10px;color:var(--fg2)}
+.day b{display:block;font-size:13px;color:var(--fg)}
+.day.on{background:var(--accent);border-color:var(--accent);color:#fff}.day.on b{color:#fff}
+.times{display:grid;grid-template-columns:repeat(3,1fr);gap:5px}
+.t{text-align:center;border:1px solid var(--line);border-radius:7px;padding:6px 0;font-size:11px}
+.t.x{background:var(--sunken);color:var(--line-strong);text-decoration:line-through}
+.t.on{background:var(--accent);border-color:var(--accent);color:#fff;font-weight:600}
+.note{background:var(--new-soft);border:1px solid var(--new-line);border-radius:7px;padding:7px 9px;font-size:11px;color:#6b4300}
+.note.grey{background:var(--sunken);border-color:var(--line);color:var(--fg2)}
+.note.red{background:var(--danger-soft);border-color:#f0b6b8;color:#7d151a}
+.note.ok{background:var(--ok-soft);border-color:#a9d9bd;color:#11512e}
+.choice{display:flex;align-items:center;gap:12px;border:1.5px solid var(--line);border-radius:12px;padding:14px 12px}
+.choice .av{width:40px;height:40px;border-radius:50%;background:var(--ph);flex-shrink:0;display:flex;align-items:center;justify-content:center;font-weight:700;color:var(--fg2)}
+.choice b{display:block;font-size:14px}
+.choice span{color:var(--muted);font-size:11px}
+.choice.on{border-color:var(--accent);background:var(--accent-soft)}
+.choice.on .av{background:var(--accent);color:#fff}
+.choice.dis{opacity:.55;background:var(--sunken);border-style:dashed}
+.rows{border:1px solid var(--line);border-radius:9px}
+.rows div{display:flex;justify-content:space-between;gap:10px;padding:7px 10px;border-bottom:1px solid var(--line)}
+.rows div:last-child{border-bottom:0}
+.rows span{color:var(--muted)}
+.rows b{font-weight:600;text-align:right}
+.center{text-align:center;align-items:center}
+.tick{width:56px;height:56px;border-radius:50%;background:var(--ok-soft);color:var(--ok);display:flex;align-items:center;justify-content:center;font-size:28px;font-weight:700;margin:14px auto 0}
+.cross{background:var(--danger-soft);color:var(--danger)}
+.pill{display:inline-block;padding:1px 9px;border-radius:99px;font-size:11px;font-weight:600;background:var(--ok-soft);color:var(--ok)}
+.pill.red{background:var(--danger-soft);color:var(--danger)}
+.pill.blue{background:var(--accent-soft);color:var(--accent)}
+.pill.grey{background:var(--sunken);color:var(--fg2)}
+.pill.amber{background:var(--new-soft);color:var(--new)}
+.ph{background:var(--ph);border-radius:6px;height:10px}
+figcaption{margin:14px auto 0;max-width:250px;font-size:13px;color:var(--fg2)}
+figcaption b{display:block;color:var(--fg);font-size:14px;margin-bottom:2px}
+
+/* admin */
+.screen{margin-top:36px}
+.screen>p{color:var(--fg2);max-width:760px;margin-bottom:14px}
+.win{border:2px solid var(--fg);border-radius:12px;background:var(--surface);overflow:hidden}
+.chrome{display:flex;align-items:center;gap:6px;padding:8px 12px;border-bottom:1px solid var(--line);background:var(--sunken)}
+.chrome i{width:9px;height:9px;border-radius:50%;background:var(--line-strong)}
+.chrome span{margin-left:10px;flex:1;max-width:340px;background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:1px 10px;font-size:11px;color:var(--muted)}
+.app{display:grid;grid-template-columns:160px 1fr;min-height:340px}
+.side{border-right:1px solid var(--line);padding:14px 10px;font-size:13px;background:#fafafb}
+.side b{display:flex;align-items:center;gap:7px;margin:0 6px 12px}
+.side b::before{content:"";width:26px;height:20px;flex:none;background:url(data:image/webp;base64,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) center/contain no-repeat}
+.side a{display:block;padding:6px 8px;border-radius:6px;color:var(--fg2)}
+.side a.on{background:var(--accent-soft);color:var(--accent);font-weight:600}
+.main{padding:18px 20px;min-width:0;position:relative}
+.head{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:14px}
+.head h3{font-size:17px}
+table{width:100%;border-collapse:collapse;font-size:13px}
+th{text-align:left;font-size:11px;letter-spacing:.04em;text-transform:uppercase;color:var(--muted);font-weight:600;padding:8px 10px;border-bottom:1px solid var(--line-strong);white-space:nowrap}
+td{padding:9px 10px;border-bottom:1px solid var(--line);vertical-align:middle}
+td small{display:block;color:var(--muted)}
+.acts{display:flex;gap:6px;white-space:nowrap}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.card{border:1px solid var(--line);border-radius:10px;padding:14px 16px}
+.field{margin-bottom:12px}
+.field label{display:block;font-size:12px;font-weight:600;margin-bottom:4px}
+.input{border:1px solid var(--line-strong);border-radius:7px;padding:7px 10px;font-size:13px;background:var(--surface);display:flex;justify-content:space-between;color:var(--fg)}
+.input.area{min-height:58px;color:var(--muted)}
+.seg{display:inline-flex;border:1px solid var(--line-strong);border-radius:7px;overflow:hidden}
+.seg span{padding:6px 16px;font-size:13px}
+.seg .on{background:var(--accent);color:#fff;font-weight:600}
+.hint{font-size:12px;color:var(--muted);margin-top:4px}
+.wk{display:grid;grid-template-columns:48px 1fr auto;gap:8px;align-items:center;padding:5px 0;font-size:13px;border-bottom:1px solid var(--line)}
+.wk:last-child{border:0}
+.bar{height:16px;border-radius:4px;background:var(--sunken);position:relative}
+.bar i{position:absolute;top:0;bottom:0;border-radius:4px;background:var(--accent)}
+.cal{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;font-size:12px}
+.cal span{text-align:center;padding:6px 0;border-radius:6px;border:1px solid var(--line)}
+.cal .h{border:0;color:var(--muted);font-size:10px;font-weight:600;padding:0}
+.cal .lv{background:var(--danger-soft);border-color:#f0b6b8;color:var(--danger);font-weight:600}
+.cal .ch{background:var(--new-soft);border-color:var(--new-line);color:var(--new);font-weight:600}
+.cal .bk{box-shadow:inset 0 -3px 0 var(--accent)}
+.key{display:flex;flex-wrap:wrap;gap:12px;font-size:11px;color:var(--fg2);margin-top:10px}
+.key i{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:4px;vertical-align:-1px}
+.set{display:grid;grid-template-columns:1fr auto;gap:16px;align-items:center;padding:16px 0;border-bottom:1px solid var(--line)}
+.set:last-child{border:0}
+.set p{color:var(--fg2);font-size:13px;max-width:520px}
+.toggle{width:44px;height:24px;border-radius:99px;background:var(--line-strong);position:relative}
+.toggle::after{content:"";position:absolute;top:3px;left:3px;width:18px;height:18px;border-radius:50%;background:#fff}
+.scrim{background:rgba(29,29,36,.38);padding:28px;display:flex;justify-content:center}
+.dialog{background:var(--surface);border-radius:12px;padding:20px 22px;width:100%;max-width:480px;box-shadow:0 14px 40px rgba(0,0,0,.2)}
+.dialog h3{font-size:17px;margin-bottom:4px}
+.dialog .rows{margin:12px 0;font-size:13px}
+.dfoot{display:flex;justify-content:flex-end;gap:8px;margin-top:16px}
+.check{display:flex;gap:8px;font-size:13px;color:var(--fg2);margin-top:4px}
+.check::before{content:"✓";color:var(--ok);font-weight:700}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:16px}
+.stats div{border:1px solid var(--line);border-radius:10px;padding:10px 14px}
+.stats b{display:block;font-size:22px}
+.stats span{font-size:12px;color:var(--muted)}
+ol.q{margin:12px 0 0;padding-left:20px;max-width:760px}
+ol.q li{margin-bottom:10px}
+ol.q b{display:block}
+ol.q span{color:var(--fg2)}
+
+.same{display:inline-block;padding:0 6px;border-radius:4px;background:var(--sunken);color:var(--muted);border:1px solid var(--line);font-size:10px;font-weight:700;letter-spacing:.04em;line-height:16px;vertical-align:middle}
+.grp{margin:40px 0 18px;padding-bottom:8px;border-bottom:1px solid var(--line);font-size:16px}
+.grp small{font-weight:400;color:var(--muted);font-size:13px;margin-left:8px}
+.li{display:flex;align-items:center;gap:10px;border:1px solid var(--line);border-radius:9px;padding:9px 10px}
+.li .av{width:30px;height:30px;border-radius:8px;background:var(--ph);flex-shrink:0}
+.li .av.r{border-radius:50%}
+.li>div:not(.av){flex:1;min-width:0}
+.li b{display:block;font-size:12px}
+.li span{color:var(--muted);font-size:11px}
+.li em{font-style:normal;color:var(--line-strong);font-size:15px}
+.li.on{border-color:var(--accent);background:var(--accent-soft)}
+.tabs{display:flex;border-top:1px solid var(--line);margin:0 -10px -10px;padding:8px 4px 12px;font-size:10px;color:var(--muted)}
+.tabs span{flex:1;text-align:center}
+.tabs span::before{content:"";display:block;width:16px;height:16px;border-radius:4px;background:var(--ph);margin:0 auto 3px}
+.tabs .on{color:var(--accent);font-weight:600}.tabs .on::before{background:var(--accent)}
+.pin{border:1px solid var(--line-strong);border-radius:7px;padding:8px 10px;color:var(--muted);font-size:12px;display:flex;justify-content:space-between}
+.pin b{color:var(--fg);font-weight:500}
+.otp{display:flex;gap:6px;justify-content:center}
+.otp span{width:28px;height:34px;border:1px solid var(--line-strong);border-radius:6px}
+.seg2{display:flex;gap:6px}
+.seg2 span{flex:1;text-align:center;border:1px solid var(--line);border-radius:7px;padding:7px 0;font-size:12px}
+.seg2 .on{background:var(--accent);border-color:var(--accent);color:#fff;font-weight:600}
+.mpin{width:18px;height:18px;border-radius:50% 50% 50% 0;background:var(--danger);transform:rotate(-45deg);box-shadow:0 0 0 4px rgba(192,39,45,.18)}
+.map.big{height:150px}
+.map{height:80px;border-radius:9px;background:repeating-linear-gradient(45deg,var(--ph),var(--ph) 8px,var(--sunken) 8px,var(--sunken) 16px);display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:11px}
+.logo{width:64px;height:64px;border-radius:16px;background:url(data:image/webp;base64,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) center/contain no-repeat;margin:0 auto}
+
+.msgs{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:20px}
+.msg{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:14px}
+.msg .to{font-size:11px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--muted);margin-bottom:8px}
+.bub{background:var(--sunken);border-radius:14px 14px 14px 4px;padding:10px 12px;font-size:13px;color:var(--fg)}
+.msg p.w{margin-top:8px;font-size:12px;color:var(--muted)}
+.three{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.three .win{display:flex;flex-direction:column}
+.auth{flex:1;padding:26px 22px;background:var(--sunken);min-height:300px;display:flex;align-items:center;justify-content:center}
+.auth .card{background:var(--surface);width:100%;max-width:260px}
+.tl{border-left:2px solid var(--line);margin-left:6px;padding-left:14px;font-size:13px}
+.tl p{margin-bottom:8px;position:relative}
+.tl p::before{content:"";position:absolute;left:-20px;top:6px;width:10px;height:10px;border-radius:50%;background:var(--line-strong)}
+.tl small{display:block;color:var(--muted)}
+.zw{display:block;position:relative}
+.zw input{position:absolute;opacity:0;pointer-events:none}
+.zx{display:none}
+@media(max-width:1100px){
+  .zt{width:1040px;zoom:tan(atan2(100vw - 48px,1040px))}
+  .zw{cursor:zoom-in}
+  .zw::after{content:"Tap to open full size";display:block;margin-top:8px;font-size:12px;font-weight:600;color:var(--accent)}
+  .zw:has(input:checked){cursor:zoom-out}
+  .zw:has(input:checked)::after{display:none}
+  .zw input:checked~.zt{position:fixed;inset:0;z-index:50;zoom:1;width:auto;overflow:auto;background:var(--canvas);padding:60px 16px 24px;-webkit-overflow-scrolling:touch}
+  .zw input:checked~.zt>*{width:1040px}
+  .zw input:checked~.zx{display:flex;justify-content:space-between;align-items:center;position:fixed;top:0;left:0;right:0;z-index:51;padding:10px 14px;background:var(--fg);color:#fff;font-size:12px}
+  .zx b{background:#fff;color:var(--fg);border-radius:99px;padding:4px 12px;font-size:13px}
+  body:has(.zw input:checked){overflow:hidden}
+  .screen>p{max-width:none}
+}
+@media print{.zt{width:auto;zoom:1}.zw::after{display:none}}
+@media print{body{background:#fff}.screen,figure{break-inside:avoid}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<div class="brandrow"><img class="lockup" alt="CareNest - Compassionate Home Care" src="data:image/webp;base64,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"><h1>CareNest v2 Wireframes</h1></div>
+<div class="meta"><span class="badge">Draft for client review</span><span>10 October 2026</span><span>User app: 29 screens</span><span>Admin panel: 15 screens</span><span>Nurse app: removed, replaced by 6 messages</span></div>
+<p class="lede">These are layout sketches of every screen in the system, not final designs. They show what each screen contains and how a booking moves after the update. Colours, fonts and all names and numbers are placeholders.</p>
+
+<nav><a href="#user">User app</a><a href="#admin">Admin panel</a><a href="#messages">Messages</a><a href="#questions">Questions for you</a></nav>
+
+<div class="changes">
+  <div><b>1. Male or female nurse</b><span>The user chooses a gender. The system picks the nurse.</span></div>
+  <div><b>2. No nurse app</b><span>Nurses get visit details by SMS and email.</span></div>
+  <div><b>3. Admin sets availability</b><span>Working hours and leave are managed in the admin panel.</span></div>
+  <div><b>4. Minimum notice time</b><span>Admin decides how far ahead a booking must start.</span></div>
+  <div><b>5. Instant booking</b><span>Paid means confirmed. Nobody approves it.</span></div>
+  <div><b>6. Kill switch</b><span>Admin can cancel any booking, at any stage, with a refund.</span></div>
+  <div><b>7. Location from the map</b><span>The user sets the visit address by map pin or current location. The nurse gets a directions link.</span></div>
+</div>
+
+<div class="legend"><span><span class="new">NEW</span> a screen or element added in this update</span><span><span class="new">CHANGED</span> an existing screen that works differently</span><span><span class="same">NO CHANGE</span> stays as it is today</span><span>Dashed amber outline = the changed area on a screen</span></div>
+
+<!-- ================= USER APP ================= -->
+<h2 id="user">User app</h2>
+<p class="sub">All 29 screens of the app, in the order a user meets them. Screens this update does not touch are tagged NO CHANGE.</p>
+
+<h3 class="grp">Getting started<small>4 screens, no change</small></h3>
+<div class="phones">
+<figure>
+  <div class="phone">
+    <div class="status"><span>9:41</span><span>● ● ●</span></div>
+    <div class="body"><div style="margin-top:104px"><div class="logo" style="width:120px;height:88px;border-radius:0"></div></div><p class="center" style="text-align:center;font-size:18px;font-weight:700">CareNest</p><p style="text-align:center;color:var(--muted)">Care at home</p></div>
+  </div>
+  <figcaption><b>1. Splash <span class="same">NO CHANGE</span></b>Opens the app and checks whether the user is already signed in.</figcaption>
+</figure>
+<figure>
+  <div class="phone">
+    <div class="status"><span>9:41</span><span>● ● ●</span></div>
+    <div class="body"><div style="margin-top:20px"><div class="logo" style="width:72px;height:52px;border-radius:0"></div></div><p style="text-align:center;font-size:15px;font-weight:700">Welcome back</p><div><span class="lbl">Phone number</span><div class="pin"><b></b>&nbsp;</div></div><div><span class="lbl">Password</span><div class="pin"><b></b>&nbsp;</div></div></div>
+    <div class="foot"><div class="btn ">Login</div><p style="text-align:center;font-size:12px;margin-top:8px;color:var(--fg2)">New here? <b style="color:var(--accent)">Create account</b></p></div>
+  </div>
+  <figcaption><b>2. Login <span class="same">NO CHANGE</span></b>Sign in with phone number and password.</figcaption>
+</figure>
+<figure>
+  <div class="phone">
+    <div class="status"><span>9:41</span><span>● ● ●</span></div>
+    <div class="appbar"><i>‹</i> Create account</div>
+    <div class="body"><div><span class="lbl">Full name</span><div class="pin"><b></b>&nbsp;</div></div><div><span class="lbl">Phone number</span><div class="pin"><b></b>&nbsp;</div></div><div><span class="lbl">Email</span><div class="pin"><b></b>&nbsp;</div></div><div><span class="lbl">Password</span><div class="pin"><b></b>&nbsp;</div></div><div><span class="lbl">Confirm password</span><div class="pin"><b></b>&nbsp;</div></div></div>
+    <div class="foot"><div class="btn ">Create account</div></div>
+  </div>
+  <figcaption><b>3. Register <span class="same">NO CHANGE</span></b>Creates the account, then sends a one-time code.</figcaption>
+</figure>
+<figure>
+  <div class="phone">
+    <div class="status"><span>9:41</span><span>● ● ●</span></div>
+    <div class="appbar"><i>‹</i> Verify</div>
+    <div class="body"><p style="margin-top:20px;font-size:14px;font-weight:700;text-align:center">Enter the code</p><p style="text-align:center;color:var(--fg2)">Sent to 98xxxxxx10</p><div class="otp"><span></span><span></span><span></span><span></span><span></span><span></span></div><p style="text-align:center;color:var(--muted)">Resend code in 0:45</p></div>
+    <div class="foot"><div class="btn ">Verify</div></div>
+  </div>
+  <figcaption><b>4. Verify code <span class="same">NO CHANGE</span></b>The user enters the one-time code sent to them.</figcaption>
+</figure>
+</div>
+<h3 class="grp">Home and services<small>4 screens, 1 new</small></h3>
+<div class="phones">
+<figure>
+  <div class="phone">
+    <div class="status"><span>9:41</span><span>● ● ●</span></div>
+    <div class="body"><p style="font-size:15px;font-weight:700">Hello, Riya</p><div class="seg2"><span>Book service</span><span>My bookings</span></div><div style="display:flex;justify-content:space-between"><span class="lbl">Services</span><span style="color:var(--accent)">View all</span></div><div class="li "><div class="av "></div><div><b>Elder care</b><span>Rs 400 per hour</span></div><em>›</em></div><div class="li "><div class="av "></div><div><b>Post-surgery care</b><span>Rs 500 per hour</span></div><em>›</em></div><span class="lbl">Next booking</span><div class="li "><div class="av "></div><div><b>Sat 10 Oct, 3:00 PM</b><span>Elder care, Anita S.</span></div><em>›</em></div></div>
+    <div class="tabs"><span class="on">Home</span><span class="">Services</span><span class="">Bookings</span><span class="">Profile</span></div>
+  </div>
+  <figcaption><b>5. Home <span class="same">NO CHANGE</span></b>Shortcuts, the service list and the next booking.</figcaption>
+</figure>
+<figure>
+  <div class="phone">
+    <div class="status"><span>9:41</span><span>● ● ●</span></div>
+    <div class="appbar"><i>‹</i> Services</div>
+    <div class="body"><div class="li "><div class="av "></div><div><b>Elder care</b><span>Rs 400 per hour</span></div><em>›</em></div><div class="li "><div class="av "></div><div><b>Post-surgery care</b><span>Rs 500 per hour</span></div><em>›</em></div><div class="li "><div class="av "></div><div><b>Injection at home</b><span>Rs 300 per hour</span></div><em>›</em></div><div class="li "><div class="av "></div><div><b>Physiotherapy</b><span>Rs 600 per hour</span></div><em>›</em></div><div class="li "><div class="av "></div><div><b>Baby care</b><span>Rs 450 per hour</span></div><em>›</em></div></div>
+    <div class="tabs"><span class="">Home</span><span class="on">Services</span><span class="">Bookings</span><span class="">Profile</span></div>
+  </div>
+  <figcaption><b>6. Services <span class="same">NO CHANGE</span></b>Every service the admin has switched on.</figcaption>
+</figure>
+<figure>
+  <div class="phone">
+    <div class="status"><span>9:41</span><span>● ● ●</span></div>
+    <div class="appbar"><i>‹</i> Elder care</div>
+    <div class="body"><div class="ph" style="height:90px;border-radius:10px"></div><p style="font-size:15px;font-weight:700">Elder care</p><p style="color:var(--fg2)">Rs 400 per hour</p><div class="ph"></div><div class="ph" style="width:85%"></div><div class="ph" style="width:60%"></div><div class="ph" style="width:75%"></div></div>
+    <div class="foot"><div class="btn ">Book now</div></div>
+  </div>
+  <figcaption><b>7. Service detail <span class="same">NO CHANGE</span></b>Description, price and the Book now button.</figcaption>
+</figure>
+<figure>
+  <div class="phone">
+    <div class="status"><span>9:41</span><span>● ● ●</span></div>
+    <div class="appbar"><i>‹</i> Elder care</div>
+    <div class="body">
+      <div class="ph" style="height:90px;border-radius:10px"></div>
+      <p style="font-size:15px;font-weight:700">Elder care</p>
+      <p style="color:var(--fg2)">Rs 400 per hour</p>
+      <div class="ph"></div><div class="ph" style="width:85%"></div><div class="ph" style="width:60%"></div>
+      <div class="note hl">Bookings are temporarily unavailable. Please try again later. <span class="new">NEW</span></div>
+    </div>
+    <div class="foot"><div class="btn off">Book now</div></div>
+  </div>
+  <figcaption><b>8. Bookings paused <span class="new">NEW</span></b>What every user sees when the admin switches "Pause new bookings" on. Existing bookings are not affected.</figcaption>
+</figure>
+</div>
+<h3 class="grp">Booking a visit<small>11 screens, 8 new or changed</small></h3>
+<div class="phones">
+<figure>
+  <div class="phone">
+    <div class="status"><span>9:41</span><span>● ● ●</span></div>
+    <div class="appbar"><i>‹</i> Start booking</div>
+    <div class="body"><p style="font-size:13px;font-weight:600">Who is this visit for?</p><div class="li on"><div class="av r"></div><div><b>Myself</b><span>Riya Sharma</span></div><em>›</em></div><div class="li "><div class="av r"></div><div><b>R. Sharma</b><span>Father, 68</span></div><em>›</em></div><div class="li "><div class="av r"></div><div><b>S. Sharma</b><span>Mother, 64</span></div><em>›</em></div><div class="btn ghost">+ Add family member</div></div>
+    <div class="foot"><div class="btn ">Continue</div></div>
+  </div>
+  <figcaption><b>9. Who is the patient <span class="same">NO CHANGE</span></b>Book for yourself or pick a saved family member.</figcaption>
+</figure>
+<figure>
+  <div class="phone">
+    <div class="status"><span>9:41</span><span>● ● ●</span></div>
+    <div class="appbar"><i>‹</i> Date and time</div>
+    <div class="body">
+      <span class="lbl">Pick a day <span class="new">NEW</span></span>
+      <div class="days hl">
+        <div class="day on">Sat<b>10</b></div><div class="day">Sun<b>11</b></div><div class="day">Mon<b>12</b></div><div class="day">Tue<b>13</b></div><div class="day">Wed<b>14</b></div>
+      </div>
+      <span class="lbl">Start time</span>
+      <div class="times">
+        <div class="t x">9:00</div><div class="t x">10:00</div><div class="t x">11:00</div>
+        <div class="t x">12:00</div><div class="t x">1:00</div><div class="t">2:00</div>
+        <div class="t on">3:00</div><div class="t">4:00</div><div class="t">5:00</div>
+      </div>
+      <div class="note">Earliest start today is 2:00 PM. Bookings need at least 3 hours notice.</div>
+    </div>
+    <div class="foot"><div class="btn">Continue</div></div>
+  </div>
+  <figcaption><b>10. Date and time <span class="new">NEW</span></b>Times that are too soon are greyed out. The notice time and the number of days shown both come from the admin panel.</figcaption>
+</figure>
+<figure>
+  <div class="phone">
+    <div class="status"><span>9:41</span><span>● ● ●</span></div>
+    <div class="appbar"><i>‹</i> Duration</div>
+    <div class="body"><div class="seg2"><span class="on">Hours</span><span>Days</span></div><div class="times"><div class="t">1</div><div class="t">2</div><div class="t">3</div><div class="t on">4</div><div class="t">5</div><div class="t">6</div><div class="t">7</div><div class="t">8</div><div class="t">9</div></div><div class="rows"><div><span>Rs 400 x 4 hours</span><b>Rs 1,600</b></div></div></div>
+    <div class="foot"><div class="btn ">Continue</div></div>
+  </div>
+  <figcaption><b>11. Duration <span class="same">NO CHANGE</span></b>Hours or days. The price is worked out by the system.</figcaption>
+</figure>
+<figure>
+  <div class="phone">
+    <div class="status"><span>9:41</span><span>● ● ●</span></div>
+    <div class="appbar"><i>‹</i> Nurse preference</div>
+    <div class="body">
+      <p style="font-size:13px;font-weight:600">Who would you prefer? <span class="new">NEW</span></p>
+      <div class="choice on hl"><div class="av">F</div><div><b>Female nurse</b><span>Available for your time</span></div></div>
+      <div class="choice"><div class="av">M</div><div><b>Male nurse</b><span>Available for your time</span></div></div>
+      <div class="note grey">We assign a qualified nurse for you. You will see their name once the booking is confirmed.</div>
+    </div>
+    <div class="foot"><div class="btn">Continue</div></div>
+  </div>
+  <figcaption><b>12. Male or female nurse <span class="new">NEW</span></b>Replaces the old list of named nurses. Two options only.</figcaption>
+</figure>
+<figure>
+  <div class="phone">
+    <div class="status"><span>9:41</span><span>● ● ●</span></div>
+    <div class="appbar"><i>‹</i> Nurse preference</div>
+    <div class="body">
+      <p style="font-size:13px;font-weight:600">Who would you prefer?</p>
+      <div class="choice on"><div class="av">F</div><div><b>Female nurse</b><span>Available for your time</span></div></div>
+      <div class="choice dis hl"><div class="av">M</div><div><b>Male nurse</b><span>Not available for this time</span></div></div>
+      <div class="note grey">No male nurse is free on Sat 10 Oct at 3:00 PM.</div>
+      <div class="btn ghost">Change date or time</div>
+    </div>
+    <div class="foot"><div class="btn">Continue</div></div>
+  </div>
+  <figcaption><b>13. One option not available <span class="new">NEW</span></b>If no nurse of that gender is free, the option is disabled and the user can change the time.</figcaption>
+</figure>
+<figure>
+  <div class="phone">
+    <div class="status"><span>9:41</span><span>● ● ●</span></div>
+    <div class="appbar"><i>‹</i> Patient details</div>
+    <div class="body"><div><span class="lbl">Patient name</span><div class="pin"><b>R. Sharma</b>&nbsp;</div></div><div style="display:flex;gap:6px"><div style="flex:1"><div><span class="lbl">Age</span><div class="pin"><b>68</b>&nbsp;</div></div></div><div style="flex:1"><div><span class="lbl">Sex</span><div class="pin"><b>Male</b>&nbsp;</div></div></div></div><div><span class="lbl">Condition or notes</span><div class="pin"><b></b>&nbsp;</div></div><span class="lbl">Where should the nurse come? <span class="new">NEW</span></span><div class="li on"><div class="av"></div><div><b>Home</b><span>Sector 14, Bareilly</span></div><em>›</em></div><div class="seg2 hl"><span>◎ Current location</span><span>Pick on map</span></div></div>
+    <div class="foot"><div class="btn">Continue</div></div>
+  </div>
+  <figcaption><b>14. Patient details and address <span class="new">CHANGED</span></b>Pick a saved address, or set a new one from the map or the phone's current location.</figcaption>
+</figure>
+<figure>
+  <div class="phone">
+    <div class="status"><span>9:41</span><span>● ● ●</span></div>
+    <div class="appbar"><i>‹</i> Set location</div>
+    <div class="body"><div class="pin"><span>Search area, street or landmark</span></div><div class="map big hl"><span class="mpin"></span></div><div class="btn ghost">◎ Use my current location</div><div class="note grey"><b>Sector 14, Bareilly</b><br>Uttar Pradesh 243001</div></div>
+    <div class="foot"><div class="btn">Confirm location</div></div>
+  </div>
+  <figcaption><b>14b. Set location on map <span class="new">NEW</span></b>Search, drag the pin, or tap "Use my current location". If location access is off, the user can still search or drag the pin.</figcaption>
+</figure>
+<figure>
+  <div class="phone">
+    <div class="status"><span>9:41</span><span>● ● ●</span></div>
+    <div class="appbar"><i>‹</i> Address details</div>
+    <div class="body"><div class="map" style="height:56px"><span class="mpin"></span></div><div class="rows"><div><span>Sector 14, Bareilly, UP 243001</span><b style="color:var(--accent)">Change</b></div></div><div><span class="lbl">House or flat number</span><div class="pin"><b></b>&nbsp;</div></div><div><span class="lbl">Landmark (optional)</span><div class="pin"><b></b>&nbsp;</div></div><span class="lbl">Save as</span><div class="seg2"><span class="on">Home</span><span>Work</span><span>Other</span></div><p style="color:var(--fg2)">☑ Save for next time</p></div>
+    <div class="foot"><div class="btn">Use this address</div></div>
+  </div>
+  <figcaption><b>14c. Address details <span class="new">NEW</span></b>The map gives the area. The user adds the house number and a landmark so the nurse finds the door.</figcaption>
+</figure>
+<figure>
+  <div class="phone">
+    <div class="status"><span>9:41</span><span>● ● ●</span></div>
+    <div class="appbar"><i>‹</i> Review</div>
+    <div class="body">
+      <div class="rows">
+        <div><span>Service</span><b>Elder care</b></div>
+        <div><span>When</span><b>Sat 10 Oct, 3:00 PM</b></div>
+        <div><span>Duration</span><b>4 hours</b></div>
+        <div class="hl"><span>Nurse <span class="new">NEW</span></span><b>Female nurse</b></div>
+        <div><span>Patient</span><b>R. Sharma, 68</b></div>
+        <div><span>Address</span><b>Sector 14, Bareilly</b></div>
+      </div>
+      <div class="rows"><div><span>Total</span><b>Rs 1,600</b></div></div>
+      <div class="note ok">Your booking is confirmed as soon as you pay.</div>
+    </div>
+    <div class="foot"><div class="btn">Pay Rs 1,600</div></div>
+  </div>
+  <figcaption><b>15. Review and pay <span class="new">CHANGED</span></b>Shows the gender chosen, not a nurse name. A nurse is held for 15 minutes while the user pays.</figcaption>
+</figure>
+<figure>
+  <div class="phone">
+    <div class="status"><span>9:41</span><span>● ● ●</span></div>
+    <div class="appbar"><i>‹</i> Payment</div>
+    <div class="body"><div class="rows"><div><span>CareNest</span><b>Rs 1,600</b></div></div><span class="lbl">Pay with</span><div class="li "><div class="av "></div><div><b>UPI</b><span>Any UPI app</span></div><em>›</em></div><div class="li "><div class="av "></div><div><b>Card</b><span>Credit or debit</span></div><em>›</em></div><div class="li "><div class="av "></div><div><b>Net banking</b><span>All major banks</span></div><em>›</em></div><div class="note grey">Secure payment handled by Razorpay.</div></div>
+    <div class="foot"><div class="btn ">Pay Rs 1,600</div></div>
+  </div>
+  <figcaption><b>16. Payment <span class="same">NO CHANGE</span></b>Razorpay checkout. Cards, UPI and net banking.</figcaption>
+</figure>
+<figure>
+  <div class="phone">
+    <div class="status"><span>9:41</span><span>● ● ●</span></div>
+    <div class="body center">
+      <div class="tick">✓</div>
+      <p style="font-size:17px;font-weight:700">Booking confirmed <span class="new">NEW</span></p>
+      <p style="color:var(--fg2)">Booking #1042</p>
+      <div class="rows hl" style="width:100%;text-align:left">
+        <div><span>Your nurse</span><b>Anita S.</b></div>
+        <div><span>When</span><b>Sat 10 Oct, 3:00 PM</b></div>
+        <div><span>Paid</span><b>Rs 1,600</b></div>
+      </div>
+      <div class="note grey" style="text-align:left;width:100%">We have sent you an SMS with these details.</div>
+    </div>
+    <div class="foot"><div class="btn">View booking</div></div>
+  </div>
+  <figcaption><b>17. Confirmed straight away <span class="new">NEW</span></b>No "waiting for approval" step. The assigned nurse's name appears here for the first time.</figcaption>
+</figure>
+</div>
+<h3 class="grp">My bookings<small>4 screens, 2 new or changed</small></h3>
+<div class="phones">
+<figure>
+  <div class="phone">
+    <div class="status"><span>9:41</span><span>● ● ●</span></div>
+    <div class="appbar"><i>‹</i> My bookings</div>
+    <div class="body"><div class="seg2"><span class="on">Current</span><span>History</span></div><div class="li"><div><b>Elder care</b><span>Sat 10 Oct, 3:00 PM, Anita S.</span></div><span class="pill">Confirmed</span></div><div class="li"><div><b>Injection at home</b><span>Today, 11:00 AM, Rahul K.</span></div><span class="pill blue">In progress</span></div><div class="note grey">There is no "waiting for confirmation" status any more.</div></div>
+    <div class="tabs"><span class="">Home</span><span class="">Services</span><span class="on">Bookings</span><span class="">Profile</span></div>
+  </div>
+  <figcaption><b>18. Current bookings <span class="new">CHANGED</span></b>Upcoming and ongoing visits.</figcaption>
+</figure>
+<figure>
+  <div class="phone">
+    <div class="status"><span>9:41</span><span>● ● ●</span></div>
+    <div class="appbar"><i>‹</i> My bookings</div>
+    <div class="body"><div class="seg2"><span>Current</span><span class="on">History</span></div><div class="li"><div><b>Elder care</b><span>2 Oct, 9:00 AM</span></div><span class="pill grey">Completed</span></div><div class="li"><div><b>Physiotherapy</b><span>28 Sep, 5:00 PM</span></div><span class="pill red">Cancelled</span></div><div class="li"><div><b>Elder care</b><span>20 Sep, 10:00 AM</span></div><span class="pill grey">Completed</span></div></div>
+    <div class="tabs"><span class="">Home</span><span class="">Services</span><span class="on">Bookings</span><span class="">Profile</span></div>
+  </div>
+  <figcaption><b>19. Booking history <span class="same">NO CHANGE</span></b>Finished and cancelled visits.</figcaption>
+</figure>
+<figure>
+  <div class="phone">
+    <div class="status"><span>9:41</span><span>● ● ●</span></div>
+    <div class="appbar"><i>‹</i> Booking #1042</div>
+    <div class="body">
+      <div><span class="pill">Confirmed</span></div>
+      <div class="rows">
+        <div><span>Service</span><b>Elder care</b></div>
+        <div><span>Nurse</span><b>Anita S.</b></div>
+        <div><span>When</span><b>Sat 10 Oct, 3:00 PM</b></div>
+        <div><span>Duration</span><b>4 hours</b></div>
+        <div><span>Address</span><b>Sector 14, Bareilly</b></div>
+      </div>
+      <div class="note hl">Need to change or cancel? Call support on 1800 000 000. <span class="new">NEW</span></div>
+    </div>
+    <div class="foot"><div class="btn ghost">Call support</div></div>
+  </div>
+  <figcaption><b>20. Booking detail <span class="new">CHANGED</span></b>There is no cancel button in the app. Cancelling goes through the admin (see question 3).</figcaption>
+</figure>
+<figure>
+  <div class="phone">
+    <div class="status"><span>9:41</span><span>● ● ●</span></div>
+    <div class="appbar"><i>‹</i> Booking #1042</div>
+    <div class="body">
+      <div><span class="pill red">Cancelled</span></div>
+      <div class="note red hl"><b>Cancelled by CareNest</b> <span class="new">NEW</span><br>Reason: the assigned nurse is unwell and no replacement is free for this time.</div>
+      <div class="rows">
+        <div><span>Refund</span><b>Rs 1,600</b></div>
+        <div><span>Refund status</span><b>Sent to your bank</b></div>
+        <div><span>Expected</span><b>5 to 7 working days</b></div>
+      </div>
+      <div class="ph" style="width:70%"></div><div class="ph" style="width:45%"></div>
+    </div>
+    <div class="foot"><div class="btn">Book again</div></div>
+  </div>
+  <figcaption><b>21. After the kill switch <span class="new">NEW</span></b>The user sees the admin's reason and the refund status, and also gets an SMS.</figcaption>
+</figure>
+</div>
+<h3 class="grp">Profile<small>6 screens, 1 changed</small></h3>
+<div class="phones">
+<figure>
+  <div class="phone">
+    <div class="status"><span>9:41</span><span>● ● ●</span></div>
+    <div class="appbar"><i>‹</i> My profile</div>
+    <div class="body"><div style="text-align:center"><div class="logo" style="border-radius:50%;background:var(--ph)"></div><p style="font-size:14px;font-weight:700;margin-top:6px">Riya Sharma</p><p style="color:var(--muted)">98xxxxxx10</p></div><div class="li "><div class="av "></div><div><b>Edit profile</b><span></span></div><em>›</em></div><div class="li "><div class="av "></div><div><b>Family members</b><span></span></div><em>›</em></div><div class="li "><div class="av "></div><div><b>Addresses</b><span></span></div><em>›</em></div><div class="li "><div class="av "></div><div><b>Logout</b><span></span></div><em>›</em></div></div>
+    <div class="tabs"><span class="">Home</span><span class="">Services</span><span class="">Bookings</span><span class="on">Profile</span></div>
+  </div>
+  <figcaption><b>22. Profile <span class="same">NO CHANGE</span></b>Account menu.</figcaption>
+</figure>
+<figure>
+  <div class="phone">
+    <div class="status"><span>9:41</span><span>● ● ●</span></div>
+    <div class="appbar"><i>‹</i> Edit profile</div>
+    <div class="body"><div style="text-align:center"><div class="logo" style="border-radius:50%;background:var(--ph)"></div><p style="color:var(--accent);margin-top:4px">Change photo</p></div><div><span class="lbl">Full name</span><div class="pin"><b>Riya Sharma</b>&nbsp;</div></div><div><span class="lbl">Phone number</span><div class="pin"><b>98xxxxxx10</b>&nbsp;</div></div><div><span class="lbl">Email</span><div class="pin"><b>riya@example.com</b>&nbsp;</div></div></div>
+    <div class="foot"><div class="btn ">Save</div></div>
+  </div>
+  <figcaption><b>23. Edit profile <span class="same">NO CHANGE</span></b>Name, phone and photo.</figcaption>
+</figure>
+<figure>
+  <div class="phone">
+    <div class="status"><span>9:41</span><span>● ● ●</span></div>
+    <div class="appbar"><i>‹</i> Family members</div>
+    <div class="body"><div class="li "><div class="av r"></div><div><b>R. Sharma</b><span>Father, 68, Male</span></div><em>›</em></div><div class="li "><div class="av r"></div><div><b>S. Sharma</b><span>Mother, 64, Female</span></div><em>›</em></div></div>
+    <div class="foot"><div class="btn ghost">+ Add family member</div></div>
+  </div>
+  <figcaption><b>24. Family members <span class="same">NO CHANGE</span></b>People the user can book for.</figcaption>
+</figure>
+<figure>
+  <div class="phone">
+    <div class="status"><span>9:41</span><span>● ● ●</span></div>
+    <div class="appbar"><i>‹</i> Add family member</div>
+    <div class="body"><div><span class="lbl">Name</span><div class="pin"><b></b>&nbsp;</div></div><div><span class="lbl">Relation</span><div class="pin"><b></b>&nbsp;</div></div><div style="display:flex;gap:6px"><div style="flex:1"><div><span class="lbl">Age</span><div class="pin"><b></b>&nbsp;</div></div></div><div style="flex:1"><div><span class="lbl">Sex</span><div class="pin"><b></b>&nbsp;</div></div></div></div><div><span class="lbl">Contact phone</span><div class="pin"><b></b>&nbsp;</div></div></div>
+    <div class="foot"><div class="btn ">Add member</div></div>
+  </div>
+  <figcaption><b>25. Add family member <span class="same">NO CHANGE</span></b>Saved once and reused in later bookings.</figcaption>
+</figure>
+<figure>
+  <div class="phone">
+    <div class="status"><span>9:41</span><span>● ● ●</span></div>
+    <div class="appbar"><i>‹</i> Addresses</div>
+    <div class="body"><div class="li "><div class="av "></div><div><b>Home</b><span>Sector 14, Bareilly. Default</span></div><em>›</em></div><div class="li "><div class="av "></div><div><b>Parents</b><span>Civil Lines, Bareilly</span></div><em>›</em></div></div>
+    <div class="foot"><div class="btn ghost">+ Add address</div></div>
+  </div>
+  <figcaption><b>26. Addresses <span class="same">NO CHANGE</span></b>Saved visit addresses.</figcaption>
+</figure>
+<figure>
+  <div class="phone">
+    <div class="status"><span>9:41</span><span>● ● ●</span></div>
+    <div class="appbar"><i>‹</i> Add address</div>
+    <div class="body"><div class="map hl"><span class="mpin"></span></div><div class="seg2"><span>◎ Current location</span><span>Pick on map</span></div><div><span class="lbl">House or flat number</span><div class="pin"><b></b>&nbsp;</div></div><div><span class="lbl">City</span><div class="pin"><b></b>&nbsp;</div></div><div style="display:flex;gap:6px"><div style="flex:1"><div><span class="lbl">State</span><div class="pin"><b></b>&nbsp;</div></div></div><div style="flex:1"><div><span class="lbl">Pincode</span><div class="pin"><b></b>&nbsp;</div></div></div></div><p style="color:var(--fg2)">☐ Set as default address</p></div>
+    <div class="foot"><div class="btn ">Save address</div></div>
+  </div>
+  <figcaption><b>27. Add address <span class="new">CHANGED</span></b>Uses the same map picker as screen 14b, so a saved address always has an exact location.</figcaption>
+</figure>
+</div>
+
+<!-- ================= ADMIN ================= -->
+<h2 id="admin">Admin panel</h2>
+<p class="sub">All 15 screens of the admin panel. On a phone, tap any screen to open it full size. The admin no longer approves bookings, and now owns nurse availability, the booking rules and cancellations.</p>
+
+<div class="screen" id="a1"><h3>A1 to A3. Sign in <span class="same">NO CHANGE</span></h3><p>Admin login, forgot password and reset password.</p>
+<label class="zw"><input type="checkbox" aria-label="Open full size"><span class="zx"><span>Scroll sideways to see it all</span><b>Close ✕</b></span><div class="zt"><div class="three"><div class="win"><div class="chrome"><i></i><i></i><i></i><span>admin.carenest / login</span></div><div class="auth"><div class="card"><h3 style="margin-bottom:10px">Admin login</h3><div class="field"><label>Email</label><div class="input">&nbsp;</div></div><div class="field"><label>Password</label><div class="input">&nbsp;</div></div><div class="btn">Sign in</div><p class="hint" style="text-align:center">Forgot password?</p></div></div></div><div class="win"><div class="chrome"><i></i><i></i><i></i><span>admin.carenest / forgot-password</span></div><div class="auth"><div class="card"><h3 style="margin-bottom:10px">Forgot password</h3><div class="field"><label>Email</label><div class="input">&nbsp;</div></div><p class="hint" style="margin:-4px 0 12px">We email you a reset link.</p><div class="btn">Send reset link</div><p class="hint" style="text-align:center">Back to login</p></div></div></div><div class="win"><div class="chrome"><i></i><i></i><i></i><span>admin.carenest / reset-password</span></div><div class="auth"><div class="card"><h3 style="margin-bottom:10px">Set new password</h3><div class="field"><label>New password</label><div class="input">&nbsp;</div></div><div class="field"><label>Confirm password</label><div class="input">&nbsp;</div></div><div class="btn">Save password</div><p class="hint" style="text-align:center">Back to login</p></div></div></div></div></div></label>
+</div>
+
+<div class="screen" id="a4">
+  <h3>A4. Dashboard <span class="new">CHANGED</span></h3>
+  <p>Since nothing waits for approval any more, the dashboard only raises the cases where the system could not finish on its own.</p>
+<label class="zw"><input type="checkbox" aria-label="Open full size"><span class="zx"><span>Scroll sideways to see it all</span><b>Close ✕</b></span><div class="zt">
+  <div class="win">
+    <div class="chrome"><i></i><i></i><i></i><span>admin.carenest / dashboard</span></div>
+    <div class="app" style="min-height:0">
+      <div class="side"><b>CareNest</b><a class="on">Dashboard</a><a>Bookings</a><a>Nurses</a><a>Services</a><a>Settings</a><a>Help</a></div>
+      <div class="main">
+        <div class="stats"><div><b>6</b><span>Visits today</span></div><div><b>2</b><span>In progress now</span></div><div><b>4</b><span>Nurses on duty</span></div><div><b>2</b><span>Need attention</span></div></div>
+        <div class="card hl">
+          <h3 style="margin-bottom:8px">Needs attention <span class="new">NEW</span></h3>
+          <table>
+            <tr><td><span class="pill red">Refund failed</span></td><td>Booking #1038, Rs 400. Refund this one by hand in Razorpay.</td><td><span class="btn ghost sm">Open</span></td></tr>
+            <tr><td><span class="pill amber">Auto-cancelled</span></td><td>Booking #1050. Paid, but no male nurse was free. User refunded and informed.</td><td><span class="btn ghost sm">Open</span></td></tr>
+          </table>
+        </div>
+        <div class="card hl" style="margin-top:14px">
+          <h3 style="margin-bottom:8px">Today by nurse <span class="new">NEW</span></h3>
+          <table>
+            <tr><th>Nurse</th><th>Visits today</th><th>Next visit</th><th></th></tr>
+            <tr><td>Anita S.</td><td>2</td><td>3:00 PM, R. Sharma, Sector 14</td><td><span class="btn ghost sm">View day</span></td></tr>
+            <tr><td>Kavita R.</td><td>3</td><td>1:00 PM, D. Mehta, Civil Lines</td><td><span class="btn ghost sm">View day</span></td></tr>
+            <tr><td>Rahul K.</td><td>0</td><td><span class="pill amber">On leave</span></td><td></td></tr>
+          </table>
+          <p class="hint">Nurses have no app, so the admin can read out or resend a nurse's day from here if an SMS is missed.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div></label>
+</div>
+
+<div class="screen" id="a5">
+  <h3>A5. Bookings <span class="new">CHANGED</span></h3>
+  <p>The Confirm button is gone. Every paid booking arrives already confirmed with a nurse. The admin's two actions are Reassign and Cancel.</p>
+<label class="zw"><input type="checkbox" aria-label="Open full size"><span class="zx"><span>Scroll sideways to see it all</span><b>Close ✕</b></span><div class="zt">
+  <div class="win">
+    <div class="chrome"><i></i><i></i><i></i><span>admin.carenest / bookings</span></div>
+    <div class="app">
+      <div class="side"><b>CareNest</b><a>Dashboard</a><a class="on">Bookings</a><a>Nurses</a><a>Services</a><a>Settings</a><a>Help</a></div>
+      <div class="main">
+        <div class="head"><h3>Bookings</h3><span class="btn red sm">Nurse unavailable <span style="opacity:.8">(bulk)</span></span></div>
+        <table>
+          <tr><th>#</th><th>Patient</th><th>When</th><th>Asked for <span class="new">NEW</span></th><th>Nurse</th><th>Status</th><th>Payment</th><th>Actions <span class="new">NEW</span></th></tr>
+          <tr><td>1042</td><td>R. Sharma<small>Elder care</small></td><td>10 Oct, 3 PM<small>4 hours</small></td><td>Female</td><td>Anita S.</td><td><span class="pill">Confirmed</span></td><td>Paid</td><td><div class="acts"><span class="btn ghost sm">Reassign</span><span class="btn red sm">Cancel</span></div></td></tr>
+          <tr><td>1041</td><td>S. Khan<small>Post-surgery care</small></td><td>10 Oct, 11 AM<small>6 hours</small></td><td>Male</td><td>Rahul K.</td><td><span class="pill blue">In progress</span></td><td>Paid</td><td><div class="acts"><span class="btn ghost sm">Reassign</span><span class="btn red sm">Cancel</span></div></td></tr>
+          <tr><td>1039</td><td>P. Verma<small>Elder care</small></td><td>9 Oct, 9 AM<small>2 hours</small></td><td>Female</td><td>Anita S.</td><td><span class="pill grey">Completed</span></td><td>Paid</td><td></td></tr>
+          <tr><td>1038</td><td>A. Gupta<small>Injection at home</small></td><td>9 Oct, 5 PM<small>1 hour</small></td><td>Male</td><td>Rahul K.</td><td><span class="pill red">Cancelled</span><small>Nurse unwell</small></td><td>Refunded</td><td></td></tr>
+        </table>
+        <p class="hint" style="margin-top:12px">"In progress" and "Completed" are set automatically at the start and end time of the visit. The admin can correct them.</p>
+      </div>
+    </div>
+  </div>
+</div></label>
+</div>
+
+<div class="screen" id="a6">
+  <h3>A6. Booking detail <span class="new">CHANGED</span></h3>
+  <p>Everything about one booking. Shows which gender the user asked for, the nurse the system picked, and a history of what happened automatically.</p>
+<label class="zw"><input type="checkbox" aria-label="Open full size"><span class="zx"><span>Scroll sideways to see it all</span><b>Close ✕</b></span><div class="zt">
+  <div class="win"><div class="chrome"><i></i><i></i><i></i><span>admin.carenest / bookings / 1042</span></div><div class="app"><div class="side"><b>CareNest</b><a>Dashboard</a><a class="on">Bookings</a><a>Nurses</a><a>Services</a><a>Settings</a><a>Help</a></div><div class="main"><div class="head"><h3>Booking #1042 <span class="pill">Confirmed</span></h3><div class="acts"><span class="btn ghost sm">Reassign nurse</span><span class="btn red sm">Cancel booking</span></div></div><div class="two"><div><div class="rows" style="font-size:13px"><div><span>Service</span><b>Elder care</b></div><div><span>Visit</span><b>Sat 10 Oct, 3:00 PM, 4 hours</b></div><div><span>Patient</span><b>R. Sharma, 68, Male</b></div><div><span>Patient phone</span><b>98xxxxxx11</b></div><div><span>Booked by</span><b>Riya Sharma</b></div><div><span>Address</span><b>Sector 14, Bareilly</b></div><div><span>Payment</span><b>Rs 1,600, paid</b></div></div><div class="card hl" style="margin-top:14px"><h3>Nurse <span class="new">NEW</span></h3><div class="rows" style="font-size:13px;margin-top:8px"><div><span>User asked for</span><b>Female nurse</b></div><div><span>Assigned by system</span><b>Anita S.</b></div><div><span>Details sent to nurse</span><b>SMS and email, sent</b></div></div></div></div><div><div class="card"><h3 style="margin-bottom:10px">History</h3><div class="tl"><p>Booking created<small>10 Oct, 11:42 AM</small></p><p>Payment received, booking confirmed<small>10 Oct, 11:44 AM, automatic</small></p><p>Nurse Anita S. assigned and informed<small>10 Oct, 11:44 AM, automatic</small></p></div></div><div class="card hl" style="margin-top:14px"><h3 style="margin-bottom:8px">Visit location <span class="new">NEW</span></h3><div class="map" style="height:110px"><span class="mpin"></span></div><div class="rows" style="font-size:13px;margin-top:10px"><div><span>Address</span><b>H. No. 221, Sector 14, Bareilly</b></div><div><span>Landmark</span><b>Near City Park gate</b></div></div><div class="acts" style="margin-top:10px"><span class="btn ghost sm">Open in Google Maps</span><span class="btn ghost sm">Resend location to nurse</span></div></div><div class="card" style="margin-top:14px"><h3 style="margin-bottom:8px">Notes</h3><div class="input area">Add a note...</div></div></div></div></div></div></div>
+</div></label>
+</div>
+
+<div class="screen" id="a7">
+  <h3>A7. Reassign nurse <span class="new">NEW</span></h3>
+  <p>Replaces the old Confirm dialog. The admin swaps the nurse without cancelling the booking.</p>
+<label class="zw"><input type="checkbox" aria-label="Open full size"><span class="zx"><span>Scroll sideways to see it all</span><b>Close ✕</b></span><div class="zt">
+  <div class="win"><div class="chrome"><i></i><i></i><i></i><span>admin.carenest / bookings / 1042</span></div><div class="scrim"><div class="dialog"><h3>Reassign nurse for booking #1042</h3><p style="color:var(--fg2);font-size:13px">Sat 10 Oct, 3:00 PM, 4 hours. User asked for a female nurse.</p><table style="margin:12px 0"><tr><th></th><th>Nurse</th><th>Gender</th><th>That day</th></tr><tr><td>◉</td><td>Kavita R.</td><td>Female</td><td>Free, 1 other visit</td></tr><tr><td>○</td><td>Sunita D.</td><td>Female</td><td>Free, 2 other visits</td></tr><tr><td>○</td><td>Rahul K.</td><td>Male <span class="pill amber">Different gender</span></td><td>Free, no visits</td></tr></table><p class="hint">Only nurses who are on duty and free for this time are listed. Same gender first.</p><p class="lbl" style="margin:12px 0 4px">What happens next</p><div class="check">Anita S. gets an SMS that the visit is removed</div><div class="check">Kavita R. gets the visit details by SMS and email</div><div class="check">User gets an SMS with the new nurse name</div><div class="dfoot"><span class="btn ghost sm">Close</span><span class="btn sm">Reassign</span></div></div></div></div>
+</div></label>
+</div>
+
+<div class="screen" id="a8">
+  <h3>A8. Kill switch: cancel a booking <span class="new">NEW</span></h3>
+  <p>Opens from the red Cancel button. Works on any booking that is not already completed or cancelled, including a visit that has started.</p>
+<label class="zw"><input type="checkbox" aria-label="Open full size"><span class="zx"><span>Scroll sideways to see it all</span><b>Close ✕</b></span><div class="zt">
+  <div class="win">
+    <div class="chrome"><i></i><i></i><i></i><span>admin.carenest / bookings / 1042</span></div>
+    <div class="scrim">
+      <div class="dialog">
+        <h3>Cancel booking #1042?</h3>
+        <p style="color:var(--fg2);font-size:13px">This cannot be undone.</p>
+        <div class="rows">
+          <div><span>Patient</span><b>R. Sharma</b></div>
+          <div><span>Visit</span><b>Sat 10 Oct, 3:00 PM, 4 hours</b></div>
+          <div><span>Nurse</span><b>Anita S.</b></div>
+          <div><span>Refund to user</span><b>Rs 1,600 (full)</b></div>
+        </div>
+        <div class="field"><label>Reason (required, shown to the user)</label><div class="input area">e.g. The assigned nurse is unwell and no replacement is free.</div></div>
+        <p class="lbl" style="margin-bottom:4px">What happens next</p>
+        <div class="check">Booking is cancelled and the nurse's time is freed</div>
+        <div class="check">Refund is sent automatically</div>
+        <div class="check">User gets an SMS with the reason and refund note</div>
+        <div class="check">Nurse gets an SMS that the visit is off</div>
+        <div class="check">Your name, the time and the reason are recorded</div>
+        <div class="dfoot"><span class="btn ghost sm">Keep booking</span><span class="btn red sm">Cancel booking and refund</span></div>
+      </div>
+    </div>
+  </div>
+</div></label>
+</div>
+
+<div class="screen" id="a9">
+  <h3>A9. Nurse unavailable: handle many bookings at once <span class="new">NEW</span></h3>
+  <p>For when a nurse falls sick or leaves. One step moves every affected booking to another nurse where possible, and cancels with a refund where not.</p>
+<label class="zw"><input type="checkbox" aria-label="Open full size"><span class="zx"><span>Scroll sideways to see it all</span><b>Close ✕</b></span><div class="zt">
+  <div class="win">
+    <div class="chrome"><i></i><i></i><i></i><span>admin.carenest / bookings / nurse-unavailable</span></div>
+    <div class="app">
+      <div class="side"><b>CareNest</b><a>Dashboard</a><a class="on">Bookings</a><a>Nurses</a><a>Services</a><a>Settings</a><a>Help</a></div>
+      <div class="main">
+        <div class="head"><h3>Nurse unavailable</h3></div>
+        <div class="two" style="grid-template-columns:1fr 1fr 1fr;margin-bottom:14px">
+          <div class="field"><label>Nurse</label><div class="input"><span>Anita S.</span><span>▾</span></div></div>
+          <div class="field"><label>From</label><div class="input"><span>10 Oct 2026</span></div></div>
+          <div class="field"><label>To</label><div class="input"><span>12 Oct 2026</span></div></div>
+        </div>
+        <table>
+          <tr><th>#</th><th>Patient</th><th>When</th><th>What will happen</th></tr>
+          <tr><td>1042</td><td>R. Sharma</td><td>10 Oct, 3 PM</td><td><span class="pill">Move to Kavita R.</span></td></tr>
+          <tr><td>1047</td><td>D. Mehta</td><td>11 Oct, 10 AM</td><td><span class="pill">Move to Kavita R.</span></td></tr>
+          <tr><td>1051</td><td>L. Joshi</td><td>12 Oct, 8 AM</td><td><span class="pill red">Cancel and refund</span><small>No other female nurse is free</small></td></tr>
+        </table>
+        <div class="field" style="margin-top:14px"><label>Reason (required)</label><div class="input">Nurse unwell</div></div>
+        <div class="dfoot"><span class="btn ghost sm">Back</span><span class="btn red sm">Apply to 3 bookings</span></div>
+      </div>
+    </div>
+  </div>
+</div></label>
+</div>
+
+<div class="screen" id="a10">
+  <h3>A10. Nurses, with add and edit form <span class="new">CHANGED</span></h3>
+  <p>Every nurse has a gender. A nurse is offered to users only when gender and working hours are both filled in.</p>
+<label class="zw"><input type="checkbox" aria-label="Open full size"><span class="zx"><span>Scroll sideways to see it all</span><b>Close ✕</b></span><div class="zt">
+  <div class="win">
+    <div class="chrome"><i></i><i></i><i></i><span>admin.carenest / nurses</span></div>
+    <div class="app">
+      <div class="side"><b>CareNest</b><a>Dashboard</a><a>Bookings</a><a class="on">Nurses</a><a>Services</a><a>Settings</a><a>Help</a></div>
+      <div class="main">
+        <div class="head"><h3>Nurses</h3><span class="btn sm">+ Add nurse</span></div>
+        <table>
+          <tr><th>Name</th><th>Gender <span class="new">NEW</span></th><th>Phone</th><th>Working hours <span class="new">NEW</span></th><th>Status</th><th></th></tr>
+          <tr><td>Anita S.<small>General nursing, 6 yrs</small></td><td>Female</td><td>98xxxxxx01</td><td>Mon to Sat, 8 AM to 8 PM</td><td><span class="pill">Bookable</span></td><td><div class="acts"><span class="btn ghost sm">Availability</span><span class="btn ghost sm">Edit</span></div></td></tr>
+          <tr><td>Rahul K.<small>Elder care, 4 yrs</small></td><td>Male</td><td>98xxxxxx02</td><td>Mon to Fri, 9 AM to 6 PM</td><td><span class="pill amber">On leave today</span></td><td><div class="acts"><span class="btn ghost sm">Availability</span><span class="btn ghost sm">Edit</span></div></td></tr>
+          <tr><td>Meena P.<small>Post-surgery care, 9 yrs</small></td><td><span class="pill red">Not set</span></td><td>98xxxxxx03</td><td><span class="pill red">Not set</span></td><td><span class="pill grey">Not bookable</span></td><td><div class="acts"><span class="btn ghost sm">Availability</span><span class="btn ghost sm">Edit</span></div></td></tr>
+        </table>
+        <div class="two" style="margin-top:18px">
+          <div class="card">
+            <h3 style="margin-bottom:10px">Add nurse</h3>
+            <div class="field"><label>Full name</label><div class="input">&nbsp;</div></div>
+            <div class="field hl"><label>Gender (required) <span class="new">NEW</span></label><div class="seg"><span class="on">Female</span><span>Male</span></div></div>
+            <div class="field"><label>Phone (visit details are sent here by SMS)</label><div class="input">&nbsp;</div></div>
+            <div class="field"><label>Email</label><div class="input">&nbsp;</div></div>
+          </div>
+          <div class="note grey" style="align-self:start;font-size:13px">The nurse no longer gets a login or a temporary password, because there is no nurse app. Phone and email are kept only so the nurse can receive visit details.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div></label>
+</div>
+
+<div class="screen" id="a11">
+  <h3>A11. Nurse availability <span class="new">NEW</span></h3>
+  <p>The admin sets when each nurse works. Weekly hours are the normal pattern. The calendar is for leave and one-off changes.</p>
+<label class="zw"><input type="checkbox" aria-label="Open full size"><span class="zx"><span>Scroll sideways to see it all</span><b>Close ✕</b></span><div class="zt">
+  <div class="win">
+    <div class="chrome"><i></i><i></i><i></i><span>admin.carenest / nurses / anita-s / availability</span></div>
+    <div class="app">
+      <div class="side"><b>CareNest</b><a>Dashboard</a><a>Bookings</a><a class="on">Nurses</a><a>Services</a><a>Settings</a><a>Help</a></div>
+      <div class="main">
+        <div class="head"><h3>Availability for Anita S.</h3><span class="btn sm">Save</span></div>
+        <div class="two">
+          <div class="card">
+            <h3 style="margin-bottom:8px">Weekly working hours</h3>
+            <div class="wk"><span>Mon</span><div class="bar"><i style="left:33%;right:17%"></i></div><span>8 AM to 8 PM</span></div>
+            <div class="wk"><span>Tue</span><div class="bar"><i style="left:33%;right:17%"></i></div><span>8 AM to 8 PM</span></div>
+            <div class="wk"><span>Wed</span><div class="bar"><i style="left:33%;right:17%"></i></div><span>8 AM to 8 PM</span></div>
+            <div class="wk"><span>Thu</span><div class="bar"><i style="left:33%;right:17%"></i></div><span>8 AM to 8 PM</span></div>
+            <div class="wk"><span>Fri</span><div class="bar"><i style="left:33%;right:17%"></i></div><span>8 AM to 8 PM</span></div>
+            <div class="wk"><span>Sat</span><div class="bar"><i style="left:33%;right:42%"></i></div><span>8 AM to 2 PM</span></div>
+            <div class="wk"><span>Sun</span><div class="bar"></div><span style="color:var(--muted)">Day off</span></div>
+          </div>
+          <div class="card">
+            <h3 style="margin-bottom:8px">October 2026</h3>
+            <div class="cal">
+              <span class="h">M</span><span class="h">T</span><span class="h">W</span><span class="h">T</span><span class="h">F</span><span class="h">S</span><span class="h">S</span>
+              <span>5</span><span>6</span><span>7</span><span>8</span><span>9</span><span class="bk">10</span><span>11</span>
+              <span class="bk">12</span><span>13</span><span class="ch">14</span><span>15</span><span class="lv">16</span><span class="lv">17</span><span>18</span>
+              <span>19</span><span class="bk">20</span><span>21</span><span>22</span><span>23</span><span>24</span><span>25</span>
+            </div>
+            <div class="key"><span><i style="background:var(--danger-soft);border:1px solid #f0b6b8"></i>Leave</span><span><i style="background:var(--new-soft);border:1px solid var(--new-line)"></i>Different hours that day</span><span><i style="background:var(--accent)"></i>Has bookings</span></div>
+            <div class="note" style="margin-top:12px;font-size:12px">Click a day to mark leave or change that day's hours. If the day already has bookings, you are asked to reassign or cancel each one first.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div></label>
+</div>
+
+<div class="screen" id="a12">
+  <h3>A12. Services, with add and edit form <span class="same">NO CHANGE</span></h3>
+  <p>The list of services users can book, and their hourly price.</p>
+<label class="zw"><input type="checkbox" aria-label="Open full size"><span class="zx"><span>Scroll sideways to see it all</span><b>Close ✕</b></span><div class="zt">
+  <div class="win"><div class="chrome"><i></i><i></i><i></i><span>admin.carenest / services</span></div><div class="app"><div class="side"><b>CareNest</b><a>Dashboard</a><a>Bookings</a><a>Nurses</a><a class="on">Services</a><a>Settings</a><a>Help</a></div><div class="main"><div class="head"><h3>Services</h3><span class="btn sm">+ Add service</span></div><div class="two"><table><tr><th>Service</th><th>Price per hour</th><th>Status</th><th></th></tr><tr><td>Elder care</td><td>Rs 400</td><td><span class="pill">Active</span></td><td><span class="btn ghost sm">Edit</span></td></tr><tr><td>Post-surgery care</td><td>Rs 500</td><td><span class="pill">Active</span></td><td><span class="btn ghost sm">Edit</span></td></tr><tr><td>Injection at home</td><td>Rs 300</td><td><span class="pill">Active</span></td><td><span class="btn ghost sm">Edit</span></td></tr><tr><td>Baby care</td><td>Rs 450</td><td><span class="pill grey">Hidden</span></td><td><span class="btn ghost sm">Edit</span></td></tr></table><div class="card"><h3 style="margin-bottom:10px">Add service</h3><div class="field"><label>Service name</label><div class="input">&nbsp;</div></div><div class="field"><label>Description</label><div class="input">&nbsp;</div></div><div class="field"><label>Price per hour (Rs)</label><div class="input">&nbsp;</div></div><div class="field"><label>Show in app</label><div class="seg"><span class="on">Active</span><span>Hidden</span></div></div><div class="btn sm">Save</div></div></div></div></div></div>
+</div></label>
+</div>
+
+<div class="screen" id="a13">
+  <h3>A13. Settings <span class="new">NEW</span></h3>
+  <p>The booking rules. Changes apply to the user app immediately, with no app update.</p>
+<label class="zw"><input type="checkbox" aria-label="Open full size"><span class="zx"><span>Scroll sideways to see it all</span><b>Close ✕</b></span><div class="zt">
+  <div class="win">
+    <div class="chrome"><i></i><i></i><i></i><span>admin.carenest / settings</span></div>
+    <div class="app" style="min-height:0">
+      <div class="side"><b>CareNest</b><a>Dashboard</a><a>Bookings</a><a>Nurses</a><a>Services</a><a class="on">Settings</a><a>Help</a></div>
+      <div class="main">
+        <div class="head"><h3>Booking rules</h3><span class="btn sm">Save</span></div>
+        <div class="set"><div><h3>Minimum notice time</h3><p>The shortest gap allowed between now and the start of a booking. A user cannot book anything sooner than this.</p></div><div class="input" style="min-width:150px"><span>3 hours</span><span>▾</span></div></div>
+        <div class="set"><div><h3>Booking window</h3><p>How many days ahead a user is allowed to book.</p></div><div class="input" style="min-width:150px"><span>7 days</span><span>▾</span></div></div>
+        <div class="set"><div><h3>Pause new bookings</h3><p>Stops all new bookings in the app at once. Existing bookings carry on as normal. Use this in an emergency.</p></div><div class="toggle"></div></div>
+      </div>
+    </div>
+  </div>
+</div></label>
+</div>
+
+<div class="screen" id="a14">
+  <h3>A14. Profile <span class="same">NO CHANGE</span></h3>
+  <p>The admin's own account details and password.</p>
+<label class="zw"><input type="checkbox" aria-label="Open full size"><span class="zx"><span>Scroll sideways to see it all</span><b>Close ✕</b></span><div class="zt">
+  <div class="win"><div class="chrome"><i></i><i></i><i></i><span>admin.carenest / profile</span></div><div class="app" style="min-height:0"><div class="side"><b>CareNest</b><a>Dashboard</a><a>Bookings</a><a>Nurses</a><a>Services</a><a>Settings</a><a>Help</a></div><div class="main"><div class="head"><h3>Account</h3><span class="btn sm">Save</span></div><div class="two"><div><div class="field"><label>Full name</label><div class="input">Admin name</div></div><div class="field"><label>Email</label><div class="input">admin@example.com</div></div><div class="field"><label>Phone</label><div class="input">98xxxxxx00</div></div></div><div><div class="field"><label>Current password</label><div class="input">&nbsp;</div></div><div class="field"><label>New password</label><div class="input">&nbsp;</div></div></div></div></div></div></div>
+</div></label>
+</div>
+
+<div class="screen" id="a15">
+  <h3>A15. Help <span class="new">CHANGED</span></h3>
+  <p>Short guides for the admin, updated for the new cancel and availability steps.</p>
+<label class="zw"><input type="checkbox" aria-label="Open full size"><span class="zx"><span>Scroll sideways to see it all</span><b>Close ✕</b></span><div class="zt">
+  <div class="win"><div class="chrome"><i></i><i></i><i></i><span>admin.carenest / help</span></div><div class="app" style="min-height:0"><div class="side"><b>CareNest</b><a>Dashboard</a><a>Bookings</a><a>Nurses</a><a>Services</a><a>Settings</a><a class="on">Help</a></div><div class="main"><div class="head"><h3>Help</h3></div><div class="two"><div class="card"><h3>How do I cancel a booking?</h3><div class="ph" style="margin-top:8px"></div><div class="ph" style="width:70%;margin-top:6px"></div></div><div class="card"><h3>How do I set a nurse on leave?</h3><div class="ph" style="margin-top:8px"></div><div class="ph" style="width:60%;margin-top:6px"></div></div><div class="card"><h3>What does "Needs attention" mean?</h3><div class="ph" style="margin-top:8px"></div><div class="ph" style="width:80%;margin-top:6px"></div></div><div class="card"><h3>Contact support</h3><div class="ph" style="margin-top:8px"></div><div class="ph" style="width:50%;margin-top:6px"></div></div></div></div></div></div>
+</div></label>
+</div>
+
+<!-- ================= MESSAGES ================= -->
+<h2 id="messages">Messages <span class="new">NEW</span></h2>
+<p class="sub">With no nurse app, SMS and email are how the nurse works. These are the messages the system sends by itself. Wording is a sample.</p>
+<div class="msgs">
+  <div class="msg"><div class="to">To nurse: new visit (SMS + email)</div><div class="bub">CareNest: New visit #1042. Sat 10 Oct, 3:00 PM, 4 hours. Elder care. Patient R. Sharma, 68, M. Phone 98xxxxxx11. H. No. 221, Sector 14, Bareilly, near City Park gate. Directions: maps link</div><p class="w">Sent the moment the user pays. The link opens the exact pin in Google Maps on any phone.</p></div>
+  <div class="msg"><div class="to">To nurse: visit moved to someone else</div><div class="bub">CareNest: Visit #1042 on Sat 10 Oct, 3:00 PM is no longer assigned to you.</div><p class="w">Sent when the admin reassigns (screen A7).</p></div>
+  <div class="msg"><div class="to">To nurse: visit cancelled</div><div class="bub">CareNest: Visit #1042 on Sat 10 Oct, 3:00 PM is cancelled. Please do not travel.</div><p class="w">Sent by the kill switch (screen A8).</p></div>
+  <div class="msg"><div class="to">To user: booking confirmed</div><div class="bub">CareNest: Booking #1042 confirmed. Nurse Anita S. will visit on Sat 10 Oct at 3:00 PM.</div><p class="w">Sent the moment the user pays.</p></div>
+  <div class="msg"><div class="to">To user: nurse changed</div><div class="bub">CareNest: Your nurse for booking #1042 is now Kavita R. Date and time are unchanged.</div><p class="w">Sent when the admin reassigns.</p></div>
+  <div class="msg"><div class="to">To user: cancelled with refund</div><div class="bub">CareNest: Booking #1042 is cancelled. Reason: nurse unwell. Rs 1,600 will be refunded in 5 to 7 working days.</div><p class="w">Sent by the kill switch.</p></div>
+</div>
+<p class="hint" style="margin-top:14px;max-width:760px">These SMS need an approved (DLT) message template on the SMS account before they can be sent. Today only the login code SMS is set up.</p>
+
+<!-- ================= QUESTIONS ================= -->
+<h2 id="questions">Questions for you</h2>
+<p class="sub">The wireframes assume the answer shown under each. Tell us where you want something different.</p>
+<ol class="q">
+  <li><b>How much notice does a booking need?</b><span>Assumed: 3 hours, one value for all services (screen A13).</span></li>
+  <li><b>How many days ahead can a user book?</b><span>Assumed: 7 days. Today the app allows tomorrow only.</span></li>
+  <li><b>Can the user cancel from the app?</b><span>Assumed: no. Only the admin cancels, and the user calls support (screen 20).</span></li>
+  <li><b>Is the refund always full?</b><span>Assumed: yes, even if the visit has started (screen A8).</span></li>
+  <li><b>How is a visit marked started and finished?</b><span>Assumed: automatically at the booked start and end time, since there is no nurse app (screen A5).</span></li>
+  <li><b>What if a nurse has no working hours set?</b><span>Assumed: that nurse cannot be booked until the admin sets them (screen A10).</span></li>
+  <li><b>What if the chosen gender is not free?</b><span>Assumed: the option is disabled and the user changes the time (screen 13).</span></li>
+  <li><b>Should bookings be limited to a service area?</b><span>Assumed: no limit yet. If you only serve certain cities or a distance from your centre, the app can refuse a pin outside it (screen 14b).</span></li>
+  <li><b>Which map service?</b><span>Assumed: Google Maps. It has the best address search in India, and is billed by usage beyond its free allowance.</span></li>
+</ol>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,689 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CareNest: SMS approval (DLT) and MSG91</title>
+<meta name="description" content="What CareNest needs to do so its login codes and visit SMS can be sent in India: DLT registration and MSG91 setup.">
+<style>
+:root{
+  --canvas:#f6f6f8;--surface:#fff;--sunken:#f0f0f3;--line:#dcdce2;--line-strong:#b9b9c4;
+  --fg:#1d1d24;--fg2:#4c4c5a;--muted:#6e6e7c;--ph:#e3e3e9;
+  --accent:#2f5bd8;--accent-soft:#e8eefc;
+  --new:#9a5b00;--new-soft:#fff1d6;--new-line:#e9b455;
+  --danger:#c0272d;--danger-soft:#fdeaea;
+  --ok:#1f7a48;--ok-soft:#e3f4ea;
+}
+*{box-sizing:border-box}
+html{scroll-padding-top:76px}
+body{margin:0;background:var(--canvas);color:var(--fg);font:15px/1.6 system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans","Liberation Sans",sans-serif;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+a{color:var(--accent)}
+code,.mono{font-family:ui-monospace,"SFMono-Regular","JetBrains Mono",Menlo,Consolas,monospace;font-size:.88em}
+code{background:var(--sunken);border:1px solid var(--line);border-radius:5px;padding:0 5px;overflow-wrap:anywhere}
+.sr{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+
+/* top bar + switch */
+.bar{position:sticky;top:0;z-index:10;background:rgba(246,246,248,.92);backdrop-filter:saturate(1.4) blur(8px);-webkit-backdrop-filter:saturate(1.4) blur(8px);border-bottom:1px solid var(--line)}
+.bar-in{max-width:880px;margin:0 auto;padding:10px 20px;display:flex;align-items:center;gap:14px;justify-content:space-between}
+.bar-title{font-weight:650;font-size:14px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0}
+.bar-title span{color:var(--muted);font-weight:500}
+.switch{display:inline-flex;align-items:center;gap:10px;cursor:pointer;user-select:none;-webkit-user-select:none;flex:none;font-size:14px;font-weight:600;color:var(--muted);padding:4px 2px}
+.track{position:relative;width:46px;height:26px;border-radius:99px;background:var(--line-strong);transition:background .18s ease;flex:none}
+.track::after{content:"";position:absolute;top:3px;left:3px;width:20px;height:20px;border-radius:50%;background:#fff;box-shadow:0 1px 3px rgba(0,0,0,.25);transition:transform .18s ease}
+.lab-s{color:var(--fg)}
+#mode:checked ~ .bar .track{background:var(--accent)}
+#mode:checked ~ .bar .track::after{transform:translateX(20px)}
+#mode:checked ~ .bar .lab-s{color:var(--muted)}
+#mode:checked ~ .bar .lab-d{color:var(--accent)}
+#mode:focus-visible ~ .bar .track{outline:3px solid var(--accent);outline-offset:3px}
+#mode:focus-visible ~ .bar .track{box-shadow:0 0 0 6px var(--accent-soft)}
+
+/* layout */
+.wrap{max-width:880px;margin:0 auto;padding:30px 20px 80px}
+.hero{display:flex;gap:20px;align-items:center;flex-wrap:wrap}
+.lockup{height:72px;width:auto;padding:8px 12px;border-radius:12px;background:#fff;border:1px solid var(--line)}
+h1{margin:0;font-size:30px;line-height:1.2;letter-spacing:-.02em;text-wrap:balance}
+h2{margin:52px 0 6px;font-size:22px;line-height:1.3;letter-spacing:-.01em;scroll-margin-top:76px}
+h2 .n{display:inline-block;min-width:28px;color:var(--muted);font-weight:600}
+h3{margin:22px 0 6px;font-size:16px}
+p{margin:0 0 12px}
+ul,ol{margin:0 0 12px;padding-left:22px}
+li{margin:4px 0}
+.meta{margin-top:10px;color:var(--muted);font-size:13px;display:flex;flex-wrap:wrap;gap:8px 12px;align-items:center}
+.badge{display:inline-block;padding:2px 10px;border-radius:99px;background:var(--new-soft);color:var(--new);font-size:12px;font-weight:650;border:1px solid var(--new-line)}
+.badge.red{background:var(--danger-soft);color:#8f1a1f;border-color:#f0b6b8}
+.lede{margin-top:16px;color:var(--fg2);font-size:16px;max-width:720px}
+.sub{color:var(--muted);margin-bottom:16px}
+
+/* views */
+.view{animation:fade .2s ease both}
+@keyframes fade{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+#mode:checked ~ main .v-short{display:none}
+#mode:not(:checked) ~ main .v-detailed{display:none}
+.print-tag{display:none}
+
+/* blocks */
+.card{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:16px 18px}
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px}
+.g22{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.grid3{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px}
+.kicker{font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin-bottom:4px}
+.card p:last-child,.card ul:last-child,.card ol:last-child{margin-bottom:0}
+.callout{border-radius:12px;padding:14px 16px 14px 18px;border:1px solid;margin:16px 0}
+.callout.warn{background:var(--danger-soft);border-color:#f0b6b8;color:#5e1014}
+.callout.warn strong{color:#8f1a1f}
+.callout.note{background:var(--new-soft);border-color:var(--new-line);color:#5a3800}
+.callout.info{background:var(--accent-soft);border-color:#c4d3f6;color:#1d3a8a}
+.callout.ok{background:var(--ok-soft);border-color:#a9d9bd;color:#11512e}
+.callout p:last-child,.callout ul:last-child{margin-bottom:0}
+.callout .kicker{color:inherit;opacity:.85}
+.stat{font-size:22px;font-weight:700;letter-spacing:-.01em;line-height:1.2}
+.stat small{font-size:13px;font-weight:500;color:var(--muted)}
+.est{display:inline-block;font-size:10px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--new);background:var(--new-soft);border:1px solid var(--new-line);border-radius:4px;padding:0 5px;line-height:16px;vertical-align:2px;margin-left:4px}
+
+/* checklist */
+ol.todo{list-style:none;padding:0;margin:0;counter-reset:t}
+ol.todo>li{counter-increment:t;position:relative;padding:10px 0 10px 42px;border-top:1px solid var(--line);margin:0}
+ol.todo>li:first-child{border-top:0}
+ol.todo>li::before{content:counter(t);position:absolute;left:0;top:10px;width:28px;height:28px;border-radius:8px;border:1.5px solid var(--accent);color:var(--accent);font-weight:700;font-size:13px;display:flex;align-items:center;justify-content:center;background:var(--surface)}
+ol.todo b{display:block}
+ol.todo span{color:var(--fg2);font-size:14px}
+
+/* nav */
+nav.toc{margin:22px 0 0;display:flex;flex-wrap:wrap;gap:8px}
+nav.toc a{padding:5px 12px;border:1px solid var(--line);border-radius:99px;background:var(--surface);color:var(--fg);text-decoration:none;font-size:13px;font-weight:500}
+nav.toc a:hover{border-color:var(--line-strong)}
+nav.toc a:focus-visible,a:focus-visible{outline:3px solid var(--accent);outline-offset:2px;border-radius:6px}
+
+/* flow diagram */
+.flow-label{font-size:12px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--muted);margin:18px 0 8px}
+.flow{display:flex;align-items:stretch;gap:0;flex-wrap:nowrap}
+.node{flex:1 1 0;min-width:0;background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:10px 12px}
+.node b{display:block;font-size:14px;line-height:1.3}
+.node span{display:block;font-size:12px;color:var(--muted);line-height:1.4;margin-top:3px}
+.node.us{border-color:var(--accent);background:var(--accent-soft)}
+.node.reg{border-color:var(--new-line);background:var(--new-soft)}
+.arrow{flex:none;width:26px;display:flex;align-items:center;justify-content:center;color:var(--line-strong)}
+.arrow svg{width:18px;height:18px}
+
+/* tables */
+.tbl{overflow-x:auto;-webkit-overflow-scrolling:touch;border:1px solid var(--line);border-radius:12px;background:var(--surface)}
+table{width:100%;border-collapse:collapse;font-size:14px}
+th{text-align:left;font-size:11px;letter-spacing:.05em;text-transform:uppercase;color:var(--muted);font-weight:650;padding:10px 12px;border-bottom:1px solid var(--line-strong);background:var(--sunken)}
+td{padding:10px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+tr:last-child td{border-bottom:0}
+td small{display:block;color:var(--muted);font-size:12px}
+.who{display:inline-block;font-size:11px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;border-radius:99px;padding:1px 9px;white-space:nowrap}
+.who.you{background:var(--new-soft);color:var(--new);border:1px solid var(--new-line)}
+.who.we{background:var(--accent-soft);color:var(--accent);border:1px solid #c4d3f6}
+.who.both{background:var(--ok-soft);color:var(--ok);border:1px solid #a9d9bd}
+
+/* steps */
+ol.steps{list-style:none;padding:0;margin:0;counter-reset:s}
+ol.steps>li{counter-increment:s;position:relative;margin:0;padding:14px 16px 14px 58px;background:var(--surface);border:1px solid var(--line);border-radius:12px;margin-bottom:10px}
+ol.steps>li::before{content:counter(s);position:absolute;left:16px;top:14px;width:28px;height:28px;border-radius:50%;background:var(--fg);color:#fff;font-weight:700;font-size:13px;display:flex;align-items:center;justify-content:center}
+ol.steps .head{display:flex;flex-wrap:wrap;align-items:center;gap:6px 10px;margin-bottom:4px}
+ol.steps .head b{font-size:15px}
+ol.steps p,ol.steps ul{font-size:14px;color:var(--fg2)}
+ol.steps p:last-child,ol.steps ul:last-child{margin-bottom:0}
+.time{font-size:12px;color:var(--muted)}
+
+/* docs checklist */
+ul.docs{list-style:none;padding:0;margin:0}
+ul.docs li{position:relative;padding:6px 0 6px 28px;margin:0;border-top:1px dashed var(--line)}
+ul.docs li:first-child{border-top:0}
+ul.docs li::before{content:"";position:absolute;left:0;top:9px;width:16px;height:16px;border:1.5px solid var(--line-strong);border-radius:4px;background:var(--surface)}
+ul.docs small{color:var(--muted)}
+
+/* templates */
+.tpl{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:16px 18px;margin-bottom:14px}
+.tpl-head{display:flex;flex-wrap:wrap;gap:6px 8px;align-items:center;margin-bottom:10px}
+.tpl-head h3{margin:0;font-size:16px;flex:1 1 220px}
+.pill{display:inline-block;padding:1px 9px;border-radius:99px;font-size:12px;font-weight:600;border:1px solid var(--line);background:var(--sunken);color:var(--fg2);white-space:nowrap}
+.pill.cat{background:var(--ok-soft);border-color:#a9d9bd;color:var(--ok)}
+.pill.to-n{background:#f3ecfb;border-color:#d9c6f0;color:#5b2d91}
+.pill.to-u{background:var(--accent-soft);border-color:#c4d3f6;color:var(--accent)}
+.tline{font-family:ui-monospace,"SFMono-Regular",Menlo,Consolas,monospace;font-size:13.5px;line-height:1.7;background:var(--sunken);border:1px solid var(--line);border-radius:8px;padding:10px 12px;overflow-wrap:anywhere;color:var(--fg)}
+.tag{background:#fff;border:1px solid var(--accent);color:var(--accent);border-radius:4px;padding:0 3px;font-weight:600;white-space:nowrap}
+.tag.u{border-color:var(--new);color:var(--new)}
+.tag.n{border-color:var(--ok);color:var(--ok)}
+.bubwrap{margin-top:10px;display:flex;gap:10px;align-items:flex-start}
+.sender{flex:none;font-size:11px;font-weight:700;color:var(--muted);letter-spacing:.03em;padding-top:9px;width:86px}
+.bub{background:#e9e9ef;border-radius:14px 14px 14px 4px;padding:9px 12px;font-size:14px;color:var(--fg);overflow-wrap:anywhere;max-width:560px}
+.tpl dl{display:grid;grid-template-columns:max-content 1fr;gap:4px 14px;margin:12px 0 0;font-size:13.5px}
+.tpl dt{color:var(--muted)}
+.tpl dd{margin:0;color:var(--fg2)}
+.optA,.optB{border-radius:10px;padding:12px 14px;margin-top:12px;border:1px solid var(--line)}
+.optA{border-color:#a9d9bd;background:#f6fbf8}
+.optB{background:var(--canvas)}
+.opt-title{font-weight:700;font-size:14px;margin-bottom:6px}
+.opt-title .pill{margin-left:6px}
+
+/* dev box */
+.dev{border:1px dashed var(--line-strong);background:var(--surface);border-radius:12px;padding:14px 16px;margin-top:16px;font-size:14px}
+.dev .kicker{color:var(--fg2)}
+.dev ul{margin-bottom:0}
+
+/* sources */
+ol.src{font-size:13.5px;color:var(--fg2);padding-left:26px}
+ol.src li{margin:6px 0;overflow-wrap:anywhere}
+ol.src small{color:var(--muted)}
+sup.c{font-size:11px;line-height:0;margin-left:1px}
+sup.c a{text-decoration:none;font-weight:600}
+
+footer{margin-top:56px;padding-top:18px;border-top:1px solid var(--line);color:var(--muted);font-size:13px}
+
+@media (max-width:640px){
+  body{font-size:15px}
+  .bar-in{padding:8px 14px}
+  .bar-title span{display:none}
+  .wrap{padding:22px 14px 64px}
+  h1{font-size:24px}
+  h2{font-size:20px;margin-top:42px}
+  .lockup{height:56px}
+  .g22{grid-template-columns:1fr}
+  .flow{flex-direction:column}
+  .arrow{width:auto;height:22px}
+  .arrow svg{transform:rotate(90deg)}
+  ol.steps>li{padding:12px 12px 12px 50px}
+  ol.steps>li::before{left:12px;top:12px}
+  .sender{display:none}
+  .tpl{padding:14px}
+  .tpl dl{grid-template-columns:1fr;gap:0}
+  .tpl dt{margin-top:6px}
+  /* stack the step-by-step table into cards */
+  table.stack thead{display:none}
+  table.stack,table.stack tbody,table.stack tr,table.stack td{display:block;width:100%}
+  table.stack tr{border-bottom:1px solid var(--line);padding:8px 0}
+  table.stack tr:last-child{border-bottom:0}
+  table.stack td:empty{display:none}
+  table.stack td{border:0;padding:3px 12px}
+  table.stack td[data-l]::before{content:attr(data-l);display:block;font-size:11px;font-weight:650;letter-spacing:.05em;text-transform:uppercase;color:var(--muted)}
+}
+@media (prefers-reduced-motion:reduce){
+  .view{animation:none}
+  .track,.track::after{transition:none}
+  html{scroll-behavior:auto}
+}
+@media print{
+  @page{margin:14mm}
+  body{background:#fff;font-size:12px}
+  .bar,nav.toc{display:none}
+  .wrap{padding:0;max-width:none}
+  .view{animation:none}
+  .print-tag{display:inline-block}
+  .card,.tpl,.callout,ol.steps>li,.tbl,.node,.dev{break-inside:avoid}
+  h2{break-after:avoid;margin-top:28px}
+  a{color:inherit;text-decoration:none}
+  *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .tbl{overflow:visible}
+}
+</style>
+</head>
+<body>
+<input type="checkbox" id="mode" class="sr" role="switch" aria-label="Show the detailed version">
+<header class="bar">
+  <div class="bar-in">
+    <div class="bar-title">CareNest SMS approval <span>· DLT and MSG91</span></div>
+    <label class="switch" for="mode">
+      <span class="lab-s" aria-hidden="true">Short</span>
+      <span class="track" aria-hidden="true"></span>
+      <span class="lab-d" aria-hidden="true">Detailed</span>
+    </label>
+  </div>
+</header>
+
+<main class="wrap" id="top">
+  <div class="hero">
+    <img class="lockup" alt="CareNest - Compassionate Home Care" src="data:image/webp;base64,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">
+    <div>
+      <h1>Getting CareNest's SMS approved: DLT and MSG91</h1>
+      <div class="meta">
+        <span class="badge red">Please start this week</span>
+        <span>From the CareNest development team</span>
+        <span>27 Oct 2026</span>
+        <span>Rules checked against sources dated up to Oct 2026</span>
+        <span class="print-tag v-short badge">Short version</span>
+        <span class="print-tag v-detailed badge">Detailed version</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===================================================== SHORT ===================================================== -->
+  <section class="view v-short" aria-label="Short version">
+    <p class="lede">The CareNest app sends login codes and visit messages by SMS. In India, a business SMS gets delivered only if the business has registered itself and the exact wording of the message. That registration has to be done by your business, with your PAN and GST. Here is the one-page version. Flip the switch at the top for the full guide.</p>
+
+    <div class="callout warn" role="note">
+      <div class="kicker">The one thing to remember</div>
+      <p><strong>Nobody can log in to the live app until the login-code SMS is approved.</strong> Login is phone number plus a one-time code, and there is no other way in. This approval is the longest wait in the whole project, so the clock should start now.</p>
+    </div>
+
+    <div class="grid2">
+      <div class="card">
+        <div class="kicker">What is DLT?</div>
+        <p>A government rule (from TRAI, the telecom regulator) that every business SMS must come from a registered business, under a registered sender name, using wording approved in advance.</p>
+        <p>Jio, Airtel, Vi and BSNL check every message against that register and block anything that doesn't match.</p>
+      </div>
+      <div class="card">
+        <div class="kicker">What is MSG91?</div>
+        <p>The SMS company our app already uses. Our server hands each message to MSG91, and MSG91 passes it on to the phone networks.</p>
+        <p>MSG91 cannot register on your behalf. It only carries messages that you have registered.</p>
+      </div>
+    </div>
+
+    <h2>Your to-do list</h2>
+    <div class="card">
+      <ol class="todo">
+        <li><b>Collect the documents</b><span>Business PAN, GST certificate, ID proof of the person signing, and an authorisation letter on your letterhead if someone else fills in the form. Use an email address and mobile number that the business controls.</span></li>
+        <li><b>Register CareNest on one DLT portal and pay ₹5,900</b><span>₹5,000 + 18% GST, paid to the phone company's portal. We suggest Vi (VILPower) or SmartPing. One portal covers all networks.</span></li>
+        <li><b>Submit the sender name we propose</b><span>A 6-letter name like <code>CRNEST</code>. It must clearly match your registered business name. If your PAN/GST name isn't "CareNest", keep proof that links the two, such as your website or domain invoice.</span></li>
+        <li><b>Link MSG91 to your registration</b><span>On the portal, add MSG91 as your "telemarketer" and approve the request when it comes back. It takes a few minutes, and we'll guide you through it.</span></li>
+        <li><b>Open the MSG91 account in the business's name</b><span>Complete its KYC (Aadhaar e-KYC, or upload ID and business proof) and add credit. ₹1,250 + GST buys 5,000 SMS.</span></li>
+        <li><b>Share your domain name and DNS access</b><span>Nurses get one SMS with a private link (Option A, agreed). The link lives at <code>api.[your-domain]</code>, so we need the domain name and someone who can add DNS records. Section 4 of the detailed version explains why.</span></li>
+      </ol>
+    </div>
+
+    <h2>What we do</h2>
+    <div class="card">
+      <ul>
+        <li>Write the 7 message templates in the exact format the portals accept. They're ready in this guide.</li>
+        <li>Prepare every form entry for you, fix any rejection, and register the visit link on <code>api.[your-domain]</code>.</li>
+        <li>Connect your approved sender name and templates to MSG91 and to our server, test on real phones, and switch it on.</li>
+      </ul>
+    </div>
+
+    <h2>Time and cost</h2>
+    <div class="grid3">
+      <div class="card"><div class="kicker">Time <span class="est">estimate</span></div><div class="stat">1 to 2 weeks</div><p class="sub" style="margin:4px 0 0">if everything is approved first time. Allow 3 weeks if a template is sent back.</p></div>
+      <div class="card"><div class="kicker">DLT fee</div><div class="stat">₹5,900</div><p class="sub" style="margin:4px 0 0">₹5,000 + GST. Usually renewed every year. Sender name and templates are free.</p></div>
+      <div class="card"><div class="kicker">Per SMS</div><div class="stat">₹0.16 to ₹0.25</div><p class="sub" style="margin:4px 0 0">+ GST, cheaper in bigger packs. About ₹300 to ₹500 a month at 300 bookings <span class="est">estimate</span></p></div>
+    </div>
+
+    <div class="callout ok">
+      <div class="kicker">Until approval</div>
+      <p>Building and testing carry on. Nurse and admin alerts go out by email, test logins work on our test server, and every message is logged so admins can see what was sent. Only the public launch waits for approval.</p>
+    </div>
+  </section>
+
+  <!-- ===================================================== DETAILED ===================================================== -->
+  <section class="view v-detailed" aria-label="Detailed version">
+    <nav class="toc" aria-label="Sections">
+      <a href="#d1">1. Why it matters</a><a href="#d2">2. Who is who</a><a href="#d3">3. Step by step</a><a href="#d4">4. Our 7 messages</a><a href="#d5">5. MSG91</a><a href="#d6">6. Time and cost</a><a href="#d7">7. Until approval</a><a href="#d8">8. Avoiding rejection</a><a href="#d9">9. Sources</a>
+    </nav>
+
+    <h2 id="d1"><span class="n">1</span>What this is and why it matters</h2>
+    <p>CareNest talks to people by SMS. Users get their login code and booking updates. Nurses have no app, so SMS and email are the only way they hear about a visit. In India, every business SMS has to pass a check run by the phone companies under TRAI's rules (the TCCCPR regulations of 2018). The check is called DLT. Your business must register itself, its sender name and the exact wording of each message. Because the register is tied to the business's PAN and GST, we can't do it for you. We can prepare everything, though, so your part is mostly signing up, uploading documents and clicking approve.</p>
+    <div class="callout warn" role="note">
+      <div class="kicker">Why this is urgent</div>
+      <p><strong>Production login cannot go live until the login-code template is DLT-approved.</strong> The app has no password login, only phone number plus a one-time code. Without an approved template the phone networks drop the code, and nobody can sign in. This is the longest wait in the project, which is why we're asking you to start this week.</p>
+    </div>
+
+    <h2 id="d2"><span class="n">2</span>DLT explained: who is who</h2>
+    <p>DLT stands for Distributed Ledger Technology. It's a shared register kept by all the phone companies. Register on one company's portal and the details reach the others.<sup class="c"><a href="#s8">8</a></sup> Four parties are involved:</p>
+    <div class="g22">
+      <div class="card"><div class="kicker">Principal Entity (PE)</div><p><b>Your business.</b> The sender in the eyes of the law. Owns the registration, the sender name and the templates.</p></div>
+      <div class="card"><div class="kicker">Telemarketer (TM)</div><p><b>MSG91.</b> The company that delivers messages for you. Since Dec 2024 your registration must name it, or messages are rejected.<sup class="c"><a href="#s2">2</a>,<a href="#s7">7</a></sup></p></div>
+      <div class="card"><div class="kicker">DLT portal</div><p><b>The phone company's website</b> where you register: Jio TrueConnect, Airtel, Vi VILPower, SmartPing, BSNL, Tata and others.<sup class="c"><a href="#s8">8</a></sup></p></div>
+      <div class="card"><div class="kicker">Header (sender ID)</div><p><b>The name people see</b> as the sender, for example <code>CRNEST</code>. Since May 2025 the phone shows a letter after it for the message type: <code>-S</code> service, <code>-T</code> transactional, <code>-P</code> promotional.<sup class="c"><a href="#s18">18</a></sup></p></div>
+    </div>
+
+    <div class="flow-label">Once: registration</div>
+    <div class="flow" role="img" aria-label="Registration: CareNest business registers on a DLT portal, which records the business, sender name, templates, links and MSG91 as the telemarketer.">
+      <div class="node us"><b>CareNest business</b><span>PAN, GST, signatory</span></div>
+      <div class="arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
+      <div class="node reg"><b>DLT portal</b><span>Business, sender name, 7 templates, links, MSG91 link</span></div>
+      <div class="arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
+      <div class="node"><b>Shared register</b><span>Copied to Jio, Airtel, Vi, BSNL and the rest</span></div>
+    </div>
+    <div class="flow-label">Every message</div>
+    <div class="flow" role="img" aria-label="Each message: CareNest server sends to MSG91, MSG91 passes it to the telecom operator, the operator checks it against DLT, then the phone receives it.">
+      <div class="node us"><b>CareNest server</b><span>Fills in code, visit no., time</span></div>
+      <div class="arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
+      <div class="node"><b>MSG91</b><span>Adds sender name and template ID</span></div>
+      <div class="arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
+      <div class="node reg"><b>Phone network</b><span>Checks the text matches DLT, word for word</span></div>
+      <div class="arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
+      <div class="node"><b>Phone</b><span>Shows e.g. <span class="mono">JD-CRNEST-S</span></span></div>
+    </div>
+    <p style="margin-top:14px">If any part doesn't match, the network drops the message. That covers a word that differs from the template, a link that isn't registered, or MSG91 missing from your registration.<sup class="c"><a href="#s1">1</a>,<a href="#s6">6</a></sup></p>
+
+    <h3>Rules that changed recently</h3>
+    <p>Many online guides are out of date. These are the rules our templates follow:</p>
+    <ul>
+      <li><b>Links and phone numbers must be registered (since Oct 2024).</b> Any web link, app link or callback number in an SMS has to be on your approved list ("CTA whitelisting"). If it isn't, the message is blocked.<sup class="c"><a href="#s19">19</a>,<a href="#s6">6</a></sup></li>
+      <li><b>MSG91 must be linked to your registration (since Dec 2024).</b> This is the "PE-TM chain". Without it, every message is rejected, OTPs included.<sup class="c"><a href="#s2">2</a>,<a href="#s7">7</a></sup></li>
+      <li><b>Stricter rules (Feb 2025 amendment).</b> A message that mixes service and promotional content counts as promotional. If a template is misused, operators can suspend all of the sender's traffic immediately.<sup class="c"><a href="#s3">3</a></sup></li>
+      <li><b>Typed blanks (TRAI direction of 18 Nov 2025).</b> Each blank in a template must say what goes in it: a number, text, a link, a phone number or an email. The old generic blank <code>{#var#}</code> is no longer accepted for new templates.<sup class="c"><a href="#s1">1</a>,<a href="#s4">4</a>,<a href="#s22">22</a></sup></li>
+    </ul>
+
+    <h2 id="d3"><span class="n">3</span>Step by step: who does what</h2>
+    <p class="sub">The labels show who owns each step. "You" means someone from the business with authority to sign. "We" means the development team.</p>
+
+    <div class="card" style="margin-bottom:14px">
+      <div class="kicker">Documents checklist (scan as clear PDFs or photos)</div>
+      <ul class="docs">
+        <li><b>Business PAN card.</b> <small>For a sole proprietor, the owner's PAN.<sup class="c"><a href="#s10">10</a></sup></small></li>
+        <li><b>Address proof of the business.</b> <small>GST certificate is best. A Certificate of Incorporation or Shop and Establishment certificate also works.<sup class="c"><a href="#s10">10</a></sup></small></li>
+        <li><b>Letter of Authorisation on company letterhead.</b> <small>Needed if the person filling the form isn't the owner or director. Download the format from the portal you choose. Each portal has its own.<sup class="c"><a href="#s10">10</a>,<a href="#s11">11</a></sup></small></li>
+        <li><b>ID of the authorised person.</b> <small>Aadhaar or passport.<sup class="c"><a href="#s10">10</a></sup></small></li>
+        <li><b>Business email and mobile number</b> <small>that the business will keep long term. All approvals and logins go there.</small></li>
+        <li><b>Proof that "CareNest" belongs to your business,</b> <small>if the PAN/GST name is different. Examples: a website screenshot showing the domain and company name, or the domain invoice in the company's name.<sup class="c"><a href="#s8">8</a></sup></small></li>
+        <li><b>Optional:</b> <small>TAN certificate, MSME certificate.<sup class="c"><a href="#s10">10</a></sup></small></li>
+      </ul>
+    </div>
+
+    <ol class="steps">
+      <li><div class="head"><b>Choose the portal and sender name</b><span class="who both">You + we</span><span class="time">30 min</span></div>
+        <p>One portal is enough, since registrations are shared across networks.<sup class="c"><a href="#s8">8</a></sup> MSG91 recommends SmartPing for quick approvals and notes that Jio has been slow with templates. We suggest Vi (VILPower) or SmartPing.<sup class="c"><a href="#s9">9</a>,<a href="#s11">11</a></sup> For the sender name, MSG91 says only 6-letter names work in practice. We suggest <code>CRNEST</code>, with <code>CARNST</code> as backup.<sup class="c"><a href="#s8">8</a></sup></p></li>
+      <li><div class="head"><b>Register the business (Principal Entity)</b><span class="who you">You</span><span class="time">1 to 3 business days for approval</span></div>
+        <p>Sign up as an "Enterprise / Principal Entity" (not as a telemarketer), upload the documents and pay ₹5,000 + GST. On SmartPing, write "Referred by MSG91 (Walkover)" in the remarks box.<sup class="c"><a href="#s11">11</a></sup> When it's approved you get an <b>Entity ID</b> by email. Send it to us.</p></li>
+      <li><div class="head"><b>Register the sender name (header)</b><span class="who both">You + we</span><span class="time">1 to 2 business days, then about 24 h to reach all networks</span></div>
+        <p>We sit with you on a short screen-share, or you add us as a user on the portal. Choose the service/transactional type (not promotional).<sup class="c"><a href="#s8">8</a>,<a href="#s11">11</a></sup></p></li>
+      <li><div class="head"><b>Link MSG91 (PE-TM chain)</b><span class="who you">You</span><span class="time">About 1 hour</span></div>
+        <ul>
+          <li>On the portal, open "PE-TM Chain" and add <b>Walkover Web Solutions Pvt. Ltd</b>, TM ID <code>1302157225275643280</code>. MSG91 also lists Walkover Technologies (<code>1702172430965597485</code>), but says only the first is needed for now.</li>
+          <li>Fill in MSG91's short request form. MSG91 approves within about an hour.</li>
+          <li>When the status shows "Pending at PE", click Approve.<sup class="c"><a href="#s7">7</a></sup></li>
+        </ul></li>
+      <li><div class="head"><b>Register the link (Option A, agreed)</b><span class="who we">We</span><span class="time">Time not published by the portals</span></div>
+        <p>We register one link pattern on your domain: <code>https://api.[your-domain]/v?</code>, as a "dynamic URL". The rule is that the changing part must come after a <code>?</code>, and the link must not redirect anywhere.<sup class="c"><a href="#s5">5</a>,<a href="#s6">6</a></sup> No phone numbers appear in our templates, so there are no numbers to register.</p></li>
+      <li><div class="head"><b>Submit the 7 templates</b><span class="who both">We prepare, you submit</span><span class="time">2 to 4 business days, sometimes longer</span></div>
+        <p>We send you the exact text, category and sample values for each template (section 4), so it's copy and paste. You submit them from your portal login, or we do it with you.<sup class="c"><a href="#s9">9</a></sup> Each approved template gets a <b>Template ID</b>. Send all seven to us.</p></li>
+      <li><div class="head"><b>Open and verify the MSG91 account</b><span class="who you">You</span><span class="time">About 1 hour after upload</span></div>
+        <p>Sign up in the business's name. Until KYC is done the account is in "demo" mode and only sends a fixed test text. KYC is either Aadhaar e-KYC of the authorised person, or an upload of a driving licence/passport plus a trade licence or business registration.<sup class="c"><a href="#s17">17</a></sup> Add credit. Then add us as a team member or share the API key privately. Never paste it into WhatsApp groups or email threads.</p></li>
+      <li><div class="head"><b>Connect everything in MSG91 and in our server</b><span class="who we">We</span><span class="time">1 day</span></div>
+        <p>We add the sender name with your Entity ID in MSG91 and create the 7 templates there with their DLT Template IDs. MSG91 approves templates on its side too.<sup class="c"><a href="#s12">12</a>,<a href="#s13">13</a></sup> Then we put the IDs into the server settings.</p></li>
+      <li><div class="head"><b>Test on real phones and go live</b><span class="who both">You + we</span><span class="time">1 day</span></div>
+        <p>We send each message to a few phones on different networks (Jio, Airtel, Vi, BSNL), check that it arrives with <code>CRNEST</code>, then turn on SMS for production.</p></li>
+    </ol>
+
+    <h2 id="d4"><span class="n">4</span>Our 7 messages as DLT-ready templates</h2>
+    <p>Each template is fixed text plus a few typed blanks. The blanks follow the format in Vi's current manual.<sup class="c"><a href="#s4">4</a></sup> Some portals display the same tags with longer names, such as <code>{#alphanumeric#}</code>.<sup class="c"><a href="#s22">22</a></sup></p>
+    <div class="grid2" style="margin-bottom:14px">
+      <div class="card">
+        <div class="kicker">The blanks</div>
+        <ul style="font-size:14px">
+          <li><span class="tag n">{#num#}</span> digits only, up to 40</li>
+          <li><span class="tag">{#alp#}</span> letters and numbers, up to 40, must not start with http or www</li>
+          <li><span class="tag u">{#urg#}</span> a registered web link, up to 120</li>
+          <li><code>{#cbn#}</code> a registered phone number (not used by us)<sup class="c"><a href="#s4">4</a></sup></li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="kicker">Rules we designed around</div>
+        <ul style="font-size:14px">
+          <li>At most 3 blanks per template. More needs a written justification.<sup class="c"><a href="#s4">4</a></sup></li>
+          <li>A new template is linked to one sender name.<sup class="c"><a href="#s4">4</a></sup></li>
+          <li>The brand name sits in the fixed text, and a blank is never the last word.<sup class="c"><a href="#s9">9</a></sup></li>
+          <li>Only text blanks may sit side by side.<sup class="c"><a href="#s4">4</a></sup></li>
+          <li>"#", "Rs" and commas live in the fixed text. Amounts go as 1600, not 1,600.<sup class="c"><a href="#s22">22</a></sup></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="callout info">
+      <div class="kicker">Which category</div>
+      <p><b>Messages 2 to 7: Service</b>, called "Service Implicit" on portals that still use the older names. They're triggered by a booking someone already made, so they reach numbers on Do Not Disturb, at any hour, and show <code>-S</code>.<sup class="c"><a href="#s22">22</a>,<a href="#s23">23</a></sup></p>
+      <p><b>Message 1, the login code: depends on the portal.</b> Vi's current manual puts app-login OTPs from non-bank businesses under <b>Transactional</b> (<code>-T</code>).<sup class="c"><a href="#s4">4</a></sup> MSG91 and several 2026 guides still say non-banks must use <b>Service Implicit</b>.<sup class="c"><a href="#s9">9</a>,<a href="#s22">22</a></sup> We'll pick whichever the chosen portal lists for app-login OTPs. Never Promotional or Service Explicit, because those don't reach Do Not Disturb numbers.</p>
+    </div>
+
+    <!-- T1 -->
+    <div class="tpl">
+      <div class="tpl-head"><h3>1. Login code</h3><span class="pill to-u">To user</span><span class="pill cat">Transactional or Service Implicit</span></div>
+      <div class="tline"><span class="tag n">{#num#}</span> is your CareNest login code. It expires in 10 minutes. Do not share it with anyone.</div>
+      <div class="bubwrap"><div class="sender">JD-CRNEST-T</div><div class="bub">482913 is your CareNest login code. It expires in 10 minutes. Do not share it with anyone.</div></div>
+      <dl><dt>Sent when</dt><dd>Someone enters their phone number on the login screen.</dd><dt>Blanks</dt><dd>1: the 6-digit code.</dd></dl>
+    </div>
+
+    <!-- T2 -->
+    <div class="tpl">
+      <div class="tpl-head"><h3>2. New visit</h3><span class="pill to-n">To nurse</span><span class="pill cat">Service</span></div>
+      <p style="font-size:14px;color:var(--fg2)">Decided: Option A below. The draft message has about ten changing values: visit number, date, time, hours, care type, patient name, age, sex, phone, address and a map link. The new rules allow 3 blanks, each up to 40 characters. The sample address alone ("H. No. 221, Sector 14, Bareilly, near City Park gate") is 52 characters. Two things can't go in at all:</p>
+      <ul style="font-size:14px;color:var(--fg2)">
+        <li><b>The patient's phone number.</b> Phone numbers in an SMS have to be registered in advance, and a patient's number changes with every booking. Hiding it inside a text blank is exactly what the Nov 2025 rule was made to stop. Operators can suspend all of a sender's SMS for template misuse,<sup class="c"><a href="#s1">1</a>,<a href="#s3">3</a></sup> which would take login codes down too.</li>
+        <li><b>A Google Maps link, unless it's registered.</b> In principle it can be registered as a dynamic link (everything after the <code>?</code> changes). We couldn't confirm that portals accept a link on a domain you don't own, such as google.com.</li>
+      </ul>
+      <p style="font-size:14px;color:var(--fg2)">Medical condition notes stay out of SMS in both options, as already decided.</p>
+
+      <div class="optA">
+        <div class="opt-title">Option A: one SMS with a private link <span class="pill cat">Agreed</span></div>
+        <div class="tline">CareNest: New visit #<span class="tag">{#alp#}</span> on <span class="tag">{#alp#}</span>. Patient, address and directions: <span class="tag u">{#urg#}</span> Please do not share this link.</div>
+        <div class="bubwrap"><div class="sender">JD-CRNEST-S</div><div class="bub">CareNest: New visit #1042 on Sat 10 Oct, 3:00 PM, 4 hours. Patient, address and directions: https://api.[your-domain]/v?k=7Q2M9X Please do not share this link.</div></div>
+        <ul style="font-size:14px;color:var(--fg2);margin-top:10px">
+          <li>The link opens a simple page served by our system at <code>api.[your-domain]</code>, not your main website. It shows the patient's name, age and sex, a tap-to-call phone number, the full address, the care type, and a "Directions" button that opens Google Maps.</li>
+          <li>Only this link is registered, once, as <code>https://api.[your-domain]/v?</code>. The Maps link sits on the page, not in the SMS, so it doesn't need registering.</li>
+          <li>Each link is random and stops working after the visit. Nobody can open the patient's details from a forwarded or old SMS.</li>
+          <li>The message fits in one SMS (about 150 characters).</li>
+          <li><b>Costs:</b> a few days of extra development for the page, and <code>api.[your-domain]</code> must point at our server.</li>
+        </ul>
+      </div>
+
+      <div class="optB">
+        <div class="opt-title">Option B: two SMS, no new page</div>
+        <div class="tline">CareNest: New visit #<span class="tag">{#alp#}</span> on <span class="tag">{#alp#}</span>. Directions: <span class="tag u">{#urg#}</span> Address in the next SMS.</div>
+        <div class="tline" style="margin-top:8px">CareNest visit #<span class="tag">{#alp#}</span>. Patient <span class="tag">{#alp#}</span>. Address: <span class="tag">{#alp#}</span>, Bareilly.</div>
+        <div class="bubwrap"><div class="sender">JD-CRNEST-S</div><div class="bub">CareNest visit #1042. Patient R. Sharma, 68, M. Address: H. No. 221, Sector 14, City Park gate, Bareilly.</div></div>
+        <ul style="font-size:14px;color:var(--fg2);margin-top:10px">
+          <li>Both messages repeat the visit number, because two SMS don't always arrive in order.</li>
+          <li>The address must be cut to 40 characters. "Bareilly" moved into the fixed text to save room. Admins would need to keep addresses short.</li>
+          <li>The patient's phone number is dropped. The nurse calls the CareNest office instead.</li>
+          <li>The Maps link only works if the portal accepts the Google link pattern. If it doesn't, the nurse gets no map link at all.</li>
+          <li>Each visit costs two SMS instead of one.</li>
+        </ul>
+      </div>
+      <dl><dt>Sent when</dt><dd>The user pays and the system assigns the nurse, or when an admin assigns a new nurse.</dd><dt>Blanks</dt><dd>A: visit no., date/time/hours, link. B: 3 and 3.</dd></dl>
+    </div>
+
+    <!-- T3 -->
+    <div class="tpl">
+      <div class="tpl-head"><h3>3. Visit taken off you</h3><span class="pill to-n">To nurse</span><span class="pill cat">Service</span></div>
+      <div class="tline">CareNest: Visit #<span class="tag">{#alp#}</span> on <span class="tag">{#alp#}</span> is no longer assigned to you.</div>
+      <div class="bubwrap"><div class="sender">JD-CRNEST-S</div><div class="bub">CareNest: Visit #1042 on Sat 10 Oct, 3:00 PM is no longer assigned to you.</div></div>
+      <dl><dt>Sent when</dt><dd>An admin reassigns the visit to another nurse.</dd><dt>Blanks</dt><dd>2: visit no., date and time.</dd></dl>
+    </div>
+
+    <!-- T4 -->
+    <div class="tpl">
+      <div class="tpl-head"><h3>4. Visit cancelled</h3><span class="pill to-n">To nurse</span><span class="pill cat">Service</span></div>
+      <div class="tline">CareNest: Visit #<span class="tag">{#alp#}</span> on <span class="tag">{#alp#}</span> is cancelled. Please do not travel.</div>
+      <div class="bubwrap"><div class="sender">JD-CRNEST-S</div><div class="bub">CareNest: Visit #1042 on Sat 10 Oct, 3:00 PM is cancelled. Please do not travel.</div></div>
+      <dl><dt>Sent when</dt><dd>The booking is cancelled by an admin, or automatically.</dd><dt>Blanks</dt><dd>2: visit no., date and time.</dd></dl>
+    </div>
+
+    <!-- T5 -->
+    <div class="tpl">
+      <div class="tpl-head"><h3>5. Booking confirmed</h3><span class="pill to-u">To user</span><span class="pill cat">Service</span></div>
+      <div class="tline">CareNest: Booking #<span class="tag">{#alp#}</span> confirmed. Nurse <span class="tag">{#alp#}</span> will visit on <span class="tag">{#alp#}</span>. Thank you.</div>
+      <div class="bubwrap"><div class="sender">JD-CRNEST-S</div><div class="bub">CareNest: Booking #1042 confirmed. Nurse Anita S. will visit on Sat 10 Oct at 3:00 PM. Thank you.</div></div>
+      <dl><dt>Sent when</dt><dd>Payment succeeds and a nurse is assigned.</dd><dt>Blanks</dt><dd>3: booking no., nurse name, date and time. "Thank you." stops a blank from being the last word.</dd></dl>
+    </div>
+
+    <!-- T6 -->
+    <div class="tpl">
+      <div class="tpl-head"><h3>6. Nurse changed</h3><span class="pill to-u">To user</span><span class="pill cat">Service</span></div>
+      <div class="tline">CareNest: Your nurse for booking #<span class="tag">{#alp#}</span> is now <span class="tag">{#alp#}</span>. Date and time are unchanged.</div>
+      <div class="bubwrap"><div class="sender">JD-CRNEST-S</div><div class="bub">CareNest: Your nurse for booking #1042 is now Kavita R. Date and time are unchanged.</div></div>
+      <dl><dt>Sent when</dt><dd>An admin reassigns the booking.</dd><dt>Blanks</dt><dd>2: booking no., nurse name.</dd></dl>
+    </div>
+
+    <!-- T7 -->
+    <div class="tpl">
+      <div class="tpl-head"><h3>7. Booking cancelled, with refund</h3><span class="pill to-u">To user</span><span class="pill cat">Service</span></div>
+      <div class="tline">CareNest: Booking #<span class="tag">{#alp#}</span> is cancelled. Reason: <span class="tag">{#alp#}</span>. Rs <span class="tag n">{#num#}</span> will be refunded in 5 to 7 working days.</div>
+      <div class="bubwrap"><div class="sender">JD-CRNEST-S</div><div class="bub">CareNest: Booking #1042 is cancelled. Reason: nurse unwell. Rs 1600 will be refunded in 5 to 7 working days.</div></div>
+      <dl><dt>Sent when</dt><dd>An admin cancels, or the system cancels because no nurse is free. That reason reads "no nurse free at that time".</dd><dt>Blanks</dt><dd>3: booking no., reason (up to 40 characters), amount in whole rupees.</dd></dl>
+    </div>
+
+    <div class="callout note">
+      <div class="kicker">Keep messages plain</div>
+      <p>We use plain English letters only: "Rs" instead of ₹, straight quotes, no emoji. Any special character turns the SMS into a Unicode SMS, which fits far fewer characters, so a message can split into two billed SMS. Every template above stays within one SMS. No template contains a promotion, because a single "book again and save" line would turn the whole message into an advert.<sup class="c"><a href="#s3">3</a></sup></p>
+    </div>
+
+    <h2 id="d5"><span class="n">5</span>MSG91 setup and how our app uses it</h2>
+    <p>MSG91 is a messaging company based in Indore, run by Walkover Web Solutions.<sup class="c"><a href="#s14">14</a></sup> Our app talks to it in two ways:</p>
+    <div class="grid2">
+      <div class="card"><div class="kicker">Login codes: MSG91's OTP service</div><p>Already built in version 1. Our server asks MSG91 to send a code to a number. MSG91 creates and checks the code, using a template linked to the approved login-code template.</p></div>
+      <div class="card"><div class="kicker">Everything else: MSG91 template SMS</div><p>New in version 2. Messages 2 to 7 each have their own MSG91 template, linked to its own DLT Template ID. Our server sends the template name and the values for the blanks.</p></div>
+    </div>
+    <p style="margin-top:14px">Every message our server sends is saved. If MSG91 or the network fails, the server tries again. In the admin panel each message shows whether it was delivered, with a Resend button.</p>
+    <p><b>In MSG91 you'll see three IDs:</b> the <b>Entity ID</b> (your business), attached to the sender name <code>CRNEST</code>, and one <b>DLT Template ID</b> per message.<sup class="c"><a href="#s12">12</a>,<a href="#s13">13</a></sup> They are not secret. The <b>API key</b> is, so treat it like a bank password.</p>
+    <p><b>Help from MSG91.</b> MSG91 has a DLT help desk and step-by-step guides for each portal. It can also nudge SmartPing about slow applications if you share the application number.<sup class="c"><a href="#s8">8</a></sup> It cannot register for you, because the registration has to be in your business's name.<sup class="c"><a href="#s9">9</a></sup></p>
+
+    <div class="dev">
+      <div class="kicker">For the developers</div>
+      <ul>
+        <li>v1 OTP: <code>https://control.msg91.com/api/v5/otp</code> with <code>MSG91_AUTH_KEY</code> and <code>MSG91_OTP_TEMPLATE_ID</code> (the MSG91 template ID, which carries the DLT template ID). With no auth key the backend logs the code (dev mode).</li>
+        <li>v2: MSG91 template/Flow SMS API, one MSG91 template per message, each mapped to its DLT Template ID and to <code>CRNEST</code>. MSG91 templates use <code>##name##</code> placeholders, while DLT uses typed tags. The rendered text must match the DLT template character for character, and each value must be 40 characters or less, or MSG91 returns "SMS not matched with DLT template".<sup class="c"><a href="#s9">9</a>,<a href="#s13">13</a></sup></li>
+        <li>Before sending: strip commas from amounts and collapse double spaces. Truncate <code>{#alp#}</code> values to 40 characters and keep them from starting with http/www. Keep the link at 120 characters or less.</li>
+        <li>Not verified: whether punctuation (comma, colon, full stop) inside an <code>{#alp#}</code> value passes scrubbing. Vi's manual only says "letters and numbers".<sup class="c"><a href="#s4">4</a></sup> Test sample values like "Sat 10 Oct, 3:00 PM" in the portal preview, and fall back to "Sat 10 Oct 3 PM" if needed.</li>
+        <li>Option A link: <code>/v?k=&lt;random token&gt;</code>, query-string only (no dynamic path), no redirect. The page should expire after the visit and be marked <code>noindex</code>.<sup class="c"><a href="#s5">5</a>,<a href="#s19">19</a></sup></li>
+      </ul>
+    </div>
+
+    <h2 id="d6"><span class="n">6</span>Timeline and cost</h2>
+    <h3>Timeline <span class="est">estimate</span></h3>
+    <div class="tbl">
+      <table class="stack">
+        <thead><tr><th>Step</th><th>Who</th><th>Typical wait</th></tr></thead>
+        <tbody>
+          <tr><td data-l="Step">Collect documents, choose portal and sender name</td><td data-l="Who"><span class="who you">You</span></td><td data-l="Typical wait">1 to 2 days</td></tr>
+          <tr><td data-l="Step">Business (entity) approval</td><td data-l="Who"><span class="who you">You</span></td><td data-l="Typical wait">1 to 3 business days<sup class="c"><a href="#s21">21</a>,<a href="#s20">20</a></sup></td></tr>
+          <tr><td data-l="Step">Sender name approval and sync to all networks</td><td data-l="Who"><span class="who both">You + we</span></td><td data-l="Typical wait">1 to 2 business days, then about 24 hours<sup class="c"><a href="#s8">8</a>,<a href="#s21">21</a></sup></td></tr>
+          <tr><td data-l="Step">MSG91 link (PE-TM chain)</td><td data-l="Who"><span class="who you">You</span></td><td data-l="Typical wait">About 1 hour<sup class="c"><a href="#s7">7</a></sup></td></tr>
+          <tr><td data-l="Step">Template approval, per round</td><td data-l="Who"><span class="who both">You + we</span></td><td data-l="Typical wait">2 to 4 business days at least, longer on Jio<sup class="c"><a href="#s9">9</a></sup></td></tr>
+          <tr><td data-l="Step">Link registration (Option A)</td><td data-l="Who"><span class="who we">We</span></td><td data-l="Typical wait">Not published. Runs alongside templates</td></tr>
+          <tr><td data-l="Step">MSG91 KYC</td><td data-l="Who"><span class="who you">You</span></td><td data-l="Typical wait">About 1 hour<sup class="c"><a href="#s17">17</a></sup></td></tr>
+          <tr><td data-l="Step">Connect, test, go live</td><td data-l="Who"><span class="who we">We</span></td><td data-l="Typical wait">1 to 2 days</td></tr>
+          <tr><td data-l="Step"><b>Total</b></td><td data-l="Who"></td><td data-l="Typical wait"><b>1 to 2 weeks</b> if approved first time, <b>about 3 weeks</b> with one rejection</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>Cost</h3>
+    <div class="grid3">
+      <div class="card"><div class="kicker">DLT registration</div><div class="stat">₹5,900</div><p style="font-size:14px;color:var(--fg2);margin:6px 0 0">₹5,000 + 18% GST, paid to the portal.<sup class="c"><a href="#s8">8</a>,<a href="#s11">11</a></sup> VILPower charges it yearly.<sup class="c"><a href="#s20">20</a></sup> Check renewal terms on your portal. Sender name, templates and link registration are free.<sup class="c"><a href="#s20">20</a>,<a href="#s19">19</a></sup></p></div>
+      <div class="card"><div class="kicker">MSG91 SMS</div><div class="stat">₹0.25 → ₹0.16</div><p style="font-size:14px;color:var(--fg2);margin:6px 0 0">Per SMS + GST. 5,000 SMS for ₹1,250. Bigger packs cost less, and MSG91 quotes down to ₹0.13 on request.<sup class="c"><a href="#s14">14</a></sup> OTP packs: ₹0.25 → ₹0.18.<sup class="c"><a href="#s15">15</a></sup> Failed messages are also charged.<sup class="c"><a href="#s16">16</a></sup></p></div>
+      <div class="card"><div class="kicker">Monthly running cost <span class="est">estimate</span></div><div class="stat">₹300 to ₹500</div><p style="font-size:14px;color:var(--fg2);margin:6px 0 0">Assumes 300 bookings a month, about 4 to 5 SMS per booking (login, nurse, user, plus some changes), at ₹0.25 + GST.</p></div>
+    </div>
+
+    <h2 id="d7"><span class="n">7</span>What happens until approval</h2>
+    <div class="grid2">
+      <div class="card"><div class="kicker">Keeps working</div><ul>
+        <li>All development and testing carry on.</li>
+        <li>On our test server, login codes show up in the server log, so testers can sign in without SMS.</li>
+        <li>Nurse and admin alerts go by email.</li>
+        <li>Test SMS go only to a short list of our own test numbers.</li>
+        <li>Every message is stored with its status, so nothing is lost and anything can be resent later.</li>
+      </ul></div>
+      <div class="card"><div class="kicker">Has to wait</div><ul>
+        <li><b>The public launch.</b> Real users can't log in until the login-code template works.</li>
+        <li>Nurse SMS. Until then nurses rely on email, so make sure every nurse has an email address they check.</li>
+        <li>Booking SMS to users. The app itself still shows booking status.</li>
+      </ul></div>
+    </div>
+
+    <h2 id="d8"><span class="n">8</span>Common rejection reasons and how we avoid them</h2>
+    <div class="tbl">
+      <table class="stack">
+        <thead><tr><th>Why it gets rejected</th><th>What we do</th></tr></thead>
+        <tbody>
+          <tr><td data-l="Reason">Business name on the form doesn't match PAN/GST</td><td data-l="Avoid">Copy the name exactly as printed on the GST certificate.</td></tr>
+          <tr><td data-l="Reason">Sender name doesn't match the business<sup class="c"><a href="#s8">8</a></sup></td><td data-l="Avoid">Use <code>CRNEST</code> and attach proof (website or domain invoice) if the legal name differs.</td></tr>
+          <tr><td data-l="Reason">Wrong category, e.g. OTP as promotional<sup class="c"><a href="#s9">9</a></sup></td><td data-l="Avoid">Login code in Transactional or Service Implicit, as the portal lists it. The rest in Service.</td></tr>
+          <tr><td data-l="Reason">Brand name missing from the text<sup class="c"><a href="#s9">9</a></sup></td><td data-l="Avoid">Every template contains "CareNest".</td></tr>
+          <tr><td data-l="Reason">Old <code>{#var#}</code> blanks, wrong blank type, more than 3 blanks<sup class="c"><a href="#s4">4</a></sup></td><td data-l="Avoid">Typed blanks, 3 or fewer per template.</td></tr>
+          <tr><td data-l="Reason">A blank at the very end, or mostly blanks with little fixed text<sup class="c"><a href="#s9">9</a>,<a href="#s22">22</a></sup></td><td data-l="Avoid">Fixed words after the last blank, and real sentences around each blank.</td></tr>
+          <tr><td data-l="Reason">Double spaces, curly quotes, odd symbols<sup class="c"><a href="#s22">22</a></sup></td><td data-l="Avoid">Type templates in a plain text editor and paste from there.</td></tr>
+          <tr><td data-l="Reason">Link or phone number not registered, or a link that redirects<sup class="c"><a href="#s5">5</a>,<a href="#s6">6</a></sup></td><td data-l="Avoid">No phone numbers in SMS. One registered website link (Option A), no redirect.</td></tr>
+          <tr><td data-l="Reason">Promotional words in a service message<sup class="c"><a href="#s3">3</a></sup></td><td data-l="Avoid">No offers or "book again" lines in any of the 7.</td></tr>
+          <tr><td data-l="Reason">Delivered text doesn't match the template, or a value over 40 characters<sup class="c"><a href="#s9">9</a></sup></td><td data-l="Avoid">Our server checks and trims values before sending.</td></tr>
+          <tr><td data-l="Reason">MSG91 not linked (PE-TM chain)<sup class="c"><a href="#s7">7</a></sup></td><td data-l="Avoid">Step 4, checked before testing.</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="callout note" style="margin-top:18px">
+      <div class="kicker">What we could not verify</div>
+      <ul>
+        <li>Whether portals accept a Google Maps link (a domain you don't own) as a registered link. This is one reason we recommend Option A.</li>
+        <li>Whether commas, colons and full stops are allowed inside a text blank. We'll test in the portal preview.</li>
+        <li>How long link registration and MSG91's own template check take. Neither is published.</li>
+        <li>Whether every portal charges ₹5,900 again each year. VILPower does. MSG91 just says "₹5,000 + GST for all operators".</li>
+      </ul>
+      <p style="margin-top:8px"><b>Sources disagree on two points.</b> MSG91's help pages still show <code>{#var#}</code> and "1-2 variables", and still put OTPs under Service Implicit.<sup class="c"><a href="#s9">9</a></sup> TRAI's Nov 2025 direction and Vi's current manual show typed blanks, and Vi lists app-login OTPs as Transactional.<sup class="c"><a href="#s1">1</a>,<a href="#s4">4</a></sup> We follow the newer rules, and on the OTP category we go by what the chosen portal shows.</p>
+    </div>
+
+    <h2 id="d9"><span class="n">9</span>Sources</h2>
+    <p class="sub">All checked in October 2026.</p>
+    <ol class="src">
+      <li id="s1">TRAI, Press Release 133/2025: Direction to mandate pre-tagging of variables in SMS content templates (18 Nov 2025). <a href="https://trai.gov.in/sites/default/files/2025-11/PR_No.133_of_2025.PDF">trai.gov.in</a></li>
+      <li id="s2">TRAI, Direction of 30 Nov 2024 on PE-TM chain binding. <a href="https://www.trai.gov.in/sites/default/files/2024-12/Direction_30112024.pdf">trai.gov.in</a></li>
+      <li id="s3">Khaitan &amp; Co, "TRAI releases Second Amendment to the TCCCPR 2018" (Feb 2025 amendment). <a href="https://www.khaitanco.com/thought-leadership/Efforts-to-Curb-Spam-Continue-TRAI-Releases-Second-Amendment-to-the-TCCCPR-2018">khaitanco.com</a></li>
+      <li id="s4">Vi Business DLT (VILPower), Entity content template registration user manual: typed variables, limits, categories, one header per template. <a href="https://www.vilpower.in/static/link_documents/usermanuals/Entity_Content_template_registration.pdf">vilpower.in</a></li>
+      <li id="s5">BSNL DLT, CTA Whitelisting user manual: static, dynamic and short URLs, number formats. <a href="https://www.ucc-bsnl.co.in/static/link_documents/usermanuals/CTA_Whitelisting.pdf">ucc-bsnl.co.in</a></li>
+      <li id="s6">MSG91, CTA Whitelisting FAQs. <a href="https://msg91.com/help/dlt-registration-in-india/cta-whitelisting-faqs">msg91.com</a></li>
+      <li id="s7">MSG91, PE-TM Chain Binding on DLT (TM IDs, steps). <a href="https://msg91.com/help/dlt-registration-in-india/pe-tm-chain-binding-on-dlt">msg91.com</a></li>
+      <li id="s8">MSG91, DLT FAQs (fee, 6-letter headers, header sync, name correlation, portals). <a href="https://msg91.com/help/dlt-registration-in-india/dlt-faqs">msg91.com</a></li>
+      <li id="s9">MSG91, DLT Content Template FAQs (approval time, brand name, last-word rule, category). <a href="https://msg91.com/help/dlt-registration-in-india/dlt-content-template-faqs">msg91.com</a></li>
+      <li id="s10">MSG91, Required documents for DLT registration. <a href="https://msg91.com/help/dlt-registration-in-india/step-by-step-guide-to-implement-dlt-in-sms/required-documents---dlt-registration">msg91.com</a></li>
+      <li id="s11">MSG91, Entity registration on DLT platform (SmartPing, Airtel, Jio steps). <a href="https://msg91.com/help/dlt-registration-in-india/entity-registration-on-dlt-platform">msg91.com</a></li>
+      <li id="s12">MSG91, Map your DLT Entity ID with the approved header. <a href="https://msg91.com/help/dlt-registration-in-india/map-your-dlt-entity-pe-id-with-dlt-approved-header-sender-id">msg91.com</a></li>
+      <li id="s13">MSG91, Map approved DLT Template ID with Flow ID. <a href="https://msg91.com/help/dlt-registration-in-india/map-approved-dlt-template-id-with-respective-flow-id-on-msg91-panel">msg91.com</a></li>
+      <li id="s14">MSG91, SMS pricing in India. <a href="https://msg91.com/in/pricing/sms">msg91.com</a></li>
+      <li id="s15">MSG91, OTP pricing in India. <a href="https://msg91.com/in/pricing/otp">msg91.com</a></li>
+      <li id="s16">MSG91, Pricing guidelines and service deductions. <a href="https://msg91.com/help/all-service-deductions-">msg91.com</a></li>
+      <li id="s17">MSG91, Making a demo account live (KYC). <a href="https://msg91.com/help/text-sms/my-account-status-is-in-demo-what-can-i-do-to-make-my-account-live">msg91.com</a></li>
+      <li id="s18">Tanla, "TRAI mandates new message suffixes" (from 6 May 2025). <a href="https://www.tanla.com/blog-posts/trai-mandates-new-message-suffixes-heres-what-you-need-to-know">tanla.com</a></li>
+      <li id="s19">Tanla, "TRAI's whitelisting directive explained" (from 1 Oct 2024, Vi FAQ). <a href="https://www.tanla.com/blog-posts/trais-whitelisting-directive-explained-everything-you-need-to-know">tanla.com</a></li>
+      <li id="s20">Digimiles, VILPower DLT registration guide (₹5,900 per year, approval times). <a href="https://www.digimiles.in/vilpower-dlt-registration/">digimiles.in</a></li>
+      <li id="s21">SMSCountry, DLT registration guide 2026 (typical approval times). <a href="https://www.smscountry.com/blog/dlt-registration/">smscountry.com</a></li>
+      <li id="s22">SMSGatewayHub, DLT sample templates 2026: variable tagging and categories. <a href="https://www.smsgatewayhub.com/sample-templates">smsgatewayhub.com</a></li>
+      <li id="s23">Bulk SMS India, "-P, -S, -T, -G in SMS" suffix guide (Oct 2026). <a href="https://bulksmsind.in/sms-suffix-p-s-t-g-meaning/">bulksmsind.in</a></li>
+    </ol>
+  </section>
+
+  <footer>
+    Questions about any step: ask the development team. We would rather answer a question now than redo a rejected form later.
+  </footer>
+</main>
+
+<script>
+(function(){
+  var box=document.getElementById('mode');
+  if(!box)return;
+  var KEY='carenest-dlt-guide-view';
+  function apply(detailed,save){
+    box.checked=detailed;
+    box.setAttribute('aria-checked',detailed?'true':'false');
+    if(!save)return;
+    try{localStorage.setItem(KEY,detailed?'detailed':'short');}catch(e){}
+    try{history.replaceState(null,'',detailed?'#detailed':location.pathname+location.search);}catch(e){}
+  }
+  function fromHash(){
+    var h=location.hash.slice(1);
+    if(h==='detailed')return true;
+    if(h==='short')return false;
+    if(h&&/^(d|s)\d+$/.test(h))return true;
+    return null;
+  }
+  var saved=null;
+  try{saved=localStorage.getItem(KEY);}catch(e){}
+  var h=fromHash();
+  apply(h!==null?h:saved==='detailed',false);
+  if(h===true&&location.hash.length>2&&location.hash!=='#detailed'){
+    var el=document.getElementById(location.hash.slice(1));
+    if(el)setTimeout(function(){el.scrollIntoView();},0);
+  }
+  box.addEventListener('change',function(){
+    apply(box.checked,true);
+    var top=document.getElementById('top');
+    if(window.scrollY>top.offsetTop+200)window.scrollTo(0,0);
+  });
+  window.addEventListener('hashchange',function(){
+    var v=fromHash();
+    if(v!==null&&v!==box.checked)apply(v,false);
+  });
+})();
+</script>
+</body>
+</html>

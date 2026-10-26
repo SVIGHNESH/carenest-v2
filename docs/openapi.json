@@ -1,0 +1,5807 @@
+{
+  "components": {
+    "schemas": {
+      "AddressIn": {
+        "properties": {
+          "area_line": {
+            "default": "",
+            "maxLength": 255,
+            "title": "Area Line",
+            "type": "string"
+          },
+          "city": {
+            "default": "",
+            "maxLength": 80,
+            "title": "City",
+            "type": "string"
+          },
+          "house": {
+            "default": "",
+            "maxLength": 120,
+            "title": "House",
+            "type": "string"
+          },
+          "is_default": {
+            "default": false,
+            "title": "Is Default",
+            "type": "boolean"
+          },
+          "label": {
+            "default": "Home",
+            "maxLength": 40,
+            "title": "Label",
+            "type": "string"
+          },
+          "landmark": {
+            "anyOf": [
+              {
+                "maxLength": 160,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Landmark"
+          },
+          "latitude": {
+            "maximum": 90.0,
+            "minimum": -90.0,
+            "title": "Latitude",
+            "type": "number"
+          },
+          "longitude": {
+            "maximum": 180.0,
+            "minimum": -180.0,
+            "title": "Longitude",
+            "type": "number"
+          },
+          "pincode": {
+            "default": "",
+            "maxLength": 10,
+            "title": "Pincode",
+            "type": "string"
+          },
+          "state": {
+            "default": "",
+            "maxLength": 80,
+            "title": "State",
+            "type": "string"
+          }
+        },
+        "required": [
+          "latitude",
+          "longitude"
+        ],
+        "title": "AddressIn",
+        "type": "object"
+      },
+      "AddressOut": {
+        "properties": {
+          "area_line": {
+            "title": "Area Line",
+            "type": "string"
+          },
+          "city": {
+            "title": "City",
+            "type": "string"
+          },
+          "house": {
+            "title": "House",
+            "type": "string"
+          },
+          "id": {
+            "title": "Id",
+            "type": "integer"
+          },
+          "is_default": {
+            "title": "Is Default",
+            "type": "boolean"
+          },
+          "label": {
+            "title": "Label",
+            "type": "string"
+          },
+          "landmark": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Landmark"
+          },
+          "latitude": {
+            "title": "Latitude",
+            "type": "number"
+          },
+          "longitude": {
+            "title": "Longitude",
+            "type": "number"
+          },
+          "pincode": {
+            "title": "Pincode",
+            "type": "string"
+          },
+          "state": {
+            "title": "State",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "label",
+          "house",
+          "area_line",
+          "city",
+          "state",
+          "pincode",
+          "landmark",
+          "latitude",
+          "longitude",
+          "is_default"
+        ],
+        "title": "AddressOut",
+        "type": "object"
+      },
+      "AddressPatch": {
+        "properties": {
+          "area_line": {
+            "anyOf": [
+              {
+                "maxLength": 255,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Area Line"
+          },
+          "city": {
+            "anyOf": [
+              {
+                "maxLength": 80,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "City"
+          },
+          "house": {
+            "anyOf": [
+              {
+                "maxLength": 120,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "House"
+          },
+          "is_default": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Is Default"
+          },
+          "label": {
+            "anyOf": [
+              {
+                "maxLength": 40,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Label"
+          },
+          "landmark": {
+            "anyOf": [
+              {
+                "maxLength": 160,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Landmark"
+          },
+          "latitude": {
+            "anyOf": [
+              {
+                "maximum": 90.0,
+                "minimum": -90.0,
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Latitude"
+          },
+          "longitude": {
+            "anyOf": [
+              {
+                "maximum": 180.0,
+                "minimum": -180.0,
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Longitude"
+          },
+          "pincode": {
+            "anyOf": [
+              {
+                "maxLength": 10,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Pincode"
+          },
+          "state": {
+            "anyOf": [
+              {
+                "maxLength": 80,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "State"
+          }
+        },
+        "title": "AddressPatch",
+        "type": "object"
+      },
+      "AdminBookingDetail": {
+        "properties": {
+          "address_landmark": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Address Landmark"
+          },
+          "address_text": {
+            "title": "Address Text",
+            "type": "string"
+          },
+          "amount": {
+            "title": "Amount",
+            "type": "integer"
+          },
+          "cancel_reason": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Cancel Reason"
+          },
+          "cancelled_at": {
+            "anyOf": [
+              {
+                "format": "date-time",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Cancelled At"
+          },
+          "cancelled_by": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Cancelled By"
+          },
+          "contact_phone": {
+            "title": "Contact Phone",
+            "type": "string"
+          },
+          "created_at": {
+            "format": "date-time",
+            "title": "Created At",
+            "type": "string"
+          },
+          "history": {
+            "items": {
+              "$ref": "#/components/schemas/HistoryOut"
+            },
+            "title": "History",
+            "type": "array"
+          },
+          "hours": {
+            "title": "Hours",
+            "type": "integer"
+          },
+          "id": {
+            "title": "Id",
+            "type": "integer"
+          },
+          "latitude": {
+            "title": "Latitude",
+            "type": "number"
+          },
+          "longitude": {
+            "title": "Longitude",
+            "type": "number"
+          },
+          "maps_url": {
+            "title": "Maps Url",
+            "type": "string"
+          },
+          "messages": {
+            "items": {
+              "$ref": "#/components/schemas/MessageOut"
+            },
+            "title": "Messages",
+            "type": "array"
+          },
+          "nurse": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/AdminNurseBrief"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "nurse_gender_preference": {
+            "title": "Nurse Gender Preference",
+            "type": "string"
+          },
+          "patient_age": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Patient Age"
+          },
+          "patient_condition": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Patient Condition"
+          },
+          "patient_name": {
+            "title": "Patient Name",
+            "type": "string"
+          },
+          "patient_sex": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Patient Sex"
+          },
+          "payment": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/PaymentOut"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "payment_status": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Payment Status"
+          },
+          "service_name": {
+            "title": "Service Name",
+            "type": "string"
+          },
+          "slot_end": {
+            "format": "date-time",
+            "title": "Slot End",
+            "type": "string"
+          },
+          "slot_start": {
+            "format": "date-time",
+            "title": "Slot Start",
+            "type": "string"
+          },
+          "status": {
+            "title": "Status",
+            "type": "string"
+          },
+          "user_id": {
+            "title": "User Id",
+            "type": "integer"
+          },
+          "user_phone": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "User Phone"
+          },
+          "visit_link_opened_at": {
+            "anyOf": [
+              {
+                "format": "date-time",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Visit Link Opened At"
+          }
+        },
+        "required": [
+          "id",
+          "status",
+          "service_name",
+          "patient_name",
+          "slot_start",
+          "slot_end",
+          "hours",
+          "amount",
+          "nurse_gender_preference",
+          "nurse",
+          "payment_status",
+          "cancel_reason",
+          "user_id",
+          "user_phone",
+          "patient_age",
+          "patient_sex",
+          "patient_condition",
+          "contact_phone",
+          "address_text",
+          "address_landmark",
+          "latitude",
+          "longitude",
+          "maps_url",
+          "cancelled_by",
+          "cancelled_at",
+          "created_at",
+          "payment",
+          "messages",
+          "history",
+          "visit_link_opened_at"
+        ],
+        "title": "AdminBookingDetail",
+        "type": "object"
+      },
+      "AdminBookingRow": {
+        "properties": {
+          "amount": {
+            "title": "Amount",
+            "type": "integer"
+          },
+          "cancel_reason": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Cancel Reason"
+          },
+          "hours": {
+            "title": "Hours",
+            "type": "integer"
+          },
+          "id": {
+            "title": "Id",
+            "type": "integer"
+          },
+          "nurse": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/AdminNurseBrief"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "nurse_gender_preference": {
+            "title": "Nurse Gender Preference",
+            "type": "string"
+          },
+          "patient_name": {
+            "title": "Patient Name",
+            "type": "string"
+          },
+          "payment_status": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Payment Status"
+          },
+          "service_name": {
+            "title": "Service Name",
+            "type": "string"
+          },
+          "slot_end": {
+            "format": "date-time",
+            "title": "Slot End",
+            "type": "string"
+          },
+          "slot_start": {
+            "format": "date-time",
+            "title": "Slot Start",
+            "type": "string"
+          },
+          "status": {
+            "title": "Status",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "status",
+          "service_name",
+          "patient_name",
+          "slot_start",
+          "slot_end",
+          "hours",
+          "amount",
+          "nurse_gender_preference",
+          "nurse",
+          "payment_status",
+          "cancel_reason"
+        ],
+        "title": "AdminBookingRow",
+        "type": "object"
+      },
+      "AdminNurseBrief": {
+        "properties": {
+          "gender": {
+            "title": "Gender",
+            "type": "string"
+          },
+          "id": {
+            "title": "Id",
+            "type": "integer"
+          },
+          "name": {
+            "title": "Name",
+            "type": "string"
+          },
+          "phone": {
+            "title": "Phone",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "phone",
+          "gender"
+        ],
+        "title": "AdminNurseBrief",
+        "type": "object"
+      },
+      "AdminOut": {
+        "properties": {
+          "email": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Email"
+          },
+          "id": {
+            "title": "Id",
+            "type": "integer"
+          },
+          "is_active": {
+            "default": true,
+            "title": "Is Active",
+            "type": "boolean"
+          },
+          "name": {
+            "title": "Name",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "email"
+        ],
+        "title": "AdminOut",
+        "type": "object"
+      },
+      "AdminServiceOut": {
+        "properties": {
+          "active": {
+            "title": "Active",
+            "type": "boolean"
+          },
+          "base_price": {
+            "title": "Base Price",
+            "type": "integer"
+          },
+          "description": {
+            "title": "Description",
+            "type": "string"
+          },
+          "id": {
+            "title": "Id",
+            "type": "integer"
+          },
+          "name": {
+            "title": "Name",
+            "type": "string"
+          },
+          "nurse_count": {
+            "default": 0,
+            "title": "Nurse Count",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "description",
+          "base_price",
+          "active"
+        ],
+        "title": "AdminServiceOut",
+        "type": "object"
+      },
+      "AffectedItem": {
+        "properties": {
+          "booking_id": {
+            "title": "Booking Id",
+            "type": "integer"
+          },
+          "hours": {
+            "title": "Hours",
+            "type": "integer"
+          },
+          "new_nurse": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "New Nurse"
+          },
+          "outcome": {
+            "title": "Outcome",
+            "type": "string"
+          },
+          "patient_name": {
+            "title": "Patient Name",
+            "type": "string"
+          },
+          "slot_start": {
+            "title": "Slot Start",
+            "type": "string"
+          }
+        },
+        "required": [
+          "booking_id",
+          "slot_start",
+          "hours",
+          "patient_name",
+          "outcome"
+        ],
+        "title": "AffectedItem",
+        "type": "object"
+      },
+      "AttentionItem": {
+        "properties": {
+          "booking_id": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Booking Id"
+          },
+          "detail": {
+            "title": "Detail",
+            "type": "string"
+          },
+          "kind": {
+            "title": "Kind",
+            "type": "string"
+          },
+          "message_id": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Message Id"
+          },
+          "nurse_id": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Nurse Id"
+          },
+          "title": {
+            "title": "Title",
+            "type": "string"
+          }
+        },
+        "required": [
+          "kind",
+          "title",
+          "detail"
+        ],
+        "title": "AttentionItem",
+        "type": "object"
+      },
+      "BookingCreateIn": {
+        "properties": {
+          "address_id": {
+            "title": "Address Id",
+            "type": "integer"
+          },
+          "contact_phone": {
+            "title": "Contact Phone",
+            "type": "string"
+          },
+          "hours": {
+            "maximum": 12.0,
+            "minimum": 1.0,
+            "title": "Hours",
+            "type": "integer"
+          },
+          "member_id": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Member Id"
+          },
+          "nurse_gender": {
+            "enum": [
+              "male",
+              "female"
+            ],
+            "title": "Nurse Gender",
+            "type": "string"
+          },
+          "patient_age": {
+            "anyOf": [
+              {
+                "maximum": 120.0,
+                "minimum": 0.0,
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Patient Age"
+          },
+          "patient_condition": {
+            "anyOf": [
+              {
+                "maxLength": 1000,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Patient Condition"
+          },
+          "patient_name": {
+            "maxLength": 120,
+            "minLength": 1,
+            "title": "Patient Name",
+            "type": "string"
+          },
+          "patient_sex": {
+            "anyOf": [
+              {
+                "enum": [
+                  "male",
+                  "female",
+                  "other"
+                ],
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Patient Sex"
+          },
+          "service_id": {
+            "title": "Service Id",
+            "type": "integer"
+          },
+          "slot_start": {
+            "format": "date-time",
+            "title": "Slot Start",
+            "type": "string"
+          }
+        },
+        "required": [
+          "service_id",
+          "slot_start",
+          "hours",
+          "nurse_gender",
+          "address_id",
+          "patient_name",
+          "contact_phone"
+        ],
+        "title": "BookingCreateIn",
+        "type": "object"
+      },
+      "BookingOut": {
+        "properties": {
+          "address_landmark": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Address Landmark"
+          },
+          "address_text": {
+            "title": "Address Text",
+            "type": "string"
+          },
+          "amount": {
+            "title": "Amount",
+            "type": "integer"
+          },
+          "cancel_reason": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Cancel Reason"
+          },
+          "cancelled_by": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Cancelled By"
+          },
+          "contact_phone": {
+            "title": "Contact Phone",
+            "type": "string"
+          },
+          "created_at": {
+            "format": "date-time",
+            "title": "Created At",
+            "type": "string"
+          },
+          "hold_expires_at": {
+            "anyOf": [
+              {
+                "format": "date-time",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Hold Expires At"
+          },
+          "hours": {
+            "title": "Hours",
+            "type": "integer"
+          },
+          "id": {
+            "title": "Id",
+            "type": "integer"
+          },
+          "latitude": {
+            "title": "Latitude",
+            "type": "number"
+          },
+          "longitude": {
+            "title": "Longitude",
+            "type": "number"
+          },
+          "maps_url": {
+            "title": "Maps Url",
+            "type": "string"
+          },
+          "nurse_gender_preference": {
+            "title": "Nurse Gender Preference",
+            "type": "string"
+          },
+          "nurse_name": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Nurse Name"
+          },
+          "patient_age": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Patient Age"
+          },
+          "patient_name": {
+            "title": "Patient Name",
+            "type": "string"
+          },
+          "patient_sex": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Patient Sex"
+          },
+          "payment_status": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Payment Status"
+          },
+          "refund": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/RefundOut"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "service_id": {
+            "title": "Service Id",
+            "type": "integer"
+          },
+          "service_name": {
+            "title": "Service Name",
+            "type": "string"
+          },
+          "slot_end": {
+            "format": "date-time",
+            "title": "Slot End",
+            "type": "string"
+          },
+          "slot_start": {
+            "format": "date-time",
+            "title": "Slot Start",
+            "type": "string"
+          },
+          "status": {
+            "title": "Status",
+            "type": "string"
+          },
+          "support_phone": {
+            "title": "Support Phone",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "status",
+          "service_id",
+          "service_name",
+          "slot_start",
+          "slot_end",
+          "hours",
+          "amount",
+          "nurse_gender_preference",
+          "nurse_name",
+          "patient_name",
+          "patient_age",
+          "patient_sex",
+          "contact_phone",
+          "address_text",
+          "address_landmark",
+          "latitude",
+          "longitude",
+          "maps_url",
+          "hold_expires_at",
+          "cancel_reason",
+          "cancelled_by",
+          "payment_status",
+          "refund",
+          "support_phone",
+          "created_at"
+        ],
+        "title": "BookingOut",
+        "type": "object"
+      },
+      "BookingSettingsOut": {
+        "properties": {
+          "booking_window_days": {
+            "title": "Booking Window Days",
+            "type": "integer"
+          },
+          "bookings_paused": {
+            "title": "Bookings Paused",
+            "type": "boolean"
+          },
+          "min_notice_minutes": {
+            "title": "Min Notice Minutes",
+            "type": "integer"
+          },
+          "support_phone": {
+            "title": "Support Phone",
+            "type": "string"
+          }
+        },
+        "required": [
+          "min_notice_minutes",
+          "booking_window_days",
+          "bookings_paused",
+          "support_phone"
+        ],
+        "title": "BookingSettingsOut",
+        "type": "object"
+      },
+      "CancelIn": {
+        "properties": {
+          "reason": {
+            "maxLength": 200,
+            "minLength": 1,
+            "title": "Reason",
+            "type": "string"
+          }
+        },
+        "required": [
+          "reason"
+        ],
+        "title": "CancelIn",
+        "type": "object"
+      },
+      "CandidateOut": {
+        "properties": {
+          "free": {
+            "title": "Free",
+            "type": "boolean"
+          },
+          "gender": {
+            "title": "Gender",
+            "type": "string"
+          },
+          "id": {
+            "title": "Id",
+            "type": "integer"
+          },
+          "name": {
+            "title": "Name",
+            "type": "string"
+          },
+          "on_duty": {
+            "title": "On Duty",
+            "type": "boolean"
+          },
+          "qualified": {
+            "title": "Qualified",
+            "type": "boolean"
+          },
+          "same_gender": {
+            "title": "Same Gender",
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "gender",
+          "qualified",
+          "same_gender",
+          "on_duty",
+          "free"
+        ],
+        "title": "CandidateOut",
+        "type": "object"
+      },
+      "ChangePasswordIn": {
+        "properties": {
+          "current_password": {
+            "title": "Current Password",
+            "type": "string"
+          },
+          "new_password": {
+            "minLength": 10,
+            "title": "New Password",
+            "type": "string"
+          }
+        },
+        "required": [
+          "current_password",
+          "new_password"
+        ],
+        "title": "ChangePasswordIn",
+        "type": "object"
+      },
+      "CompleteSignupIn": {
+        "properties": {
+          "email": {
+            "anyOf": [
+              {
+                "format": "email",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Email"
+          },
+          "name": {
+            "maxLength": 120,
+            "minLength": 1,
+            "title": "Name",
+            "type": "string"
+          },
+          "signup_ticket": {
+            "title": "Signup Ticket",
+            "type": "string"
+          }
+        },
+        "required": [
+          "signup_ticket",
+          "name"
+        ],
+        "title": "CompleteSignupIn",
+        "type": "object"
+      },
+      "DashboardOut": {
+        "properties": {
+          "attention": {
+            "items": {
+              "$ref": "#/components/schemas/AttentionItem"
+            },
+            "title": "Attention",
+            "type": "array"
+          },
+          "today": {
+            "items": {
+              "$ref": "#/components/schemas/TodayNurse"
+            },
+            "title": "Today",
+            "type": "array"
+          }
+        },
+        "required": [
+          "attention",
+          "today"
+        ],
+        "title": "DashboardOut",
+        "type": "object"
+      },
+      "DeleteAccountIn": {
+        "properties": {
+          "code": {
+            "maxLength": 8,
+            "minLength": 4,
+            "title": "Code",
+            "type": "string"
+          }
+        },
+        "required": [
+          "code"
+        ],
+        "title": "DeleteAccountIn",
+        "type": "object"
+      },
+      "FakePayIn": {
+        "properties": {
+          "booking_id": {
+            "title": "Booking Id",
+            "type": "integer"
+          },
+          "order_id": {
+            "title": "Order Id",
+            "type": "string"
+          }
+        },
+        "required": [
+          "booking_id",
+          "order_id"
+        ],
+        "title": "FakePayIn",
+        "type": "object"
+      },
+      "FakePayOut": {
+        "properties": {
+          "payment_id": {
+            "title": "Payment Id",
+            "type": "string"
+          },
+          "signature": {
+            "title": "Signature",
+            "type": "string"
+          }
+        },
+        "required": [
+          "payment_id",
+          "signature"
+        ],
+        "title": "FakePayOut",
+        "type": "object"
+      },
+      "FamilyIn": {
+        "properties": {
+          "age": {
+            "maximum": 120.0,
+            "minimum": 0.0,
+            "title": "Age",
+            "type": "integer"
+          },
+          "contact_phone": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Contact Phone"
+          },
+          "medical_notes": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Medical Notes"
+          },
+          "name": {
+            "maxLength": 120,
+            "minLength": 1,
+            "title": "Name",
+            "type": "string"
+          },
+          "relation": {
+            "maxLength": 40,
+            "minLength": 1,
+            "title": "Relation",
+            "type": "string"
+          },
+          "sex": {
+            "enum": [
+              "male",
+              "female",
+              "other"
+            ],
+            "title": "Sex",
+            "type": "string"
+          }
+        },
+        "required": [
+          "name",
+          "age",
+          "sex",
+          "relation"
+        ],
+        "title": "FamilyIn",
+        "type": "object"
+      },
+      "FamilyOut": {
+        "properties": {
+          "age": {
+            "title": "Age",
+            "type": "integer"
+          },
+          "contact_phone": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Contact Phone"
+          },
+          "id": {
+            "title": "Id",
+            "type": "integer"
+          },
+          "medical_notes": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Medical Notes"
+          },
+          "name": {
+            "title": "Name",
+            "type": "string"
+          },
+          "relation": {
+            "title": "Relation",
+            "type": "string"
+          },
+          "sex": {
+            "title": "Sex",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "age",
+          "sex",
+          "relation",
+          "contact_phone",
+          "medical_notes"
+        ],
+        "title": "FamilyOut",
+        "type": "object"
+      },
+      "FamilyPatch": {
+        "properties": {
+          "age": {
+            "anyOf": [
+              {
+                "maximum": 120.0,
+                "minimum": 0.0,
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Age"
+          },
+          "contact_phone": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Contact Phone"
+          },
+          "medical_notes": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Medical Notes"
+          },
+          "name": {
+            "anyOf": [
+              {
+                "maxLength": 120,
+                "minLength": 1,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Name"
+          },
+          "relation": {
+            "anyOf": [
+              {
+                "maxLength": 40,
+                "minLength": 1,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Relation"
+          },
+          "sex": {
+            "anyOf": [
+              {
+                "enum": [
+                  "male",
+                  "female",
+                  "other"
+                ],
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Sex"
+          }
+        },
+        "title": "FamilyPatch",
+        "type": "object"
+      },
+      "ForgotIn": {
+        "properties": {
+          "email": {
+            "format": "email",
+            "title": "Email",
+            "type": "string"
+          }
+        },
+        "required": [
+          "email"
+        ],
+        "title": "ForgotIn",
+        "type": "object"
+      },
+      "GenderAvailabilityOut": {
+        "properties": {
+          "female": {
+            "title": "Female",
+            "type": "boolean"
+          },
+          "male": {
+            "title": "Male",
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "male",
+          "female"
+        ],
+        "title": "GenderAvailabilityOut",
+        "type": "object"
+      },
+      "HTTPValidationError": {
+        "properties": {
+          "detail": {
+            "items": {
+              "$ref": "#/components/schemas/ValidationError"
+            },
+            "title": "Detail",
+            "type": "array"
+          }
+        },
+        "title": "HTTPValidationError",
+        "type": "object"
+      },
+      "HistoryOut": {
+        "properties": {
+          "action": {
+            "title": "Action",
+            "type": "string"
+          },
+          "actor": {
+            "title": "Actor",
+            "type": "string"
+          },
+          "created_at": {
+            "format": "date-time",
+            "title": "Created At",
+            "type": "string"
+          },
+          "details": {
+            "additionalProperties": true,
+            "title": "Details",
+            "type": "object"
+          },
+          "id": {
+            "title": "Id",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "id",
+          "actor",
+          "action",
+          "details",
+          "created_at"
+        ],
+        "title": "HistoryOut",
+        "type": "object"
+      },
+      "HoursRow": {
+        "properties": {
+          "end_hour": {
+            "maximum": 24.0,
+            "minimum": 1.0,
+            "title": "End Hour",
+            "type": "integer"
+          },
+          "start_hour": {
+            "maximum": 23.0,
+            "minimum": 0.0,
+            "title": "Start Hour",
+            "type": "integer"
+          },
+          "weekday": {
+            "maximum": 6.0,
+            "minimum": 0.0,
+            "title": "Weekday",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "weekday",
+          "start_hour",
+          "end_hour"
+        ],
+        "title": "HoursRow",
+        "type": "object"
+      },
+      "LoginIn": {
+        "properties": {
+          "email": {
+            "format": "email",
+            "title": "Email",
+            "type": "string"
+          },
+          "password": {
+            "title": "Password",
+            "type": "string"
+          }
+        },
+        "required": [
+          "email",
+          "password"
+        ],
+        "title": "LoginIn",
+        "type": "object"
+      },
+      "LoginOut": {
+        "properties": {
+          "access_token": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Access Token"
+          },
+          "admin": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/AdminOut"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "step": {
+            "title": "Step",
+            "type": "string"
+          },
+          "ticket": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Ticket"
+          }
+        },
+        "required": [
+          "step"
+        ],
+        "title": "LoginOut",
+        "type": "object"
+      },
+      "MaxDurationOut": {
+        "properties": {
+          "max_hours": {
+            "title": "Max Hours",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "max_hours"
+        ],
+        "title": "MaxDurationOut",
+        "type": "object"
+      },
+      "MessageOut": {
+        "properties": {
+          "attempts": {
+            "title": "Attempts",
+            "type": "integer"
+          },
+          "channel": {
+            "title": "Channel",
+            "type": "string"
+          },
+          "created_at": {
+            "format": "date-time",
+            "title": "Created At",
+            "type": "string"
+          },
+          "id": {
+            "title": "Id",
+            "type": "integer"
+          },
+          "last_error": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Last Error"
+          },
+          "recipient": {
+            "title": "Recipient",
+            "type": "string"
+          },
+          "recipient_type": {
+            "title": "Recipient Type",
+            "type": "string"
+          },
+          "sent_at": {
+            "anyOf": [
+              {
+                "format": "date-time",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Sent At"
+          },
+          "status": {
+            "title": "Status",
+            "type": "string"
+          },
+          "template": {
+            "title": "Template",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "recipient_type",
+          "recipient",
+          "channel",
+          "template",
+          "status",
+          "attempts",
+          "last_error",
+          "created_at",
+          "sent_at"
+        ],
+        "title": "MessageOut",
+        "type": "object"
+      },
+      "MfaIn": {
+        "properties": {
+          "code": {
+            "maxLength": 20,
+            "minLength": 6,
+            "title": "Code",
+            "type": "string"
+          },
+          "ticket": {
+            "title": "Ticket",
+            "type": "string"
+          }
+        },
+        "required": [
+          "ticket",
+          "code"
+        ],
+        "title": "MfaIn",
+        "type": "object"
+      },
+      "NurseIn": {
+        "properties": {
+          "email": {
+            "anyOf": [
+              {
+                "format": "email",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Email"
+          },
+          "experience_years": {
+            "default": 0,
+            "maximum": 60.0,
+            "minimum": 0.0,
+            "title": "Experience Years",
+            "type": "integer"
+          },
+          "gender": {
+            "enum": [
+              "male",
+              "female"
+            ],
+            "title": "Gender",
+            "type": "string"
+          },
+          "is_active": {
+            "default": true,
+            "title": "Is Active",
+            "type": "boolean"
+          },
+          "name": {
+            "maxLength": 120,
+            "minLength": 1,
+            "title": "Name",
+            "type": "string"
+          },
+          "notes": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Notes"
+          },
+          "phone": {
+            "title": "Phone",
+            "type": "string"
+          },
+          "service_ids": {
+            "items": {
+              "type": "integer"
+            },
+            "minItems": 1,
+            "title": "Service Ids",
+            "type": "array"
+          }
+        },
+        "required": [
+          "name",
+          "phone",
+          "gender",
+          "service_ids"
+        ],
+        "title": "NurseIn",
+        "type": "object"
+      },
+      "NurseOut": {
+        "properties": {
+          "email": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Email"
+          },
+          "experience_years": {
+            "title": "Experience Years",
+            "type": "integer"
+          },
+          "gender": {
+            "title": "Gender",
+            "type": "string"
+          },
+          "id": {
+            "title": "Id",
+            "type": "integer"
+          },
+          "is_active": {
+            "title": "Is Active",
+            "type": "boolean"
+          },
+          "name": {
+            "title": "Name",
+            "type": "string"
+          },
+          "notes": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Notes"
+          },
+          "phone": {
+            "title": "Phone",
+            "type": "string"
+          },
+          "service_ids": {
+            "items": {
+              "type": "integer"
+            },
+            "title": "Service Ids",
+            "type": "array"
+          },
+          "setup_issues": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Setup Issues",
+            "type": "array"
+          },
+          "weekly_hours": {
+            "items": {
+              "$ref": "#/components/schemas/HoursRow"
+            },
+            "title": "Weekly Hours",
+            "type": "array"
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "phone",
+          "email",
+          "gender",
+          "experience_years",
+          "notes",
+          "is_active",
+          "service_ids",
+          "weekly_hours",
+          "setup_issues"
+        ],
+        "title": "NurseOut",
+        "type": "object"
+      },
+      "NursePatch": {
+        "properties": {
+          "email": {
+            "anyOf": [
+              {
+                "format": "email",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Email"
+          },
+          "experience_years": {
+            "anyOf": [
+              {
+                "maximum": 60.0,
+                "minimum": 0.0,
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Experience Years"
+          },
+          "gender": {
+            "anyOf": [
+              {
+                "enum": [
+                  "male",
+                  "female"
+                ],
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Gender"
+          },
+          "is_active": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Is Active"
+          },
+          "name": {
+            "anyOf": [
+              {
+                "maxLength": 120,
+                "minLength": 1,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Name"
+          },
+          "notes": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Notes"
+          },
+          "phone": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Phone"
+          },
+          "service_ids": {
+            "anyOf": [
+              {
+                "items": {
+                  "type": "integer"
+                },
+                "minItems": 1,
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Service Ids"
+          }
+        },
+        "title": "NursePatch",
+        "type": "object"
+      },
+      "OrderIn": {
+        "properties": {
+          "booking_id": {
+            "title": "Booking Id",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "booking_id"
+        ],
+        "title": "OrderIn",
+        "type": "object"
+      },
+      "OrderOut": {
+        "properties": {
+          "amount": {
+            "title": "Amount",
+            "type": "integer"
+          },
+          "booking_id": {
+            "title": "Booking Id",
+            "type": "integer"
+          },
+          "gateway": {
+            "title": "Gateway",
+            "type": "string"
+          },
+          "hold_expires_at": {
+            "anyOf": [
+              {
+                "format": "date-time",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Hold Expires At"
+          },
+          "key_id": {
+            "title": "Key Id",
+            "type": "string"
+          },
+          "order_id": {
+            "title": "Order Id",
+            "type": "string"
+          }
+        },
+        "required": [
+          "gateway",
+          "order_id",
+          "amount",
+          "key_id",
+          "booking_id",
+          "hold_expires_at"
+        ],
+        "title": "OrderOut",
+        "type": "object"
+      },
+      "OverrideIn": {
+        "properties": {
+          "end_hour": {
+            "anyOf": [
+              {
+                "maximum": 24.0,
+                "minimum": 1.0,
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "End Hour"
+          },
+          "is_leave": {
+            "default": false,
+            "title": "Is Leave",
+            "type": "boolean"
+          },
+          "note": {
+            "anyOf": [
+              {
+                "maxLength": 200,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Note"
+          },
+          "start_hour": {
+            "anyOf": [
+              {
+                "maximum": 23.0,
+                "minimum": 0.0,
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Start Hour"
+          }
+        },
+        "title": "OverrideIn",
+        "type": "object"
+      },
+      "OverrideOut": {
+        "properties": {
+          "day": {
+            "format": "date",
+            "title": "Day",
+            "type": "string"
+          },
+          "end_hour": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "End Hour"
+          },
+          "is_leave": {
+            "title": "Is Leave",
+            "type": "boolean"
+          },
+          "note": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Note"
+          },
+          "start_hour": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Start Hour"
+          }
+        },
+        "required": [
+          "day",
+          "is_leave",
+          "start_hour",
+          "end_hour",
+          "note"
+        ],
+        "title": "OverrideOut",
+        "type": "object"
+      },
+      "PaymentOut": {
+        "properties": {
+          "amount": {
+            "title": "Amount",
+            "type": "integer"
+          },
+          "gateway": {
+            "title": "Gateway",
+            "type": "string"
+          },
+          "payment_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Payment Id"
+          },
+          "refund_error": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Refund Error"
+          },
+          "refund_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Refund Id"
+          },
+          "status": {
+            "title": "Status",
+            "type": "string"
+          }
+        },
+        "required": [
+          "status",
+          "amount",
+          "gateway",
+          "payment_id",
+          "refund_id",
+          "refund_error"
+        ],
+        "title": "PaymentOut",
+        "type": "object"
+      },
+      "QuoteIn": {
+        "properties": {
+          "hours": {
+            "maximum": 12.0,
+            "minimum": 1.0,
+            "title": "Hours",
+            "type": "integer"
+          },
+          "service_id": {
+            "title": "Service Id",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "service_id",
+          "hours"
+        ],
+        "title": "QuoteIn",
+        "type": "object"
+      },
+      "QuoteOut": {
+        "properties": {
+          "amount": {
+            "title": "Amount",
+            "type": "integer"
+          },
+          "base_price": {
+            "title": "Base Price",
+            "type": "integer"
+          },
+          "hours": {
+            "title": "Hours",
+            "type": "integer"
+          },
+          "service_id": {
+            "title": "Service Id",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "service_id",
+          "hours",
+          "base_price",
+          "amount"
+        ],
+        "title": "QuoteOut",
+        "type": "object"
+      },
+      "ReassignIn": {
+        "properties": {
+          "nurse_id": {
+            "title": "Nurse Id",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "nurse_id"
+        ],
+        "title": "ReassignIn",
+        "type": "object"
+      },
+      "RefundOut": {
+        "properties": {
+          "amount": {
+            "title": "Amount",
+            "type": "integer"
+          },
+          "expected": {
+            "default": "5 to 7 working days",
+            "title": "Expected",
+            "type": "string"
+          },
+          "status": {
+            "title": "Status",
+            "type": "string"
+          }
+        },
+        "required": [
+          "amount",
+          "status"
+        ],
+        "title": "RefundOut",
+        "type": "object"
+      },
+      "ResetIn": {
+        "properties": {
+          "password": {
+            "minLength": 10,
+            "title": "Password",
+            "type": "string"
+          },
+          "token": {
+            "title": "Token",
+            "type": "string"
+          }
+        },
+        "required": [
+          "token",
+          "password"
+        ],
+        "title": "ResetIn",
+        "type": "object"
+      },
+      "SendOtpIn": {
+        "properties": {
+          "phone": {
+            "title": "Phone",
+            "type": "string"
+          }
+        },
+        "required": [
+          "phone"
+        ],
+        "title": "SendOtpIn",
+        "type": "object"
+      },
+      "ServiceIn": {
+        "properties": {
+          "active": {
+            "default": true,
+            "title": "Active",
+            "type": "boolean"
+          },
+          "base_price": {
+            "maximum": 100000.0,
+            "minimum": 1.0,
+            "title": "Base Price",
+            "type": "integer"
+          },
+          "description": {
+            "default": "",
+            "title": "Description",
+            "type": "string"
+          },
+          "name": {
+            "maxLength": 120,
+            "minLength": 1,
+            "title": "Name",
+            "type": "string"
+          }
+        },
+        "required": [
+          "name",
+          "base_price"
+        ],
+        "title": "ServiceIn",
+        "type": "object"
+      },
+      "ServiceOut": {
+        "properties": {
+          "active": {
+            "default": true,
+            "title": "Active",
+            "type": "boolean"
+          },
+          "available": {
+            "default": true,
+            "title": "Available",
+            "type": "boolean"
+          },
+          "base_price": {
+            "title": "Base Price",
+            "type": "integer"
+          },
+          "description": {
+            "title": "Description",
+            "type": "string"
+          },
+          "id": {
+            "title": "Id",
+            "type": "integer"
+          },
+          "name": {
+            "title": "Name",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "description",
+          "base_price"
+        ],
+        "title": "ServiceOut",
+        "type": "object"
+      },
+      "ServicePatch": {
+        "properties": {
+          "active": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Active"
+          },
+          "base_price": {
+            "anyOf": [
+              {
+                "maximum": 100000.0,
+                "minimum": 1.0,
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Base Price"
+          },
+          "description": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Description"
+          },
+          "name": {
+            "anyOf": [
+              {
+                "maxLength": 120,
+                "minLength": 1,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Name"
+          }
+        },
+        "title": "ServicePatch",
+        "type": "object"
+      },
+      "SettingsOut": {
+        "properties": {
+          "booking_window_days": {
+            "title": "Booking Window Days",
+            "type": "integer"
+          },
+          "bookings_paused": {
+            "title": "Bookings Paused",
+            "type": "boolean"
+          },
+          "min_notice_minutes": {
+            "title": "Min Notice Minutes",
+            "type": "integer"
+          },
+          "support_phone": {
+            "title": "Support Phone",
+            "type": "string"
+          },
+          "travel_gap_hours": {
+            "title": "Travel Gap Hours",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "min_notice_minutes",
+          "booking_window_days",
+          "bookings_paused",
+          "travel_gap_hours",
+          "support_phone"
+        ],
+        "title": "SettingsOut",
+        "type": "object"
+      },
+      "SettingsPatch": {
+        "properties": {
+          "booking_window_days": {
+            "anyOf": [
+              {
+                "maximum": 60.0,
+                "minimum": 1.0,
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Booking Window Days"
+          },
+          "bookings_paused": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Bookings Paused"
+          },
+          "min_notice_minutes": {
+            "anyOf": [
+              {
+                "maximum": 10080.0,
+                "minimum": 0.0,
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Min Notice Minutes"
+          },
+          "support_phone": {
+            "anyOf": [
+              {
+                "maxLength": 30,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Support Phone"
+          },
+          "travel_gap_hours": {
+            "anyOf": [
+              {
+                "maximum": 6.0,
+                "minimum": 0.0,
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Travel Gap Hours"
+          }
+        },
+        "title": "SettingsPatch",
+        "type": "object"
+      },
+      "SetupStartIn": {
+        "properties": {
+          "ticket": {
+            "title": "Ticket",
+            "type": "string"
+          }
+        },
+        "required": [
+          "ticket"
+        ],
+        "title": "SetupStartIn",
+        "type": "object"
+      },
+      "SetupStartOut": {
+        "properties": {
+          "otpauth_uri": {
+            "title": "Otpauth Uri",
+            "type": "string"
+          },
+          "secret": {
+            "title": "Secret",
+            "type": "string"
+          }
+        },
+        "required": [
+          "secret",
+          "otpauth_uri"
+        ],
+        "title": "SetupStartOut",
+        "type": "object"
+      },
+      "SetupVerifyOut": {
+        "properties": {
+          "access_token": {
+            "title": "Access Token",
+            "type": "string"
+          },
+          "admin": {
+            "$ref": "#/components/schemas/AdminOut"
+          },
+          "backup_codes": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Backup Codes",
+            "type": "array"
+          }
+        },
+        "required": [
+          "access_token",
+          "admin",
+          "backup_codes"
+        ],
+        "title": "SetupVerifyOut",
+        "type": "object"
+      },
+      "StatusIn": {
+        "properties": {
+          "status": {
+            "pattern": "^(in_progress|completed)$",
+            "title": "Status",
+            "type": "string"
+          }
+        },
+        "required": [
+          "status"
+        ],
+        "title": "StatusIn",
+        "type": "object"
+      },
+      "TeamCreateIn": {
+        "properties": {
+          "email": {
+            "format": "email",
+            "title": "Email",
+            "type": "string"
+          },
+          "name": {
+            "maxLength": 120,
+            "minLength": 1,
+            "title": "Name",
+            "type": "string"
+          }
+        },
+        "required": [
+          "name",
+          "email"
+        ],
+        "title": "TeamCreateIn",
+        "type": "object"
+      },
+      "TimeGridOut": {
+        "properties": {
+          "date": {
+            "title": "Date",
+            "type": "string"
+          },
+          "slots": {
+            "items": {
+              "$ref": "#/components/schemas/TimeSlotOut"
+            },
+            "title": "Slots",
+            "type": "array"
+          }
+        },
+        "required": [
+          "date",
+          "slots"
+        ],
+        "title": "TimeGridOut",
+        "type": "object"
+      },
+      "TimeSlotOut": {
+        "properties": {
+          "free": {
+            "title": "Free",
+            "type": "boolean"
+          },
+          "hour": {
+            "title": "Hour",
+            "type": "integer"
+          },
+          "too_soon": {
+            "title": "Too Soon",
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "hour",
+          "free",
+          "too_soon"
+        ],
+        "title": "TimeSlotOut",
+        "type": "object"
+      },
+      "TodayNurse": {
+        "properties": {
+          "nurse_id": {
+            "title": "Nurse Id",
+            "type": "integer"
+          },
+          "nurse_name": {
+            "title": "Nurse Name",
+            "type": "string"
+          },
+          "visits": {
+            "items": {
+              "$ref": "#/components/schemas/AdminBookingRow"
+            },
+            "title": "Visits",
+            "type": "array"
+          }
+        },
+        "required": [
+          "nurse_id",
+          "nurse_name",
+          "visits"
+        ],
+        "title": "TodayNurse",
+        "type": "object"
+      },
+      "UnavailableIn": {
+        "properties": {
+          "apply": {
+            "default": false,
+            "title": "Apply",
+            "type": "boolean"
+          },
+          "from_day": {
+            "format": "date",
+            "title": "From Day",
+            "type": "string"
+          },
+          "note": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Note"
+          },
+          "to_day": {
+            "format": "date",
+            "title": "To Day",
+            "type": "string"
+          }
+        },
+        "required": [
+          "from_day",
+          "to_day"
+        ],
+        "title": "UnavailableIn",
+        "type": "object"
+      },
+      "UnavailableOut": {
+        "properties": {
+          "applied": {
+            "title": "Applied",
+            "type": "boolean"
+          },
+          "items": {
+            "items": {
+              "$ref": "#/components/schemas/AffectedItem"
+            },
+            "title": "Items",
+            "type": "array"
+          }
+        },
+        "required": [
+          "applied",
+          "items"
+        ],
+        "title": "UnavailableOut",
+        "type": "object"
+      },
+      "UpdateMeIn": {
+        "properties": {
+          "name": {
+            "maxLength": 120,
+            "minLength": 1,
+            "title": "Name",
+            "type": "string"
+          }
+        },
+        "required": [
+          "name"
+        ],
+        "title": "UpdateMeIn",
+        "type": "object"
+      },
+      "UpdateProfileIn": {
+        "properties": {
+          "email": {
+            "anyOf": [
+              {
+                "format": "email",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Email"
+          },
+          "name": {
+            "anyOf": [
+              {
+                "maxLength": 120,
+                "minLength": 1,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Name"
+          }
+        },
+        "title": "UpdateProfileIn",
+        "type": "object"
+      },
+      "UserOut": {
+        "properties": {
+          "email": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Email"
+          },
+          "id": {
+            "title": "Id",
+            "type": "integer"
+          },
+          "name": {
+            "title": "Name",
+            "type": "string"
+          },
+          "phone": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Phone"
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "phone",
+          "email"
+        ],
+        "title": "UserOut",
+        "type": "object"
+      },
+      "ValidationError": {
+        "properties": {
+          "ctx": {
+            "title": "Context",
+            "type": "object"
+          },
+          "input": {
+            "title": "Input"
+          },
+          "loc": {
+            "items": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "integer"
+                }
+              ]
+            },
+            "title": "Location",
+            "type": "array"
+          },
+          "msg": {
+            "title": "Message",
+            "type": "string"
+          },
+          "type": {
+            "title": "Error Type",
+            "type": "string"
+          }
+        },
+        "required": [
+          "loc",
+          "msg",
+          "type"
+        ],
+        "title": "ValidationError",
+        "type": "object"
+      },
+      "VerifyIn": {
+        "properties": {
+          "booking_id": {
+            "title": "Booking Id",
+            "type": "integer"
+          },
+          "order_id": {
+            "title": "Order Id",
+            "type": "string"
+          },
+          "payment_id": {
+            "title": "Payment Id",
+            "type": "string"
+          },
+          "signature": {
+            "title": "Signature",
+            "type": "string"
+          }
+        },
+        "required": [
+          "booking_id",
+          "order_id",
+          "payment_id",
+          "signature"
+        ],
+        "title": "VerifyIn",
+        "type": "object"
+      },
+      "VerifyOtpIn": {
+        "properties": {
+          "code": {
+            "maxLength": 8,
+            "minLength": 4,
+            "title": "Code",
+            "type": "string"
+          },
+          "phone": {
+            "title": "Phone",
+            "type": "string"
+          }
+        },
+        "required": [
+          "phone",
+          "code"
+        ],
+        "title": "VerifyOtpIn",
+        "type": "object"
+      },
+      "VerifyOtpOut": {
+        "properties": {
+          "needs_signup": {
+            "title": "Needs Signup",
+            "type": "boolean"
+          },
+          "signup_ticket": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Signup Ticket"
+          },
+          "token": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/app__schemas__auth__TokenOut"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "required": [
+          "needs_signup"
+        ],
+        "title": "VerifyOtpOut",
+        "type": "object"
+      },
+      "app__api__admin_auth__TokenOut": {
+        "properties": {
+          "access_token": {
+            "title": "Access Token",
+            "type": "string"
+          },
+          "admin": {
+            "$ref": "#/components/schemas/AdminOut"
+          }
+        },
+        "required": [
+          "access_token",
+          "admin"
+        ],
+        "title": "TokenOut",
+        "type": "object"
+      },
+      "app__schemas__auth__TokenOut": {
+        "properties": {
+          "access_token": {
+            "title": "Access Token",
+            "type": "string"
+          },
+          "token_type": {
+            "default": "bearer",
+            "title": "Token Type",
+            "type": "string"
+          },
+          "user": {
+            "$ref": "#/components/schemas/UserOut"
+          }
+        },
+        "required": [
+          "access_token",
+          "user"
+        ],
+        "title": "TokenOut",
+        "type": "object"
+      }
+    }
+  },
+  "info": {
+    "title": "CareNest API",
+    "version": "2.0.0"
+  },
+  "openapi": "3.1.0",
+  "paths": {
+    "/addresses": {
+      "get": {
+        "operationId": "list_addresses_addresses_get",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/AddressOut"
+                  },
+                  "title": "Response List Addresses Addresses Get",
+                  "type": "array"
+                }
+              }
+            },
+            "description": "Successful Response"
+          }
+        },
+        "summary": "List Addresses",
+        "tags": [
+          "profile"
+        ]
+      },
+      "post": {
+        "operationId": "add_address_addresses_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AddressIn"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AddressOut"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Add Address",
+        "tags": [
+          "profile"
+        ]
+      }
+    },
+    "/addresses/{address_id}": {
+      "delete": {
+        "operationId": "delete_address_addresses__address_id__delete",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "address_id",
+            "required": true,
+            "schema": {
+              "title": "Address Id",
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Delete Address",
+        "tags": [
+          "profile"
+        ]
+      },
+      "patch": {
+        "operationId": "edit_address_addresses__address_id__patch",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "address_id",
+            "required": true,
+            "schema": {
+              "title": "Address Id",
+              "type": "integer"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AddressPatch"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AddressOut"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Edit Address",
+        "tags": [
+          "profile"
+        ]
+      }
+    },
+    "/admin/activity": {
+      "get": {
+        "operationId": "recent_activity_admin_activity_get",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "limit",
+            "required": false,
+            "schema": {
+              "default": 50,
+              "title": "Limit",
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Recent Activity",
+        "tags": [
+          "admin"
+        ]
+      }
+    },
+    "/admin/auth/forgot-password": {
+      "post": {
+        "operationId": "forgot_password_admin_auth_forgot_password_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ForgotIn"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "204": {
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Forgot Password",
+        "tags": [
+          "admin-auth"
+        ]
+      }
+    },
+    "/admin/auth/login": {
+      "post": {
+        "operationId": "login_admin_auth_login_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LoginIn"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LoginOut"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Login",
+        "tags": [
+          "admin-auth"
+        ]
+      }
+    },
+    "/admin/auth/mfa": {
+      "post": {
+        "operationId": "mfa_admin_auth_mfa_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/MfaIn"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/app__api__admin_auth__TokenOut"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Mfa",
+        "tags": [
+          "admin-auth"
+        ]
+      }
+    },
+    "/admin/auth/reset-password": {
+      "post": {
+        "operationId": "reset_password_admin_auth_reset_password_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ResetIn"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "204": {
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Reset Password",
+        "tags": [
+          "admin-auth"
+        ]
+      }
+    },
+    "/admin/auth/totp/setup": {
+      "post": {
+        "operationId": "totp_setup_admin_auth_totp_setup_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SetupStartIn"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SetupStartOut"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Totp Setup",
+        "tags": [
+          "admin-auth"
+        ]
+      }
+    },
+    "/admin/auth/totp/verify": {
+      "post": {
+        "operationId": "totp_verify_admin_auth_totp_verify_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/MfaIn"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SetupVerifyOut"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Totp Verify",
+        "tags": [
+          "admin-auth"
+        ]
+      }
+    },
+    "/admin/bookings": {
+      "get": {
+        "operationId": "list_bookings_admin_bookings_get",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "status",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Status"
+            }
+          },
+          {
+            "in": "query",
+            "name": "nurse_id",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Nurse Id"
+            }
+          },
+          {
+            "in": "query",
+            "name": "day",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Day"
+            }
+          },
+          {
+            "in": "query",
+            "name": "q",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Q"
+            }
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "required": false,
+            "schema": {
+              "default": 100,
+              "maximum": 500,
+              "title": "Limit",
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/AdminBookingRow"
+                  },
+                  "title": "Response List Bookings Admin Bookings Get",
+                  "type": "array"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "List Bookings",
+        "tags": [
+          "admin"
+        ]
+      }
+    },
+    "/admin/bookings/{booking_id}": {
+      "get": {
+        "operationId": "booking_detail_admin_bookings__booking_id__get",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "booking_id",
+            "required": true,
+            "schema": {
+              "title": "Booking Id",
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AdminBookingDetail"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Booking Detail",
+        "tags": [
+          "admin"
+        ]
+      }
+    },
+    "/admin/bookings/{booking_id}/cancel": {
+      "post": {
+        "operationId": "cancel_admin_bookings__booking_id__cancel_post",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "booking_id",
+            "required": true,
+            "schema": {
+              "title": "Booking Id",
+              "type": "integer"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CancelIn"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AdminBookingDetail"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Cancel",
+        "tags": [
+          "admin"
+        ]
+      }
+    },
+    "/admin/bookings/{booking_id}/reassign": {
+      "post": {
+        "operationId": "reassign_admin_bookings__booking_id__reassign_post",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "booking_id",
+            "required": true,
+            "schema": {
+              "title": "Booking Id",
+              "type": "integer"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ReassignIn"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AdminBookingDetail"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Reassign",
+        "tags": [
+          "admin"
+        ]
+      }
+    },
+    "/admin/bookings/{booking_id}/reassign-candidates": {
+      "get": {
+        "description": "Every active nurse, qualified and same-gender first, with whether they are free for the slot.",
+        "operationId": "reassign_candidates_admin_bookings__booking_id__reassign_candidates_get",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "booking_id",
+            "required": true,
+            "schema": {
+              "title": "Booking Id",
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/CandidateOut"
+                  },
+                  "title": "Response Reassign Candidates Admin Bookings  Booking Id  Reassign Candidates Get",
+                  "type": "array"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Reassign Candidates",
+        "tags": [
+          "admin"
+        ]
+      }
+    },
+    "/admin/bookings/{booking_id}/status": {
+      "post": {
+        "operationId": "set_status_admin_bookings__booking_id__status_post",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "booking_id",
+            "required": true,
+            "schema": {
+              "title": "Booking Id",
+              "type": "integer"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/StatusIn"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AdminBookingDetail"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Set Status",
+        "tags": [
+          "admin"
+        ]
+      }
+    },
+    "/admin/dashboard": {
+      "get": {
+        "operationId": "dashboard_admin_dashboard_get",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DashboardOut"
+                }
+              }
+            },
+            "description": "Successful Response"
+          }
+        },
+        "summary": "Dashboard",
+        "tags": [
+          "admin"
+        ]
+      }
+    },
+    "/admin/jobs/run": {
+      "post": {
+        "description": "Staging runs without the worker: this runs every periodic job once, on demand.",
+        "operationId": "run_jobs_now_admin_jobs_run_post",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            },
+            "description": "Successful Response"
+          }
+        },
+        "summary": "Run Jobs Now",
+        "tags": [
+          "admin"
+        ]
+      }
+    },
+    "/admin/me": {
+      "get": {
+        "operationId": "me_admin_me_get",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AdminOut"
+                }
+              }
+            },
+            "description": "Successful Response"
+          }
+        },
+        "summary": "Me",
+        "tags": [
+          "admin-auth"
+        ]
+      },
+      "patch": {
+        "operationId": "update_me_admin_me_patch",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateMeIn"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AdminOut"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Update Me",
+        "tags": [
+          "admin-auth"
+        ]
+      }
+    },
+    "/admin/me/password": {
+      "post": {
+        "operationId": "change_password_admin_me_password_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ChangePasswordIn"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "204": {
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Change Password",
+        "tags": [
+          "admin-auth"
+        ]
+      }
+    },
+    "/admin/messages/{message_id}/resend": {
+      "post": {
+        "operationId": "resend_message_admin_messages__message_id__resend_post",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "message_id",
+            "required": true,
+            "schema": {
+              "title": "Message Id",
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MessageOut"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Resend Message",
+        "tags": [
+          "admin"
+        ]
+      }
+    },
+    "/admin/nurses": {
+      "get": {
+        "operationId": "list_nurses_admin_nurses_get",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/NurseOut"
+                  },
+                  "title": "Response List Nurses Admin Nurses Get",
+                  "type": "array"
+                }
+              }
+            },
+            "description": "Successful Response"
+          }
+        },
+        "summary": "List Nurses",
+        "tags": [
+          "admin"
+        ]
+      },
+      "post": {
+        "operationId": "create_nurse_admin_nurses_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/NurseIn"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NurseOut"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Create Nurse",
+        "tags": [
+          "admin"
+        ]
+      }
+    },
+    "/admin/nurses/{nurse_id}": {
+      "get": {
+        "operationId": "get_nurse_admin_nurses__nurse_id__get",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "nurse_id",
+            "required": true,
+            "schema": {
+              "title": "Nurse Id",
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NurseOut"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Get Nurse",
+        "tags": [
+          "admin"
+        ]
+      },
+      "patch": {
+        "operationId": "patch_nurse_admin_nurses__nurse_id__patch",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "nurse_id",
+            "required": true,
+            "schema": {
+              "title": "Nurse Id",
+              "type": "integer"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/NursePatch"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NurseOut"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Patch Nurse",
+        "tags": [
+          "admin"
+        ]
+      }
+    },
+    "/admin/nurses/{nurse_id}/overrides": {
+      "get": {
+        "operationId": "list_overrides_admin_nurses__nurse_id__overrides_get",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "nurse_id",
+            "required": true,
+            "schema": {
+              "title": "Nurse Id",
+              "type": "integer"
+            }
+          },
+          {
+            "in": "query",
+            "name": "month",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Month"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/OverrideOut"
+                  },
+                  "title": "Response List Overrides Admin Nurses  Nurse Id  Overrides Get",
+                  "type": "array"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "List Overrides",
+        "tags": [
+          "admin"
+        ]
+      }
+    },
+    "/admin/nurses/{nurse_id}/overrides/{day}": {
+      "delete": {
+        "operationId": "delete_override_admin_nurses__nurse_id__overrides__day__delete",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "nurse_id",
+            "required": true,
+            "schema": {
+              "title": "Nurse Id",
+              "type": "integer"
+            }
+          },
+          {
+            "in": "path",
+            "name": "day",
+            "required": true,
+            "schema": {
+              "format": "date",
+              "title": "Day",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Delete Override",
+        "tags": [
+          "admin"
+        ]
+      },
+      "put": {
+        "operationId": "put_override_admin_nurses__nurse_id__overrides__day__put",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "nurse_id",
+            "required": true,
+            "schema": {
+              "title": "Nurse Id",
+              "type": "integer"
+            }
+          },
+          {
+            "in": "path",
+            "name": "day",
+            "required": true,
+            "schema": {
+              "format": "date",
+              "title": "Day",
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/OverrideIn"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OverrideOut"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Put Override",
+        "tags": [
+          "admin"
+        ]
+      }
+    },
+    "/admin/nurses/{nurse_id}/unavailable": {
+      "post": {
+        "description": "Preview, then apply: mark leave, reassign every booking that can move, cancel the rest.",
+        "operationId": "nurse_unavailable_admin_nurses__nurse_id__unavailable_post",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "nurse_id",
+            "required": true,
+            "schema": {
+              "title": "Nurse Id",
+              "type": "integer"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UnavailableIn"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnavailableOut"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Nurse Unavailable",
+        "tags": [
+          "admin"
+        ]
+      }
+    },
+    "/admin/nurses/{nurse_id}/weekly-hours": {
+      "put": {
+        "operationId": "put_weekly_hours_admin_nurses__nurse_id__weekly_hours_put",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "nurse_id",
+            "required": true,
+            "schema": {
+              "title": "Nurse Id",
+              "type": "integer"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "items": {
+                  "$ref": "#/components/schemas/HoursRow"
+                },
+                "title": "Body",
+                "type": "array"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NurseOut"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Put Weekly Hours",
+        "tags": [
+          "admin"
+        ]
+      }
+    },
+    "/admin/services": {
+      "get": {
+        "operationId": "list_services_admin_services_get",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/AdminServiceOut"
+                  },
+                  "title": "Response List Services Admin Services Get",
+                  "type": "array"
+                }
+              }
+            },
+            "description": "Successful Response"
+          }
+        },
+        "summary": "List Services",
+        "tags": [
+          "admin"
+        ]
+      },
+      "post": {
+        "operationId": "create_service_admin_services_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ServiceIn"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AdminServiceOut"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Create Service",
+        "tags": [
+          "admin"
+        ]
+      }
+    },
+    "/admin/services/{service_id}": {
+      "patch": {
+        "operationId": "patch_service_admin_services__service_id__patch",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "service_id",
+            "required": true,
+            "schema": {
+              "title": "Service Id",
+              "type": "integer"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ServicePatch"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AdminServiceOut"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Patch Service",
+        "tags": [
+          "admin"
+        ]
+      }
+    },
+    "/admin/settings": {
+      "get": {
+        "operationId": "get_settings__admin_settings_get",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SettingsOut"
+                }
+              }
+            },
+            "description": "Successful Response"
+          }
+        },
+        "summary": "Get Settings ",
+        "tags": [
+          "admin"
+        ]
+      },
+      "patch": {
+        "operationId": "patch_settings_admin_settings_patch",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SettingsPatch"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SettingsOut"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Patch Settings",
+        "tags": [
+          "admin"
+        ]
+      }
+    },
+    "/admin/team": {
+      "get": {
+        "operationId": "team_admin_team_get",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/AdminOut"
+                  },
+                  "title": "Response Team Admin Team Get",
+                  "type": "array"
+                }
+              }
+            },
+            "description": "Successful Response"
+          }
+        },
+        "summary": "Team",
+        "tags": [
+          "admin-auth"
+        ]
+      },
+      "post": {
+        "operationId": "team_add_admin_team_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TeamCreateIn"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AdminOut"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Team Add",
+        "tags": [
+          "admin-auth"
+        ]
+      }
+    },
+    "/admin/team/{admin_id}/activate": {
+      "post": {
+        "operationId": "team_activate_admin_team__admin_id__activate_post",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "admin_id",
+            "required": true,
+            "schema": {
+              "title": "Admin Id",
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AdminOut"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Team Activate",
+        "tags": [
+          "admin-auth"
+        ]
+      }
+    },
+    "/admin/team/{admin_id}/deactivate": {
+      "post": {
+        "operationId": "team_deactivate_admin_team__admin_id__deactivate_post",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "admin_id",
+            "required": true,
+            "schema": {
+              "title": "Admin Id",
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AdminOut"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Team Deactivate",
+        "tags": [
+          "admin-auth"
+        ]
+      }
+    },
+    "/auth/logout": {
+      "post": {
+        "operationId": "logout_auth_logout_post",
+        "responses": {
+          "204": {
+            "description": "Successful Response"
+          }
+        },
+        "summary": "Logout",
+        "tags": [
+          "auth"
+        ]
+      }
+    },
+    "/auth/phone/complete-signup": {
+      "post": {
+        "operationId": "complete_signup_auth_phone_complete_signup_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CompleteSignupIn"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/app__schemas__auth__TokenOut"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Complete Signup",
+        "tags": [
+          "auth"
+        ]
+      }
+    },
+    "/auth/phone/send-otp": {
+      "post": {
+        "operationId": "send_otp_auth_phone_send_otp_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SendOtpIn"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "204": {
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Send Otp",
+        "tags": [
+          "auth"
+        ]
+      }
+    },
+    "/auth/phone/verify-otp": {
+      "post": {
+        "operationId": "verify_otp_auth_phone_verify_otp_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/VerifyOtpIn"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/VerifyOtpOut"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Verify Otp",
+        "tags": [
+          "auth"
+        ]
+      }
+    },
+    "/bookings": {
+      "get": {
+        "operationId": "list_mine_bookings_get",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "view",
+            "required": false,
+            "schema": {
+              "default": "current",
+              "title": "View",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/BookingOut"
+                  },
+                  "title": "Response List Mine Bookings Get",
+                  "type": "array"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "List Mine",
+        "tags": [
+          "bookings"
+        ]
+      },
+      "post": {
+        "operationId": "create_bookings_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/BookingCreateIn"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BookingOut"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Create",
+        "tags": [
+          "bookings"
+        ]
+      }
+    },
+    "/bookings/gender-availability": {
+      "get": {
+        "operationId": "gender_availability_bookings_gender_availability_get",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "service_id",
+            "required": true,
+            "schema": {
+              "title": "Service Id",
+              "type": "integer"
+            }
+          },
+          {
+            "in": "query",
+            "name": "start",
+            "required": true,
+            "schema": {
+              "format": "date-time",
+              "title": "Start",
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "hours",
+            "required": true,
+            "schema": {
+              "maximum": 12,
+              "minimum": 1,
+              "title": "Hours",
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GenderAvailabilityOut"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Gender Availability",
+        "tags": [
+          "catalog"
+        ]
+      }
+    },
+    "/bookings/max-duration": {
+      "get": {
+        "operationId": "max_duration_bookings_max_duration_get",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "service_id",
+            "required": true,
+            "schema": {
+              "title": "Service Id",
+              "type": "integer"
+            }
+          },
+          {
+            "in": "query",
+            "name": "start",
+            "required": true,
+            "schema": {
+              "format": "date-time",
+              "title": "Start",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MaxDurationOut"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Max Duration",
+        "tags": [
+          "catalog"
+        ]
+      }
+    },
+    "/bookings/quote": {
+      "post": {
+        "operationId": "quote_bookings_quote_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/QuoteIn"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/QuoteOut"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Quote",
+        "tags": [
+          "catalog"
+        ]
+      }
+    },
+    "/bookings/time-grid": {
+      "get": {
+        "operationId": "time_grid_bookings_time_grid_get",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "service_id",
+            "required": true,
+            "schema": {
+              "title": "Service Id",
+              "type": "integer"
+            }
+          },
+          {
+            "in": "query",
+            "name": "date",
+            "required": true,
+            "schema": {
+              "format": "date",
+              "title": "Date",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TimeGridOut"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Time Grid",
+        "tags": [
+          "catalog"
+        ]
+      }
+    },
+    "/bookings/{booking_id}": {
+      "get": {
+        "operationId": "get_one_bookings__booking_id__get",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "booking_id",
+            "required": true,
+            "schema": {
+              "title": "Booking Id",
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BookingOut"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Get One",
+        "tags": [
+          "bookings"
+        ]
+      }
+    },
+    "/family": {
+      "get": {
+        "operationId": "list_family_family_get",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/FamilyOut"
+                  },
+                  "title": "Response List Family Family Get",
+                  "type": "array"
+                }
+              }
+            },
+            "description": "Successful Response"
+          }
+        },
+        "summary": "List Family",
+        "tags": [
+          "profile"
+        ]
+      },
+      "post": {
+        "operationId": "add_family_family_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/FamilyIn"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FamilyOut"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Add Family",
+        "tags": [
+          "profile"
+        ]
+      }
+    },
+    "/family/{member_id}": {
+      "delete": {
+        "operationId": "delete_family_family__member_id__delete",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "member_id",
+            "required": true,
+            "schema": {
+              "title": "Member Id",
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Delete Family",
+        "tags": [
+          "profile"
+        ]
+      },
+      "patch": {
+        "operationId": "edit_family_family__member_id__patch",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "member_id",
+            "required": true,
+            "schema": {
+              "title": "Member Id",
+              "type": "integer"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/FamilyPatch"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FamilyOut"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Edit Family",
+        "tags": [
+          "profile"
+        ]
+      }
+    },
+    "/health": {
+      "get": {
+        "operationId": "health_health_get",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            },
+            "description": "Successful Response"
+          }
+        },
+        "summary": "Health",
+        "tags": [
+          "public"
+        ]
+      }
+    },
+    "/payments/create-order": {
+      "post": {
+        "operationId": "create_order_payments_create_order_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/OrderIn"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OrderOut"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Create Order",
+        "tags": [
+          "bookings"
+        ]
+      }
+    },
+    "/payments/fake/pay": {
+      "post": {
+        "description": "Stand-in for the Razorpay sheet while no keys exist. Disabled once a real gateway is configured.",
+        "operationId": "fake_pay_payments_fake_pay_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/FakePayIn"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FakePayOut"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Fake Pay",
+        "tags": [
+          "bookings"
+        ]
+      }
+    },
+    "/payments/verify": {
+      "post": {
+        "operationId": "verify_payments_verify_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/VerifyIn"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BookingOut"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Verify",
+        "tags": [
+          "bookings"
+        ]
+      }
+    },
+    "/payments/webhook/razorpay": {
+      "post": {
+        "operationId": "razorpay_webhook_payments_webhook_razorpay_post",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            },
+            "description": "Successful Response"
+          }
+        },
+        "summary": "Razorpay Webhook",
+        "tags": [
+          "bookings"
+        ]
+      }
+    },
+    "/services": {
+      "get": {
+        "operationId": "list_services_services_get",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/ServiceOut"
+                  },
+                  "title": "Response List Services Services Get",
+                  "type": "array"
+                }
+              }
+            },
+            "description": "Successful Response"
+          }
+        },
+        "summary": "List Services",
+        "tags": [
+          "catalog"
+        ]
+      }
+    },
+    "/services/{service_id}": {
+      "get": {
+        "operationId": "get_service_services__service_id__get",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "service_id",
+            "required": true,
+            "schema": {
+              "title": "Service Id",
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ServiceOut"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Get Service",
+        "tags": [
+          "catalog"
+        ]
+      }
+    },
+    "/settings/booking": {
+      "get": {
+        "operationId": "booking_settings_settings_booking_get",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BookingSettingsOut"
+                }
+              }
+            },
+            "description": "Successful Response"
+          }
+        },
+        "summary": "Booking Settings",
+        "tags": [
+          "catalog"
+        ]
+      }
+    },
+    "/users/me": {
+      "delete": {
+        "operationId": "delete_me_users_me_delete",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DeleteAccountIn"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "204": {
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Delete Me",
+        "tags": [
+          "profile"
+        ]
+      },
+      "get": {
+        "operationId": "me_users_me_get",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserOut"
+                }
+              }
+            },
+            "description": "Successful Response"
+          }
+        },
+        "summary": "Me",
+        "tags": [
+          "profile"
+        ]
+      },
+      "patch": {
+        "operationId": "update_me_users_me_patch",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateProfileIn"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserOut"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Update Me",
+        "tags": [
+          "profile"
+        ]
+      }
+    },
+    "/users/me/delete-otp": {
+      "post": {
+        "operationId": "send_delete_otp_users_me_delete_otp_post",
+        "responses": {
+          "204": {
+            "description": "Successful Response"
+          }
+        },
+        "summary": "Send Delete Otp",
+        "tags": [
+          "profile"
+        ]
+      }
+    }
+  }
+}

@@ -1,0 +1,55 @@
+[project]
+name = "carenest-backend"
+version = "0.1.0"
+requires-python = ">=3.12"
+dependencies = [
+    "alembic>=1.20.1",
+    "asyncpg>=0.32.0",
+    "bcrypt>=5.0.0",
+    "boto3>=1.43.119",
+    "cryptography>=50.0.2",
+    "fastapi>=0.162.0",
+    "httpx>=0.28.1",
+    "jinja2>=3.1.6",
+    "procrastinate>=3.10.0",
+    "psycopg[binary,pool]>=3.3.6",
+    "pydantic-settings>=2.16.1",
+    "pydantic[email]>=2.14.1",
+    "pyjwt>=2.15.1",
+    "pyotp>=2.10.0",
+    "python-multipart>=0.0.32",
+    "razorpay>=2.0.1",
+    "sqlalchemy[asyncio]>=2",
+    "tzdata>=2026.5",
+    "uvicorn[standard]>=0.54.0",
+]
+
+[dependency-groups]
+dev = [
+    "pyright>=1.1.414",
+    "pytest>=9.1.1",
+    "pytest-asyncio>=1.4.1",
+    "ruff>=0.17.2",
+]
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+asyncio_default_fixture_loop_scope = "session"
+asyncio_default_test_loop_scope = "session"
+testpaths = ["tests"]
+
+[tool.ruff]
+line-length = 130
+target-version = "py312"
+extend-exclude = ["alembic/versions"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "UP"]
+ignore = ["B008", "E501", "UP017"]
+
+[tool.pyright]
+include = ["app"]
+pythonVersion = "3.12"
+typeCheckingMode = "basic"
+reportMissingImports = true
+reportAttributeAccessIssue = "none"

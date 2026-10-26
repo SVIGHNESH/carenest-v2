@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>CareNest visit</title>
+<style>
+  :root { --ink:#17212b; --muted:#5b6773; --line:#e3e8ee; --brand:#0f766e; --bg:#f6f8fa; }
+  * { box-sizing: border-box; }
+  body { margin:0; font-family: Inter, system-ui, -apple-system, "Segoe UI", sans-serif; background:var(--bg); color:var(--ink); }
+  main { max-width: 460px; margin: 0 auto; padding: 20px 16px 40px; }
+  .brand { font-weight:700; color:var(--brand); letter-spacing:.2px; margin-bottom:14px; }
+  .card { background:#fff; border:1px solid var(--line); border-radius:14px; padding:16px; margin-bottom:12px; }
+  h1 { font-size:20px; margin:0 0 4px; }
+  .sub { color:var(--muted); font-size:14px; }
+  dl { margin:0; } dt { font-size:12px; text-transform:uppercase; letter-spacing:.6px; color:var(--muted); margin-top:12px; }
+  dd { margin:2px 0 0; font-size:16px; }
+  .btn { display:block; text-align:center; text-decoration:none; font-weight:600; padding:14px; border-radius:12px; margin-top:10px; }
+  .primary { background:var(--brand); color:#fff; } .ghost { border:1px solid var(--brand); color:var(--brand); }
+  .state { text-align:center; padding:32px 16px; }
+</style>
+</head>
+<body>
+<main>
+  <div class="brand">CareNest</div>
+  {% if state == "ok" %}
+  <div class="card">
+    <h1>Visit #{{ b.id }}</h1>
+    <div class="sub">{{ when }} &middot; {{ b.hours }} hour{{ "s" if b.hours != 1 }}</div>
+  </div>
+  <div class="card">
+    <dl>
+      <dt>Care type</dt><dd>{{ b.service.name }}</dd>
+      <dt>Patient</dt><dd>{{ b.patient_name }}{% if b.patient_age %}, {{ b.patient_age }}{% endif %}{% if b.patient_sex %}, {{ b.patient_sex|capitalize }}{% endif %}</dd>
+      <dt>Address</dt><dd>{{ b.address_text }}</dd>
+      {% if b.address_landmark %}<dt>Landmark</dt><dd>{{ b.address_landmark }}</dd>{% endif %}
+    </dl>
+    <a class="btn primary" href="tel:{{ b.contact_phone }}">Call {{ b.contact_phone }}</a>
+    <a class="btn ghost" href="{{ maps }}">Directions</a>
+  </div>
+  <p class="sub">Please do not share this page. It stops working after the visit.</p>
+  {% elif state == "revoked" %}
+  <div class="card state"><h1>No longer assigned</h1><p class="sub">This visit was moved or cancelled. Please do not travel.</p></div>
+  {% elif state == "expired" %}
+  <div class="card state"><h1>Visit finished</h1><p class="sub">This link has expired.</p></div>
+  {% else %}
+  <div class="card state"><h1>Link not found</h1><p class="sub">Check the message you received.</p></div>
+  {% endif %}
+</main>
+</body>
+</html>
