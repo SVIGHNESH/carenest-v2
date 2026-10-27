@@ -12,5 +12,6 @@ COPY pyproject.toml uv.lock .python-version ./
 RUN uv sync --frozen --no-dev --no-install-project
 COPY . .
 ENV PATH="/srv/.venv/bin:$PATH" PYTHONUNBUFFERED=1
-# Migrations run before the server starts (one instance, so no race).
-CMD ["sh", "-c", "alembic upgrade head && uvicorn app.main:app --host 0.0.0.0 --port ${PORT:-8000}"]
+# Migrations and the idempotent seed (first admin, services; demo nurses when SEED_DEMO=true)
+# run before the server starts (one instance, so no race).
+CMD ["sh", "-c", "alembic upgrade head && python -m app.seed $([ \"$SEED_DEMO\" = \"true\" ] && echo --demo) && uvicorn app.main:app --host 0.0.0.0 --port ${PORT:-8000}"]

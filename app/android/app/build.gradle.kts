@@ -1,3 +1,15 @@
+import java.util.Base64
+
+// --dart-define values arrive base64 encoded in the "dart-defines" property.
+val dartDefines: Map<String, String> =
+    (project.findProperty("dart-defines") as String?)
+        ?.split(",")
+        ?.filter { it.isNotEmpty() }
+        ?.associate {
+            val kv = String(Base64.getDecoder().decode(it)).split("=", limit = 2)
+            kv[0] to (kv.getOrNull(1) ?: "")
+        } ?: emptyMap()
+
 plugins {
     id("com.android.application")
     // The Flutter Gradle Plugin must be applied after the Android and Kotlin Gradle plugins.
@@ -6,7 +18,7 @@ plugins {
 
 android {
     namespace = "example.carenest"
-    compileSdk = flutter.compileSdkVersion
+    compileSdk = 37
     ndkVersion = flutter.ndkVersion
 
     compileOptions {
@@ -16,6 +28,7 @@ android {
 
     defaultConfig {
         // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
+        // Placeholder application id; change it here (and namespace above) before publishing.
         applicationId = "example.carenest"
         // You can update the following values to match your application needs.
         // For more information, see: https://flutter.dev/to/review-gradle-config.
@@ -27,6 +40,7 @@ android {
         // flag during build.
         versionCode = flutter.versionCode
         versionName = flutter.versionName
+        manifestPlaceholders["MAPS_API_KEY"] = dartDefines["MAPS_API_KEY"] ?: ""
     }
 
     buildTypes {

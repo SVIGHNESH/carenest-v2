@@ -11,15 +11,22 @@ class RazorpayPaymentLauncher implements PaymentLauncher {
   const RazorpayPaymentLauncher();
 
   @override
-  Future<PaymentOutcome> pay(BuildContext context, PaymentRequest request) async {
+  Future<PaymentOutcome> pay(
+    BuildContext context,
+    PaymentRequest request,
+  ) async {
     if (kIsWeb || !(Platform.isAndroid || Platform.isIOS)) {
-      return const PaymentFailed('Razorpay checkout is only available on a phone.');
+      return const PaymentFailed(
+        'Razorpay checkout is only available on a phone.',
+      );
     }
     final razorpay = Razorpay();
     final done = Completer<PaymentOutcome>();
     final b = request.booking;
 
-    razorpay.on(Razorpay.EVENT_PAYMENT_SUCCESS, (PaymentSuccessResponse r) async {
+    razorpay.on(Razorpay.EVENT_PAYMENT_SUCCESS, (
+      PaymentSuccessResponse r,
+    ) async {
       try {
         final paid = await request.payments.verify(
           bookingId: b.id,
@@ -34,7 +41,11 @@ class RazorpayPaymentLauncher implements PaymentLauncher {
     });
     razorpay.on(Razorpay.EVENT_PAYMENT_ERROR, (PaymentFailureResponse r) {
       if (done.isCompleted) return;
-      done.complete(r.code == Razorpay.PAYMENT_CANCELLED ? const PaymentDismissed() : PaymentFailed(r.message));
+      done.complete(
+        r.code == Razorpay.PAYMENT_CANCELLED
+            ? const PaymentDismissed()
+            : PaymentFailed(r.message),
+      );
     });
     razorpay.on(Razorpay.EVENT_EXTERNAL_WALLET, (ExternalWalletResponse r) {});
 
@@ -47,7 +58,10 @@ class RazorpayPaymentLauncher implements PaymentLauncher {
       'name': 'CareNest',
       'description': b.serviceName,
       if (left != null && left > 0) 'timeout': left,
-      'prefill': {'contact': request.phone ?? b.contactPhone, 'name': request.name ?? b.patientName},
+      'prefill': {
+        'contact': request.phone ?? b.contactPhone,
+        'name': request.name ?? b.patientName,
+      },
     });
     try {
       return await done.future;

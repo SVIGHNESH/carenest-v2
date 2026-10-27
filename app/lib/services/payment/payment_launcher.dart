@@ -30,7 +30,13 @@ class PaymentTimedOut extends PaymentOutcome {
 }
 
 class PaymentRequest {
-  const PaymentRequest({required this.booking, required this.order, required this.payments, this.phone, this.name});
+  const PaymentRequest({
+    required this.booking,
+    required this.order,
+    required this.payments,
+    this.phone,
+    this.name,
+  });
   final Booking booking;
   final OrderOut order;
   final PaymentRepository payments;
@@ -52,5 +58,8 @@ class RoutingPaymentLauncher implements PaymentLauncher {
 
   @override
   Future<PaymentOutcome> pay(BuildContext context, PaymentRequest request) =>
-      (request.order.gateway == 'razorpay' ? razorpay : fake).pay(context, request);
+      (request.order.gateway == 'razorpay' ? razorpay : fake).pay(
+        context,
+        request,
+      );
 }

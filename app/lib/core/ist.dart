@@ -15,11 +15,13 @@ DateTime nowIst(Clock clock) {
 
 DateTime dateOnly(DateTime d) => DateTime(d.year, d.month, d.day);
 
-DateTime addDays(DateTime d, int days) => DateTime(d.year, d.month, d.day + days);
+DateTime addDays(DateTime d, int days) =>
+    DateTime(d.year, d.month, d.day + days);
 
 String _two(int v) => v.toString().padLeft(2, '0');
 
-String isoDate(DateTime d) => '${d.year.toString().padLeft(4, '0')}-${_two(d.month)}-${_two(d.day)}';
+String isoDate(DateTime d) =>
+    '${d.year.toString().padLeft(4, '0')}-${_two(d.month)}-${_two(d.day)}';
 
 /// `yyyy-MM-ddTHH:00:00` with no zone, as the API expects for slot starts.
 String isoSlot(DateTime day, int hour) => '${isoDate(day)}T${_two(hour)}:00:00';

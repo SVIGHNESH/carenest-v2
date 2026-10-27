@@ -6,7 +6,10 @@ import 'geo.dart';
 /// [FakePlacesService] is used automatically when there is none.
 abstract class PlacesService {
   bool get isFake;
-  Future<List<PlaceSuggestion>> autocomplete(String query, {required String sessionToken});
+  Future<List<PlaceSuggestion>> autocomplete(
+    String query, {
+    required String sessionToken,
+  });
   Future<ResolvedPlace> details(String placeId, {required String sessionToken});
   Future<ResolvedPlace?> reverseGeocode(GeoPoint point);
 }
@@ -20,7 +23,10 @@ class GooglePlacesService implements PlacesService {
   bool get isFake => false;
 
   @override
-  Future<List<PlaceSuggestion>> autocomplete(String query, {required String sessionToken}) async {
+  Future<List<PlaceSuggestion>> autocomplete(
+    String query, {
+    required String sessionToken,
+  }) async {
     if (query.trim().length < 3) return const [];
     final res = await _dio.post<Map<String, dynamic>>(
       'https://places.googleapis.com/v1/places:autocomplete',
@@ -37,31 +43,52 @@ class GooglePlacesService implements PlacesService {
         if (s is Map && s['placePrediction'] is Map)
           PlaceSuggestion(
             id: (s['placePrediction'] as Map)['placeId'] as String,
-            primary: ((s['placePrediction'] as Map)['structuredFormat'] as Map?)?['mainText']?['text'] as String? ??
-                ((s['placePrediction'] as Map)['text'] as Map)['text'] as String,
+            primary:
+                ((s['placePrediction'] as Map)['structuredFormat']
+                        as Map?)?['mainText']?['text']
+                    as String? ??
+                ((s['placePrediction'] as Map)['text'] as Map)['text']
+                    as String,
             secondary:
-                ((s['placePrediction'] as Map)['structuredFormat'] as Map?)?['secondaryText']?['text'] as String? ?? '',
+                ((s['placePrediction'] as Map)['structuredFormat']
+                        as Map?)?['secondaryText']?['text']
+                    as String? ??
+                '',
           ),
     ];
   }
 
   @override
-  Future<ResolvedPlace> details(String placeId, {required String sessionToken}) async {
+  Future<ResolvedPlace> details(
+    String placeId, {
+    required String sessionToken,
+  }) async {
     final res = await _dio.get<Map<String, dynamic>>(
       'https://places.googleapis.com/v1/places/$placeId',
       queryParameters: {'sessionToken': sessionToken},
-      options: Options(headers: {
-        'X-Goog-Api-Key': apiKey,
-        'X-Goog-FieldMask': 'location,addressComponents',
-      }),
+      options: Options(
+        headers: {
+          'X-Goog-Api-Key': apiKey,
+          'X-Goog-FieldMask': 'location,addressComponents',
+        },
+      ),
     );
     final d = res.data!;
     final loc = d['location'] as Map;
     final comps = [
       for (final c in (d['addressComponents'] as List? ?? const []))
-        (types: List<String>.from((c as Map)['types'] as List), text: c['longText'] as String? ?? ''),
+        (
+          types: List<String>.from((c as Map)['types'] as List),
+          text: c['longText'] as String? ?? '',
+        ),
     ];
-    return _fromComponents(GeoPoint((loc['latitude'] as num).toDouble(), (loc['longitude'] as num).toDouble()), comps);
+    return _fromComponents(
+      GeoPoint(
+        (loc['latitude'] as num).toDouble(),
+        (loc['longitude'] as num).toDouble(),
+      ),
+      comps,
+    );
   }
 
   @override
@@ -74,12 +101,18 @@ class GooglePlacesService implements PlacesService {
     if (results.isEmpty) return null;
     final comps = [
       for (final c in ((results.first as Map)['address_components'] as List))
-        (types: List<String>.from((c as Map)['types'] as List), text: c['long_name'] as String? ?? ''),
+        (
+          types: List<String>.from((c as Map)['types'] as List),
+          text: c['long_name'] as String? ?? '',
+        ),
     ];
     return _fromComponents(point, comps);
   }
 
-  static ResolvedPlace _fromComponents(GeoPoint p, List<({List<String> types, String text})> comps) {
+  static ResolvedPlace _fromComponents(
+    GeoPoint p,
+    List<({List<String> types, String text})> comps,
+  ) {
     String pick(List<String> wanted) {
       for (final w in wanted) {
         for (final c in comps) {
@@ -96,7 +129,11 @@ class GooglePlacesService implements PlacesService {
     return ResolvedPlace(
       point: p,
       areaLine: area,
-      city: pick(['locality', 'administrative_area_level_3', 'administrative_area_level_2']),
+      city: pick([
+        'locality',
+        'administrative_area_level_3',
+        'administrative_area_level_2',
+      ]),
       state: pick(['administrative_area_level_1']),
       pincode: pick(['postal_code']),
     );
@@ -149,18 +186,29 @@ class FakePlacesService implements PlacesService {
   bool get isFake => true;
 
   @override
-  Future<List<PlaceSuggestion>> autocomplete(String query, {required String sessionToken}) async {
+  Future<List<PlaceSuggestion>> autocomplete(
+    String query, {
+    required String sessionToken,
+  }) async {
     final q = query.trim().toLowerCase();
     if (q.isEmpty) return const [];
     return [
       for (final e in _places.entries)
-        if (e.value.areaLine.toLowerCase().contains(q) || e.value.city.toLowerCase().contains(q))
-          PlaceSuggestion(id: e.key, primary: e.value.areaLine, secondary: '${e.value.city}, ${e.value.state}'),
+        if (e.value.areaLine.toLowerCase().contains(q) ||
+            e.value.city.toLowerCase().contains(q))
+          PlaceSuggestion(
+            id: e.key,
+            primary: e.value.areaLine,
+            secondary: '${e.value.city}, ${e.value.state}',
+          ),
     ];
   }
 
   @override
-  Future<ResolvedPlace> details(String placeId, {required String sessionToken}) async => _places[placeId]!;
+  Future<ResolvedPlace> details(
+    String placeId, {
+    required String sessionToken,
+  }) async => _places[placeId]!;
 
   @override
   Future<ResolvedPlace?> reverseGeocode(GeoPoint point) async {

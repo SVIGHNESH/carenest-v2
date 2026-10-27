@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 
 /// CareNest brand tokens. Values are the admin panel's OKLCH palette
 /// converted to sRGB (accent hue 258, cool near-neutral surfaces).
+/// Light success, info and warning are about 0.03-0.07 darker in lightness
+/// than the admin values so text on their soft backgrounds reaches 4.5:1.
 @immutable
 class CnColors extends ThemeExtension<CnColors> {
   const CnColors({
@@ -32,7 +34,14 @@ class CnColors extends ThemeExtension<CnColors> {
   final Color canvas, surface, sunken, border, borderStrong;
   final Color fg, fg2, muted, subtle;
   final Color accent, accentHover, accentFg, accentSoft, accentText;
-  final Color success, successSoft, info, infoSoft, warning, warningSoft, danger, dangerSoft;
+  final Color success,
+      successSoft,
+      info,
+      infoSoft,
+      warning,
+      warningSoft,
+      danger,
+      dangerSoft;
 
   static const light = CnColors(
     canvas: Color(0xFFFAFBFD),
@@ -49,11 +58,11 @@ class CnColors extends ThemeExtension<CnColors> {
     accentFg: Color(0xFFFFFFFF),
     accentSoft: Color(0xFFE1F3FF),
     accentText: Color(0xFF005DC9),
-    success: Color(0xFF208548),
+    success: Color(0xFF107C40),
     successSoft: Color(0xFFE2F8E7),
-    info: Color(0xFF007AB0),
+    info: Color(0xFF0071A7),
     infoSoft: Color(0xFFDFF5FF),
-    warning: Color(0xFFAA6F05),
+    warning: Color(0xFF945A00),
     warningSoft: Color(0xFFFFEED7),
     danger: Color(0xFFC5353E),
     dangerSoft: Color(0xFFFFE9E7),
@@ -88,7 +97,8 @@ class CnColors extends ThemeExtension<CnColors> {
   CnColors copyWith() => this;
 
   @override
-  CnColors lerp(ThemeExtension<CnColors>? other, double t) => t < 0.5 ? this : (other as CnColors? ?? this);
+  CnColors lerp(ThemeExtension<CnColors>? other, double t) =>
+      t < 0.5 ? this : (other as CnColors? ?? this);
 }
 
 extension CnContext on BuildContext {
@@ -101,5 +111,8 @@ class CnSpace {
   static const double xs = 4, sm = 8, md = 12, lg = 16, xl = 24, xxl = 32;
   static const double radius = 12, radiusSm = 8, radiusLg = 16;
   static const double minTap = 48;
-  static const EdgeInsets page = EdgeInsets.symmetric(horizontal: 20, vertical: 16);
+  static const EdgeInsets page = EdgeInsets.symmetric(
+    horizontal: 20,
+    vertical: 16,
+  );
 }

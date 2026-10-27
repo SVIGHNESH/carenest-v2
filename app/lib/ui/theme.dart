@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart' show CupertinoPageTransitionsBuilder;
 import 'package:flutter/material.dart';
 
 import 'tokens.dart';
@@ -30,14 +31,20 @@ class CnTheme {
       surfaceContainerLow: c.canvas,
     );
 
-    TextStyle t(double size, FontWeight w, {double? h, double? ls, Color? color}) => TextStyle(
-          fontFamily: 'Inter',
-          fontSize: size,
-          fontWeight: w,
-          height: h,
-          letterSpacing: ls,
-          color: color ?? c.fg,
-        );
+    TextStyle t(
+      double size,
+      FontWeight w, {
+      double? h,
+      double? ls,
+      Color? color,
+    }) => TextStyle(
+      fontFamily: 'Inter',
+      fontSize: size,
+      fontWeight: w,
+      height: h,
+      letterSpacing: ls,
+      color: color ?? c.fg,
+    );
 
     final text = TextTheme(
       headlineMedium: t(26, FontWeight.w600, h: 1.25, ls: -0.5),
@@ -52,7 +59,8 @@ class CnTheme {
       labelSmall: t(12, FontWeight.w500, h: 1.2, color: c.muted),
     );
 
-    OutlineInputBorder border(Color color, [double w = 1]) => OutlineInputBorder(
+    OutlineInputBorder border(Color color, [double w = 1]) =>
+        OutlineInputBorder(
           borderRadius: BorderRadius.circular(CnSpace.radius),
           borderSide: BorderSide(color: color, width: w),
         );
@@ -78,7 +86,10 @@ class CnTheme {
       inputDecorationTheme: InputDecorationTheme(
         filled: true,
         fillColor: c.surface,
-        contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+        contentPadding: const EdgeInsets.symmetric(
+          horizontal: 16,
+          vertical: 16,
+        ),
         border: border(c.borderStrong),
         enabledBorder: border(c.borderStrong),
         focusedBorder: border(c.accent, 2),
@@ -95,17 +106,23 @@ class CnTheme {
         behavior: SnackBarBehavior.floating,
         backgroundColor: c.fg,
         contentTextStyle: t(14, FontWeight.w500, color: c.canvas),
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(CnSpace.radiusSm)),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(CnSpace.radiusSm),
+        ),
       ),
       bottomSheetTheme: BottomSheetThemeData(
         backgroundColor: c.surface,
         surfaceTintColor: Colors.transparent,
-        shape: const RoundedRectangleBorder(borderRadius: BorderRadius.vertical(top: Radius.circular(20))),
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+        ),
       ),
       dialogTheme: DialogThemeData(
         backgroundColor: c.surface,
         surfaceTintColor: Colors.transparent,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(CnSpace.radiusLg)),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(CnSpace.radiusLg),
+        ),
       ),
       navigationBarTheme: NavigationBarThemeData(
         backgroundColor: c.surface,
@@ -114,23 +131,35 @@ class CnTheme {
         elevation: 0,
         height: 68,
         labelTextStyle: WidgetStateProperty.resolveWith(
-          (s) => t(12, s.contains(WidgetState.selected) ? FontWeight.w600 : FontWeight.w500,
-              color: s.contains(WidgetState.selected) ? c.accentText : c.muted),
+          (s) => t(
+            12,
+            s.contains(WidgetState.selected)
+                ? FontWeight.w600
+                : FontWeight.w500,
+            color: s.contains(WidgetState.selected) ? c.accentText : c.muted,
+          ),
         ),
         iconTheme: WidgetStateProperty.resolveWith(
-          (s) => IconThemeData(color: s.contains(WidgetState.selected) ? c.accentText : c.muted),
+          (s) => IconThemeData(
+            color: s.contains(WidgetState.selected) ? c.accentText : c.muted,
+          ),
         ),
       ),
       checkboxTheme: CheckboxThemeData(
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4)),
         side: BorderSide(color: c.borderStrong, width: 1.5),
       ),
-      progressIndicatorTheme: ProgressIndicatorThemeData(color: c.accent, linearTrackColor: c.border),
-      pageTransitionsTheme: const PageTransitionsTheme(builders: {
-        TargetPlatform.android: FadeForwardsPageTransitionsBuilder(),
-        TargetPlatform.iOS: CupertinoPageTransitionsBuilder(),
-        TargetPlatform.linux: FadeForwardsPageTransitionsBuilder(),
-      }),
+      progressIndicatorTheme: ProgressIndicatorThemeData(
+        color: c.accent,
+        linearTrackColor: c.border,
+      ),
+      pageTransitionsTheme: const PageTransitionsTheme(
+        builders: {
+          TargetPlatform.android: FadeForwardsPageTransitionsBuilder(),
+          TargetPlatform.iOS: CupertinoPageTransitionsBuilder(),
+          TargetPlatform.linux: FadeForwardsPageTransitionsBuilder(),
+        },
+      ),
     );
   }
 }

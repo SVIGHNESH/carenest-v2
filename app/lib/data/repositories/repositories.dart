@@ -19,7 +19,11 @@ abstract class AuthRepository {
 
   /// Stores the token when the user already exists.
   Future<VerifyOtpOut> verifyOtp(String phoneE164, String code);
-  Future<UserOut> completeSignup({required String ticket, required String name, String? email});
+  Future<UserOut> completeSignup({
+    required String ticket,
+    required String name,
+    String? email,
+  });
   Future<void> logout();
 }
 
@@ -43,7 +47,8 @@ class HttpAuthRepository implements AuthRepository {
   }
 
   @override
-  Future<void> sendOtp(String phoneE164) => _api.postVoid('/auth/phone/send-otp', body: {'phone': phoneE164});
+  Future<void> sendOtp(String phoneE164) =>
+      _api.postVoid('/auth/phone/send-otp', body: {'phone': phoneE164});
 
   @override
   Future<VerifyOtpOut> verifyOtp(String phoneE164, String code) async {
@@ -58,7 +63,11 @@ class HttpAuthRepository implements AuthRepository {
   }
 
   @override
-  Future<UserOut> completeSignup({required String ticket, required String name, String? email}) async {
+  Future<UserOut> completeSignup({
+    required String ticket,
+    required String name,
+    String? email,
+  }) async {
     final t = await _api.post(
       '/auth/phone/complete-signup',
       (d) => TokenOut.fromJson(d as Json),
@@ -102,17 +111,19 @@ class AddressInput {
   final bool isDefault;
 
   Json toJson() => {
-        'label': label,
-        'house': house,
-        'area_line': areaLine,
-        'city': city,
-        'state': state,
-        'pincode': pincode,
-        'landmark': (landmark == null || landmark!.trim().isEmpty) ? null : landmark!.trim(),
-        'latitude': latitude,
-        'longitude': longitude,
-        'is_default': isDefault,
-      };
+    'label': label,
+    'house': house,
+    'area_line': areaLine,
+    'city': city,
+    'state': state,
+    'pincode': pincode,
+    'landmark': (landmark == null || landmark!.trim().isEmpty)
+        ? null
+        : landmark!.trim(),
+    'latitude': latitude,
+    'longitude': longitude,
+    'is_default': isDefault,
+  };
 }
 
 class FamilyInput {
@@ -129,13 +140,13 @@ class FamilyInput {
   final String? contactPhone, medicalNotes;
 
   Json toJson() => {
-        'name': name,
-        'relation': relation,
-        'age': age,
-        'sex': sex,
-        'contact_phone': contactPhone,
-        'medical_notes': medicalNotes,
-      };
+    'name': name,
+    'relation': relation,
+    'age': age,
+    'sex': sex,
+    'contact_phone': contactPhone,
+    'medical_notes': medicalNotes,
+  };
 }
 
 abstract class ProfileRepository {
@@ -160,14 +171,18 @@ class HttpProfileRepository implements ProfileRepository {
   final ApiClient _api;
 
   @override
-  Future<UserOut> me() => _api.get('/users/me', (d) => UserOut.fromJson(d as Json));
+  Future<UserOut> me() =>
+      _api.get('/users/me', (d) => UserOut.fromJson(d as Json));
 
   @override
   Future<UserOut> updateMe({String? name, String? email}) => _api.patch(
-        '/users/me',
-        (d) => UserOut.fromJson(d as Json),
-        body: {'name': ?name, if (email != null) 'email': email.isEmpty ? null : email},
-      );
+    '/users/me',
+    (d) => UserOut.fromJson(d as Json),
+    body: {
+      'name': ?name,
+      if (email != null) 'email': email.isEmpty ? null : email,
+    },
+  );
 
   @override
   Future<void> sendDeleteOtp() => _api.postVoid('/users/me/delete-otp');
@@ -179,29 +194,43 @@ class HttpProfileRepository implements ProfileRepository {
   }
 
   @override
-  Future<List<FamilyMember>> family() => _api.get('/family', (d) => _list(d, FamilyMember.fromJson));
+  Future<List<FamilyMember>> family() =>
+      _api.get('/family', (d) => _list(d, FamilyMember.fromJson));
 
   @override
-  Future<FamilyMember> addFamily(FamilyInput i) =>
-      _api.post('/family', (d) => FamilyMember.fromJson(d as Json), body: i.toJson());
+  Future<FamilyMember> addFamily(FamilyInput i) => _api.post(
+    '/family',
+    (d) => FamilyMember.fromJson(d as Json),
+    body: i.toJson(),
+  );
 
   @override
-  Future<FamilyMember> updateFamily(int id, FamilyInput i) =>
-      _api.patch('/family/$id', (d) => FamilyMember.fromJson(d as Json), body: i.toJson());
+  Future<FamilyMember> updateFamily(int id, FamilyInput i) => _api.patch(
+    '/family/$id',
+    (d) => FamilyMember.fromJson(d as Json),
+    body: i.toJson(),
+  );
 
   @override
   Future<void> deleteFamily(int id) => _api.delete('/family/$id');
 
   @override
-  Future<List<Address>> addresses() => _api.get('/addresses', (d) => _list(d, Address.fromJson));
+  Future<List<Address>> addresses() =>
+      _api.get('/addresses', (d) => _list(d, Address.fromJson));
 
   @override
-  Future<Address> addAddress(AddressInput i) =>
-      _api.post('/addresses', (d) => Address.fromJson(d as Json), body: i.toJson());
+  Future<Address> addAddress(AddressInput i) => _api.post(
+    '/addresses',
+    (d) => Address.fromJson(d as Json),
+    body: i.toJson(),
+  );
 
   @override
-  Future<Address> updateAddress(int id, Json patch) =>
-      _api.patch('/addresses/$id', (d) => Address.fromJson(d as Json), body: patch);
+  Future<Address> updateAddress(int id, Json patch) => _api.patch(
+    '/addresses/$id',
+    (d) => Address.fromJson(d as Json),
+    body: patch,
+  );
 
   @override
   Future<void> deleteAddress(int id) => _api.delete('/addresses/$id');
@@ -219,10 +248,12 @@ class HttpCatalogRepository implements CatalogRepository {
   final ApiClient _api;
 
   @override
-  Future<List<ServiceOut>> services() => _api.get('/services', (d) => _list(d, ServiceOut.fromJson));
+  Future<List<ServiceOut>> services() =>
+      _api.get('/services', (d) => _list(d, ServiceOut.fromJson));
 
   @override
-  Future<ServiceOut> service(int id) => _api.get('/services/$id', (d) => ServiceOut.fromJson(d as Json));
+  Future<ServiceOut> service(int id) =>
+      _api.get('/services/$id', (d) => ServiceOut.fromJson(d as Json));
 
   @override
   Future<BookingSettings> bookingSettings() =>
@@ -252,24 +283,32 @@ class BookingRequest {
   final String? patientSex, patientCondition;
 
   Json toJson() => {
-        'service_id': serviceId,
-        'slot_start': isoSlot(day, hour),
-        'hours': hours,
-        'nurse_gender': nurseGender,
-        'address_id': addressId,
-        'member_id': memberId,
-        'patient_name': patientName,
-        'patient_age': patientAge,
-        'patient_sex': patientSex,
-        'patient_condition': (patientCondition == null || patientCondition!.trim().isEmpty) ? null : patientCondition,
-        'contact_phone': contactPhone,
-      };
+    'service_id': serviceId,
+    'slot_start': isoSlot(day, hour),
+    'hours': hours,
+    'nurse_gender': nurseGender,
+    'address_id': addressId,
+    'member_id': memberId,
+    'patient_name': patientName,
+    'patient_age': patientAge,
+    'patient_sex': patientSex,
+    'patient_condition':
+        (patientCondition == null || patientCondition!.trim().isEmpty)
+        ? null
+        : patientCondition,
+    'contact_phone': contactPhone,
+  };
 }
 
 abstract class BookingRepository {
   Future<TimeGrid> timeGrid(int serviceId, DateTime day);
   Future<int> maxDuration(int serviceId, DateTime day, int hour);
-  Future<GenderAvailability> genderAvailability(int serviceId, DateTime day, int hour, int hours);
+  Future<GenderAvailability> genderAvailability(
+    int serviceId,
+    DateTime day,
+    int hour,
+    int hours,
+  );
   Future<Quote> quote(int serviceId, int hours);
   Future<Booking> create(BookingRequest request);
   Future<List<Booking>> mine({required bool current});
@@ -282,44 +321,58 @@ class HttpBookingRepository implements BookingRepository {
 
   @override
   Future<TimeGrid> timeGrid(int serviceId, DateTime day) => _api.get(
-        '/bookings/time-grid',
-        (d) => TimeGrid.fromJson(d as Json),
-        query: {'service_id': serviceId, 'date': isoDate(day)},
-      );
+    '/bookings/time-grid',
+    (d) => TimeGrid.fromJson(d as Json),
+    query: {'service_id': serviceId, 'date': isoDate(day)},
+  );
 
   @override
   Future<int> maxDuration(int serviceId, DateTime day, int hour) => _api.get(
-        '/bookings/max-duration',
-        (d) => (d as Json)['max_hours'] as int,
-        query: {'service_id': serviceId, 'start': isoSlot(day, hour)},
-      );
+    '/bookings/max-duration',
+    (d) => (d as Json)['max_hours'] as int,
+    query: {'service_id': serviceId, 'start': isoSlot(day, hour)},
+  );
 
   @override
-  Future<GenderAvailability> genderAvailability(int serviceId, DateTime day, int hour, int hours) => _api.get(
-        '/bookings/gender-availability',
-        (d) => GenderAvailability.fromJson(d as Json),
-        query: {'service_id': serviceId, 'start': isoSlot(day, hour), 'hours': hours},
-      );
+  Future<GenderAvailability> genderAvailability(
+    int serviceId,
+    DateTime day,
+    int hour,
+    int hours,
+  ) => _api.get(
+    '/bookings/gender-availability',
+    (d) => GenderAvailability.fromJson(d as Json),
+    query: {
+      'service_id': serviceId,
+      'start': isoSlot(day, hour),
+      'hours': hours,
+    },
+  );
 
   @override
   Future<Quote> quote(int serviceId, int hours) => _api.post(
-        '/bookings/quote',
-        (d) => Quote.fromJson(d as Json),
-        body: {'service_id': serviceId, 'hours': hours},
-      );
+    '/bookings/quote',
+    (d) => Quote.fromJson(d as Json),
+    body: {'service_id': serviceId, 'hours': hours},
+  );
 
   @override
-  Future<Booking> create(BookingRequest r) => _api.post('/bookings', (d) => Booking.fromJson(d as Json), body: r.toJson());
+  Future<Booking> create(BookingRequest r) => _api.post(
+    '/bookings',
+    (d) => Booking.fromJson(d as Json),
+    body: r.toJson(),
+  );
 
   @override
   Future<List<Booking>> mine({required bool current}) => _api.get(
-        '/bookings',
-        (d) => _list(d, Booking.fromJson),
-        query: {'view': current ? 'current' : 'history'},
-      );
+    '/bookings',
+    (d) => _list(d, Booking.fromJson),
+    query: {'view': current ? 'current' : 'history'},
+  );
 
   @override
-  Future<Booking> get(int id) => _api.get('/bookings/$id', (d) => Booking.fromJson(d as Json));
+  Future<Booking> get(int id) =>
+      _api.get('/bookings/$id', (d) => Booking.fromJson(d as Json));
 }
 
 // ------------------------------------------------------------ payments
@@ -339,15 +392,18 @@ class HttpPaymentRepository implements PaymentRepository {
   final ApiClient _api;
 
   @override
-  Future<OrderOut> createOrder(int bookingId) =>
-      _api.post('/payments/create-order', (d) => OrderOut.fromJson(d as Json), body: {'booking_id': bookingId});
+  Future<OrderOut> createOrder(int bookingId) => _api.post(
+    '/payments/create-order',
+    (d) => OrderOut.fromJson(d as Json),
+    body: {'booking_id': bookingId},
+  );
 
   @override
   Future<FakePayOut> fakePay(int bookingId, String orderId) => _api.post(
-        '/payments/fake/pay',
-        (d) => FakePayOut.fromJson(d as Json),
-        body: {'booking_id': bookingId, 'order_id': orderId},
-      );
+    '/payments/fake/pay',
+    (d) => FakePayOut.fromJson(d as Json),
+    body: {'booking_id': bookingId, 'order_id': orderId},
+  );
 
   @override
   Future<Booking> verify({
@@ -355,10 +411,14 @@ class HttpPaymentRepository implements PaymentRepository {
     required String orderId,
     required String paymentId,
     required String signature,
-  }) =>
-      _api.post(
-        '/payments/verify',
-        (d) => Booking.fromJson(d as Json),
-        body: {'booking_id': bookingId, 'order_id': orderId, 'payment_id': paymentId, 'signature': signature},
-      );
+  }) => _api.post(
+    '/payments/verify',
+    (d) => Booking.fromJson(d as Json),
+    body: {
+      'booking_id': bookingId,
+      'order_id': orderId,
+      'payment_id': paymentId,
+      'signature': signature,
+    },
+  );
 }

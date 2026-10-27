@@ -5,7 +5,8 @@ import '../data/api/token_store.dart';
 /// Keeps the session token in the platform keystore. If the keystore is
 /// unavailable (some desktops) it falls back to memory for this run only.
 class SecureTokenStore implements TokenStore {
-  SecureTokenStore([FlutterSecureStorage? storage]) : _storage = storage ?? const FlutterSecureStorage();
+  SecureTokenStore([FlutterSecureStorage? storage])
+    : _storage = storage ?? const FlutterSecureStorage();
   final FlutterSecureStorage _storage;
   static const _key = 'carenest_token';
   String? _memory;

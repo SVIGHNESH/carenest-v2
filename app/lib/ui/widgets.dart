@@ -28,17 +28,32 @@ class CnButton extends StatelessWidget {
   Widget build(BuildContext context) {
     final c = context.cn;
     final enabled = onPressed != null && !loading;
-    final shape = RoundedRectangleBorder(borderRadius: BorderRadius.circular(CnSpace.radius));
+    final shape = RoundedRectangleBorder(
+      borderRadius: BorderRadius.circular(CnSpace.radius),
+    );
     const size = Size(CnSpace.minTap, 52);
     final child = Row(
       mainAxisSize: expand ? MainAxisSize.max : MainAxisSize.min,
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         if (loading)
-          const SizedBox(width: 20, height: 20, child: CircularProgressIndicator(strokeWidth: 2.4, color: Colors.white))
+          const SizedBox(
+            width: 20,
+            height: 20,
+            child: CircularProgressIndicator(
+              strokeWidth: 2.4,
+              color: Colors.white,
+            ),
+          )
         else ...[
           if (icon != null) ...[Icon(icon, size: 20), const SizedBox(width: 8)],
-          Flexible(child: Text(label, textAlign: TextAlign.center, overflow: TextOverflow.ellipsis)),
+          Flexible(
+            child: Text(
+              label,
+              textAlign: TextAlign.center,
+              overflow: TextOverflow.ellipsis,
+            ),
+          ),
         ],
       ],
     );
@@ -46,42 +61,48 @@ class CnButton extends StatelessWidget {
     final handler = enabled ? onPressed : null;
     final Widget button = switch (kind) {
       CnButtonKind.primary || CnButtonKind.danger => FilledButton(
-          onPressed: handler,
-          style: FilledButton.styleFrom(
-            minimumSize: size,
-            shape: shape,
-            textStyle: text,
-            backgroundColor: kind == CnButtonKind.danger ? c.danger : c.accent,
-            foregroundColor: c.accentFg,
-            disabledBackgroundColor: loading ? c.accent : c.sunken,
-            disabledForegroundColor: c.subtle,
-          ),
-          child: child,
+        onPressed: handler,
+        style: FilledButton.styleFrom(
+          minimumSize: size,
+          shape: shape,
+          textStyle: text,
+          backgroundColor: kind == CnButtonKind.danger ? c.danger : c.accent,
+          foregroundColor: c.accentFg,
+          disabledBackgroundColor: loading ? c.accent : c.sunken,
+          disabledForegroundColor: c.subtle,
         ),
+        child: child,
+      ),
       CnButtonKind.secondary => OutlinedButton(
-          onPressed: handler,
-          style: OutlinedButton.styleFrom(
-            minimumSize: size,
-            shape: shape,
-            textStyle: text,
-            foregroundColor: c.fg,
-            side: BorderSide(color: enabled ? c.borderStrong : c.border),
-            backgroundColor: c.surface,
-          ),
-          child: child,
+        onPressed: handler,
+        style: OutlinedButton.styleFrom(
+          minimumSize: size,
+          shape: shape,
+          textStyle: text,
+          foregroundColor: c.fg,
+          side: BorderSide(color: enabled ? c.borderStrong : c.border),
+          backgroundColor: c.surface,
         ),
+        child: child,
+      ),
       CnButtonKind.text => TextButton(
-          onPressed: handler,
-          style: TextButton.styleFrom(
-            minimumSize: size,
-            shape: shape,
-            textStyle: text,
-            foregroundColor: c.accentText,
-          ),
-          child: child,
+        onPressed: handler,
+        style: TextButton.styleFrom(
+          minimumSize: size,
+          shape: shape,
+          textStyle: text,
+          foregroundColor: c.accentText,
         ),
+        child: child,
+      ),
     };
-    return Semantics(button: true, enabled: enabled, label: label, excludeSemantics: true, child: button);
+    return Semantics(
+      button: true,
+      enabled: enabled,
+      label: label,
+      excludeSemantics: true,
+      child: button,
+    );
   }
 }
 
@@ -112,7 +133,10 @@ class CnCard extends StatelessWidget {
       decoration: BoxDecoration(
         color: color ?? (selected ? c.accentSoft : c.surface),
         borderRadius: radius,
-        border: Border.all(color: selected ? c.accent : c.border, width: selected ? 1.5 : 1),
+        border: Border.all(
+          color: selected ? c.accent : c.border,
+          width: selected ? 1.5 : 1,
+        ),
       ),
       child: Padding(padding: padding, child: child),
     );
@@ -124,7 +148,12 @@ class CnCard extends StatelessWidget {
     );
     return semanticLabel == null
         ? w
-        : Semantics(label: semanticLabel, button: onTap != null, container: true, child: w);
+        : Semantics(
+            label: semanticLabel,
+            button: onTap != null,
+            container: true,
+            child: w,
+          );
   }
 }
 
@@ -151,8 +180,15 @@ class StatusChip extends StatelessWidget {
       child: ExcludeSemantics(
         child: Container(
           padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
-          decoration: BoxDecoration(color: bg, borderRadius: BorderRadius.circular(99)),
-          child: Text(label, style: Theme.of(context).textTheme.labelMedium?.copyWith(color: fg, fontWeight: FontWeight.w600)),
+          decoration: BoxDecoration(
+            color: bg,
+            borderRadius: BorderRadius.circular(99),
+          ),
+          child: Text(
+            label,
+            style: Theme.of(context).textTheme.labelMedium
+                ?.copyWith(color: fg, fontWeight: FontWeight.w600),
+          ),
         ),
       ),
     );
@@ -161,7 +197,12 @@ class StatusChip extends StatelessWidget {
 
 /// Inline message box (info, warning, error).
 class CnBanner extends StatelessWidget {
-  const CnBanner({super.key, required this.message, this.tone = Tone.info, this.action});
+  const CnBanner({
+    super.key,
+    required this.message,
+    this.tone = Tone.info,
+    this.action,
+  });
   final String message;
   final Tone tone;
   final Widget? action;
@@ -182,7 +223,10 @@ class CnBanner extends StatelessWidget {
       child: ExcludeSemantics(
         child: Container(
           padding: const EdgeInsets.all(CnSpace.md),
-          decoration: BoxDecoration(color: bg, borderRadius: BorderRadius.circular(CnSpace.radius)),
+          decoration: BoxDecoration(
+            color: bg,
+            borderRadius: BorderRadius.circular(CnSpace.radius),
+          ),
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -192,8 +236,15 @@ class CnBanner extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(message, style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: c.fg)),
-                    if (action != null) ...[const SizedBox(height: CnSpace.sm), action!],
+                    Text(
+                      message,
+                      style: Theme.of(context).textTheme.bodyMedium
+                          ?.copyWith(color: c.fg),
+                    ),
+                    if (action != null) ...[
+                      const SizedBox(height: CnSpace.sm),
+                      action!,
+                    ],
                   ],
                 ),
               ),
@@ -215,7 +266,10 @@ class BottomActionBar extends StatelessWidget {
   Widget build(BuildContext context) {
     final c = context.cn;
     return Container(
-      decoration: BoxDecoration(color: c.surface, border: Border(top: BorderSide(color: c.border))),
+      decoration: BoxDecoration(
+        color: c.surface,
+        border: Border(top: BorderSide(color: c.border)),
+      ),
       child: SafeArea(
         top: false,
         child: Padding(
@@ -224,7 +278,11 @@ class BottomActionBar extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             children: [
               if (note != null) ...[
-                Text(note!, style: Theme.of(context).textTheme.bodySmall, textAlign: TextAlign.center),
+                Text(
+                  note!,
+                  style: Theme.of(context).textTheme.bodySmall,
+                  textAlign: TextAlign.center,
+                ),
                 const SizedBox(height: 10),
               ],
               child,
@@ -238,7 +296,13 @@ class BottomActionBar extends StatelessWidget {
 
 /// Title block with "Step x of y" and a thin progress bar for the booking flow.
 class StepHeader extends StatelessWidget implements PreferredSizeWidget {
-  const StepHeader({super.key, required this.step, required this.total, required this.title, this.onClose});
+  const StepHeader({
+    super.key,
+    required this.step,
+    required this.total,
+    required this.title,
+    this.onClose,
+  });
   final int step;
   final int total;
   final String title;
@@ -260,7 +324,10 @@ class StepHeader extends StatelessWidget implements PreferredSizeWidget {
             mainAxisSize: MainAxisSize.min,
             children: [
               Text(title, style: Theme.of(context).textTheme.titleMedium),
-              Text(l.stepOf(step, total), style: Theme.of(context).textTheme.labelSmall),
+              Text(
+                l.stepOf(step, total),
+                style: Theme.of(context).textTheme.labelSmall,
+              ),
             ],
           ),
         ),
@@ -269,7 +336,10 @@ class StepHeader extends StatelessWidget implements PreferredSizeWidget {
         if (onClose != null)
           IconButton(
             tooltip: l.close,
-            constraints: const BoxConstraints(minWidth: CnSpace.minTap, minHeight: CnSpace.minTap),
+            constraints: const BoxConstraints(
+              minWidth: CnSpace.minTap,
+              minHeight: CnSpace.minTap,
+            ),
             onPressed: onClose,
             icon: const Icon(Icons.close),
           ),
@@ -340,7 +410,8 @@ class CnTextField extends StatelessWidget {
       onFieldSubmitted: onSubmitted,
       autofocus: autofocus,
       textCapitalization: textCapitalization,
-      style: Theme.of(context).textTheme.bodyLarge?.copyWith(color: readOnly ? c.muted : c.fg),
+      style: Theme.of(context).textTheme.bodyLarge
+          ?.copyWith(color: readOnly ? c.muted : c.fg),
       decoration: InputDecoration(
         labelText: label,
         hintText: hint,
@@ -371,7 +442,12 @@ class InitialsAvatar extends StatelessWidget {
         decoration: BoxDecoration(color: c.accentSoft, shape: BoxShape.circle),
         child: Text(
           initialsOf(name),
-          style: TextStyle(fontFamily: 'Inter', fontSize: size * 0.36, fontWeight: FontWeight.w600, color: c.accentText),
+          style: TextStyle(
+            fontFamily: 'Inter',
+            fontSize: size * 0.36,
+            fontWeight: FontWeight.w600,
+            color: c.accentText,
+          ),
         ),
       ),
     );
@@ -409,26 +485,43 @@ class SelectTile extends StatelessWidget {
       button: true,
       enabled: !disabled,
       selected: selected,
-      label: [title, if (subtitle != null) subtitle!].join(', '),
+      label: [title, ?subtitle].join(', '),
       excludeSemantics: true,
       onTap: disabled ? null : onTap,
       child: CnCard(
         onTap: disabled ? null : onTap,
         selected: selected,
         color: disabled ? c.sunken : null,
-        padding: const EdgeInsets.symmetric(horizontal: CnSpace.lg, vertical: 14),
+        padding: const EdgeInsets.symmetric(
+          horizontal: CnSpace.lg,
+          vertical: 14,
+        ),
         child: ConstrainedBox(
           constraints: const BoxConstraints(minHeight: 24),
           child: Row(
             children: [
-              if (leading != null) ...[leading!, const SizedBox(width: CnSpace.md)],
+              if (leading != null) ...[
+                leading!,
+                const SizedBox(width: CnSpace.md),
+              ],
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(title, style: theme.titleSmall?.copyWith(color: fg, fontSize: 15)),
+                    Text(
+                      title,
+                      style: theme.titleSmall?.copyWith(
+                        color: fg,
+                        fontSize: 15,
+                      ),
+                    ),
                     if (subtitle != null)
-                      Text(subtitle!, style: theme.bodySmall?.copyWith(color: disabled ? c.muted : c.muted)),
+                      Text(
+                        subtitle!,
+                        style: theme.bodySmall?.copyWith(
+                          color: disabled ? c.muted : c.muted,
+                        ),
+                      ),
                   ],
                 ),
               ),
@@ -436,8 +529,12 @@ class SelectTile extends StatelessWidget {
                 trailing!
               else
                 Icon(
-                  selected ? Icons.radio_button_checked : Icons.radio_button_unchecked,
-                  color: disabled ? c.subtle : (selected ? c.accent : c.borderStrong),
+                  selected
+                      ? Icons.radio_button_checked
+                      : Icons.radio_button_unchecked,
+                  color: disabled
+                      ? c.subtle
+                      : (selected ? c.accent : c.borderStrong),
                 ),
             ],
           ),
@@ -448,7 +545,12 @@ class SelectTile extends StatelessWidget {
 }
 
 class DetailRow extends StatelessWidget {
-  const DetailRow({super.key, required this.label, required this.value, this.emphasize = false});
+  const DetailRow({
+    super.key,
+    required this.label,
+    required this.value,
+    this.emphasize = false,
+  });
   final String label;
   final String value;
   final bool emphasize;
@@ -465,12 +567,20 @@ class DetailRow extends StatelessWidget {
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            SizedBox(width: 108, child: Text(label, style: t.bodyMedium?.copyWith(color: context.cn.muted))),
+            SizedBox(
+              width: 108,
+              child: Text(
+                label,
+                style: t.bodyMedium?.copyWith(color: context.cn.muted),
+              ),
+            ),
             Expanded(
               child: Text(
                 value,
                 textAlign: TextAlign.end,
-                style: emphasize ? t.titleMedium : t.bodyMedium?.copyWith(fontWeight: FontWeight.w500),
+                style: emphasize
+                    ? t.titleMedium
+                    : t.bodyMedium?.copyWith(fontWeight: FontWeight.w500),
               ),
             ),
           ],
@@ -484,15 +594,22 @@ class CnLoading extends StatelessWidget {
   const CnLoading({super.key});
   @override
   Widget build(BuildContext context) => Center(
-        child: Semantics(
-          label: AppLocalizations.of(context).loading,
-          child: const CircularProgressIndicator(),
-        ),
-      );
+    child: Semantics(
+      label: AppLocalizations.of(context).loading,
+      child: const CircularProgressIndicator(),
+    ),
+  );
 }
 
 class CnMessageView extends StatelessWidget {
-  const CnMessageView({super.key, required this.icon, required this.title, this.body, this.actionLabel, this.onAction});
+  const CnMessageView({
+    super.key,
+    required this.icon,
+    required this.title,
+    this.body,
+    this.actionLabel,
+    this.onAction,
+  });
   final IconData icon;
   final String title;
   final String? body;
@@ -517,7 +634,10 @@ class CnMessageView extends StatelessWidget {
                   child: Container(
                     width: 64,
                     height: 64,
-                    decoration: BoxDecoration(color: c.sunken, shape: BoxShape.circle),
+                    decoration: BoxDecoration(
+                      color: c.sunken,
+                      shape: BoxShape.circle,
+                    ),
                     child: Icon(icon, color: c.muted, size: 30),
                   ),
                 ),
@@ -525,15 +645,45 @@ class CnMessageView extends StatelessWidget {
                 Text(title, style: t.titleMedium, textAlign: TextAlign.center),
                 if (body != null) ...[
                   const SizedBox(height: CnSpace.sm),
-                  Text(body!, style: t.bodyMedium?.copyWith(color: c.muted), textAlign: TextAlign.center),
+                  Text(
+                    body!,
+                    style: t.bodyMedium?.copyWith(color: c.muted),
+                    textAlign: TextAlign.center,
+                  ),
                 ],
                 if (actionLabel != null) ...[
                   const SizedBox(height: CnSpace.xl),
-                  CnButton(label: actionLabel!, onPressed: onAction, kind: CnButtonKind.secondary, expand: false),
+                  CnButton(
+                    label: actionLabel!,
+                    onPressed: onAction,
+                    kind: CnButtonKind.secondary,
+                    expand: false,
+                  ),
                 ],
               ],
             ),
           ),
+        ),
+      ),
+    );
+  }
+}
+
+/// CareNest mark: a soft accent tile with a care icon.
+class BrandMark extends StatelessWidget {
+  const BrandMark({super.key, this.size = 72});
+  final double size;
+
+  @override
+  Widget build(BuildContext context) {
+    return ExcludeSemantics(
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(size * 0.22),
+        child: Image.asset(
+          'assets/images/logo_mark.png',
+          width: size,
+          height: size,
+          fit: BoxFit.cover,
         ),
       ),
     );

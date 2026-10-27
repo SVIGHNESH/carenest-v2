@@ -23,7 +23,8 @@ class InstantConverter implements JsonConverter<DateTime?, String?> {
 @JsonSerializable()
 class UserOut {
   const UserOut({required this.id, required this.name, this.phone, this.email});
-  factory UserOut.fromJson(Map<String, dynamic> json) => _$UserOutFromJson(json);
+  factory UserOut.fromJson(Map<String, dynamic> json) =>
+      _$UserOutFromJson(json);
   final int id;
   final String name;
   final String? phone;
@@ -34,7 +35,8 @@ class UserOut {
 @JsonSerializable()
 class TokenOut {
   const TokenOut({required this.accessToken, required this.user});
-  factory TokenOut.fromJson(Map<String, dynamic> json) => _$TokenOutFromJson(json);
+  factory TokenOut.fromJson(Map<String, dynamic> json) =>
+      _$TokenOutFromJson(json);
   @JsonKey(name: 'access_token')
   final String accessToken;
   final UserOut user;
@@ -42,8 +44,13 @@ class TokenOut {
 
 @JsonSerializable()
 class VerifyOtpOut {
-  const VerifyOtpOut({required this.needsSignup, this.signupTicket, this.token});
-  factory VerifyOtpOut.fromJson(Map<String, dynamic> json) => _$VerifyOtpOutFromJson(json);
+  const VerifyOtpOut({
+    required this.needsSignup,
+    this.signupTicket,
+    this.token,
+  });
+  factory VerifyOtpOut.fromJson(Map<String, dynamic> json) =>
+      _$VerifyOtpOutFromJson(json);
   @JsonKey(name: 'needs_signup')
   final bool needsSignup;
   @JsonKey(name: 'signup_ticket')
@@ -61,7 +68,8 @@ class ServiceOut {
     this.active = true,
     this.available = true,
   });
-  factory ServiceOut.fromJson(Map<String, dynamic> json) => _$ServiceOutFromJson(json);
+  factory ServiceOut.fromJson(Map<String, dynamic> json) =>
+      _$ServiceOutFromJson(json);
   final int id;
   final String name;
   final String description;
@@ -79,7 +87,8 @@ class BookingSettings {
     required this.bookingsPaused,
     required this.supportPhone,
   });
-  factory BookingSettings.fromJson(Map<String, dynamic> json) => _$BookingSettingsFromJson(json);
+  factory BookingSettings.fromJson(Map<String, dynamic> json) =>
+      _$BookingSettingsFromJson(json);
   @JsonKey(name: 'min_notice_minutes')
   final int minNoticeMinutes;
   @JsonKey(name: 'booking_window_days')
@@ -92,8 +101,13 @@ class BookingSettings {
 
 @JsonSerializable()
 class TimeSlot {
-  const TimeSlot({required this.hour, required this.free, required this.tooSoon});
-  factory TimeSlot.fromJson(Map<String, dynamic> json) => _$TimeSlotFromJson(json);
+  const TimeSlot({
+    required this.hour,
+    required this.free,
+    required this.tooSoon,
+  });
+  factory TimeSlot.fromJson(Map<String, dynamic> json) =>
+      _$TimeSlotFromJson(json);
   final int hour;
   final bool free;
   @JsonKey(name: 'too_soon')
@@ -105,7 +119,8 @@ class TimeSlot {
 @JsonSerializable()
 class TimeGrid {
   const TimeGrid({required this.date, required this.slots});
-  factory TimeGrid.fromJson(Map<String, dynamic> json) => _$TimeGridFromJson(json);
+  factory TimeGrid.fromJson(Map<String, dynamic> json) =>
+      _$TimeGridFromJson(json);
   final String date;
   final List<TimeSlot> slots;
 }
@@ -113,14 +128,20 @@ class TimeGrid {
 @JsonSerializable()
 class GenderAvailability {
   const GenderAvailability({required this.male, required this.female});
-  factory GenderAvailability.fromJson(Map<String, dynamic> json) => _$GenderAvailabilityFromJson(json);
+  factory GenderAvailability.fromJson(Map<String, dynamic> json) =>
+      _$GenderAvailabilityFromJson(json);
   final bool male;
   final bool female;
 }
 
 @JsonSerializable()
 class Quote {
-  const Quote({required this.serviceId, required this.hours, required this.basePrice, required this.amount});
+  const Quote({
+    required this.serviceId,
+    required this.hours,
+    required this.basePrice,
+    required this.amount,
+  });
   factory Quote.fromJson(Map<String, dynamic> json) => _$QuoteFromJson(json);
   @JsonKey(name: 'service_id')
   final int serviceId;
@@ -141,7 +162,8 @@ class FamilyMember {
     this.contactPhone,
     this.medicalNotes,
   });
-  factory FamilyMember.fromJson(Map<String, dynamic> json) => _$FamilyMemberFromJson(json);
+  factory FamilyMember.fromJson(Map<String, dynamic> json) =>
+      _$FamilyMemberFromJson(json);
   final int id;
   final String name;
   final int age;
@@ -168,7 +190,8 @@ class Address {
     required this.isDefault,
     this.landmark,
   });
-  factory Address.fromJson(Map<String, dynamic> json) => _$AddressFromJson(json);
+  factory Address.fromJson(Map<String, dynamic> json) =>
+      _$AddressFromJson(json);
   final int id;
   final String label;
   final String house;
@@ -184,14 +207,22 @@ class Address {
   final bool isDefault;
 
   /// Single-line summary: house, area, city.
-  String get summary => [house, areaLine, city, state, pincode].where((p) => p.trim().isNotEmpty).join(', ');
-  String get shortSummary => [areaLine, city].where((p) => p.trim().isNotEmpty).join(', ');
+  String get summary => [
+    house,
+    areaLine,
+    city,
+    state,
+    pincode,
+  ].where((p) => p.trim().isNotEmpty).join(', ');
+  String get shortSummary =>
+      [areaLine, city].where((p) => p.trim().isNotEmpty).join(', ');
 }
 
 @JsonSerializable()
 class RefundOut {
   const RefundOut({required this.amount, required this.status, this.expected});
-  factory RefundOut.fromJson(Map<String, dynamic> json) => _$RefundOutFromJson(json);
+  factory RefundOut.fromJson(Map<String, dynamic> json) =>
+      _$RefundOutFromJson(json);
   final int amount;
   final String status;
   final String? expected;
@@ -228,7 +259,8 @@ class Booking {
     this.paymentStatus,
     this.refund,
   });
-  factory Booking.fromJson(Map<String, dynamic> json) => _$BookingFromJson(json);
+  factory Booking.fromJson(Map<String, dynamic> json) =>
+      _$BookingFromJson(json);
   final int id;
   final String status;
   @JsonKey(name: 'service_id')
@@ -277,7 +309,8 @@ class Booking {
   final String supportPhone;
 
   bool get isCancelled => status == 'cancelled';
-  bool get isConfirmed => status == 'confirmed' || status == 'in_progress' || status == 'completed';
+  bool get isConfirmed =>
+      status == 'confirmed' || status == 'in_progress' || status == 'completed';
 }
 
 @JsonSerializable()
@@ -290,7 +323,8 @@ class OrderOut {
     required this.bookingId,
     this.holdExpiresAt,
   });
-  factory OrderOut.fromJson(Map<String, dynamic> json) => _$OrderOutFromJson(json);
+  factory OrderOut.fromJson(Map<String, dynamic> json) =>
+      _$OrderOutFromJson(json);
   final String gateway;
   @JsonKey(name: 'order_id')
   final String orderId;
@@ -307,7 +341,8 @@ class OrderOut {
 @JsonSerializable()
 class FakePayOut {
   const FakePayOut({required this.paymentId, required this.signature});
-  factory FakePayOut.fromJson(Map<String, dynamic> json) => _$FakePayOutFromJson(json);
+  factory FakePayOut.fromJson(Map<String, dynamic> json) =>
+      _$FakePayOutFromJson(json);
   @JsonKey(name: 'payment_id')
   final String paymentId;
   final String signature;

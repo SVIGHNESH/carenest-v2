@@ -60,7 +60,10 @@ class AsyncBody<T> extends StatelessWidget {
             ),
           );
         }
-        return RefreshIndicator(onRefresh: onRefresh, child: builder(context, data));
+        return RefreshIndicator(
+          onRefresh: onRefresh,
+          child: builder(context, data),
+        );
       },
     );
   }

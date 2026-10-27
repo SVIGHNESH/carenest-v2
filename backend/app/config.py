@@ -7,6 +7,7 @@ variables (see `.env.example`).
 
 from functools import lru_cache
 
+from pydantic import field_validator
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
@@ -68,6 +69,15 @@ class Settings(BaseSettings):
 
     # Admin-only "run jobs now" is always available; this guards the heartbeat age.
     HEARTBEAT_MAX_AGE_SECONDS: int = 180
+
+    @field_validator("DATABASE_URL")
+    @classmethod
+    def _async_driver(cls, v: str) -> str:
+        """Hosts (Render, Railway) hand out plain postgres:// URLs; we need the asyncpg driver."""
+        for prefix in ("postgres://", "postgresql://"):
+            if v.startswith(prefix):
+                return "postgresql+asyncpg://" + v[len(prefix) :]
+        return v
 
     @property
     def is_prod(self) -> bool:

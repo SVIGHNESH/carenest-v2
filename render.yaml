@@ -1,0 +1,37 @@
+# Render blueprint: backend only, for testing (fake payments, OTP codes in the logs).
+# Not for production: free instances sleep and the free database expires after 30 days.
+services:
+  - type: web
+    name: carenest-api
+    runtime: docker
+    plan: free
+    dockerfilePath: ./backend/Dockerfile
+    dockerContext: ./backend
+    healthCheckPath: /health
+    envVars:
+      - key: ENVIRONMENT
+        value: staging
+      - key: DATABASE_URL
+        fromDatabase:
+          name: carenest-db
+          property: connectionString
+      - key: SECRET_KEY
+        generateValue: true
+      - key: RUN_WORKER
+        value: "true"
+      - key: PAYMENT_GATEWAY
+        value: fake
+      - key: SEED_DEMO
+        value: "true"
+      - key: FIRST_ADMIN_EMAIL
+        value: admin@example.com
+      - key: FIRST_ADMIN_PASSWORD
+        sync: false # you type it in the Render dashboard
+      - key: API_BASE_URL
+        sync: false # https://<service-name>.onrender.com, set after the first deploy
+
+databases:
+  - name: carenest-db
+    plan: free
+    databaseName: carenest
+    user: carenest

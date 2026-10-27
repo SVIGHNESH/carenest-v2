@@ -742,3 +742,10 @@ def test_production_refuses_placeholder_config():
         RAZORPAY_WEBHOOK_SECRET="whsec",
     )
     assert production_problems(good) == []
+
+
+def test_database_url_from_host_gets_async_driver():
+    from app.config import Settings
+
+    assert Settings(DATABASE_URL="postgres://u:p@h:5432/d").DATABASE_URL == "postgresql+asyncpg://u:p@h:5432/d"
+    assert Settings(DATABASE_URL="postgresql://u:p@h/d").psycopg_url == "postgresql://u:p@h/d"

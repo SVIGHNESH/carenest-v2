@@ -24,11 +24,20 @@ class GeolocatorLocationService implements LocationService {
         throw const LocationException(LocationFailure.serviceOff);
       }
       var perm = await Geolocator.checkPermission();
-      if (perm == LocationPermission.denied) perm = await Geolocator.requestPermission();
-      if (perm == LocationPermission.denied) throw const LocationException(LocationFailure.denied);
-      if (perm == LocationPermission.deniedForever) throw const LocationException(LocationFailure.deniedForever);
+      if (perm == LocationPermission.denied) {
+        perm = await Geolocator.requestPermission();
+      }
+      if (perm == LocationPermission.denied) {
+        throw const LocationException(LocationFailure.denied);
+      }
+      if (perm == LocationPermission.deniedForever) {
+        throw const LocationException(LocationFailure.deniedForever);
+      }
       final p = await Geolocator.getCurrentPosition(
-        locationSettings: const LocationSettings(accuracy: LocationAccuracy.high, timeLimit: Duration(seconds: 15)),
+        locationSettings: const LocationSettings(
+          accuracy: LocationAccuracy.high,
+          timeLimit: Duration(seconds: 15),
+        ),
       );
       return GeoPoint(p.latitude, p.longitude);
     } on LocationException {

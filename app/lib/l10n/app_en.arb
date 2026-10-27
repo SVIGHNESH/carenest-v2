@@ -1,1 +1,441 @@
-{"@@locale":"en","appName":"CareNest"}
+{
+  "@@locale": "en",
+  "appName": "CareNest",
+  "tagline": "Care at home",
+  "close": "Close",
+  "loading": "Loading",
+  "tryAgain": "Try again",
+  "somethingWentWrong": "Something went wrong",
+  "nothingHere": "Nothing here yet",
+  "errorNetwork": "Can't reach CareNest. Check your internet connection and try again.",
+  "errorTimeout": "This is taking too long. Please try again.",
+  "errorServer": "CareNest is having trouble right now. Please try again in a moment.",
+  "errorRateLimited": "Too many tries. Please wait a little and try again.",
+  "errorNotFound": "We couldn't find that.",
+  "errorGeneric": "Something went wrong. Please try again.",
+  "continueLabel": "Continue",
+  "save": "Save",
+  "delete": "Delete",
+  "keep": "Keep",
+  "ok": "OK",
+  "change": "Change",
+  "stay": "Stay",
+  "leave": "Leave",
+  "startOver": "Start over",
+  "moreActions": "More actions",
+  "stepOf": "Step {step} of {total}",
+  "@stepOf": {
+    "placeholders": {
+      "step": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "loginTitle": "Welcome to CareNest",
+  "loginSubtitle": "Enter your mobile number. We'll send you a code to log in or create your account.",
+  "phoneLabel": "Mobile number",
+  "phoneRequired": "Enter your mobile number",
+  "phoneInvalid": "Enter a valid 10-digit mobile number",
+  "sendCode": "Send code",
+  "loginHint": "Standard SMS charges may apply.",
+  "verifyTitle": "Verify",
+  "otpTitle": "Enter the code",
+  "otpSentTo": "We sent a 6-digit code to {phone}",
+  "@otpSentTo": {
+    "placeholders": {
+      "phone": {
+        "type": "String"
+      }
+    }
+  },
+  "otpLabel": "6-digit code",
+  "otpInvalid": "Enter the 6-digit code",
+  "verify": "Verify",
+  "changeNumber": "Change number",
+  "resendIn": "Resend code in {time}",
+  "@resendIn": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "resendCode": "Resend code",
+  "tellUsTitle": "Tell us about you",
+  "tellUsSubtitle": "Just your name to get started. Email is optional.",
+  "fullName": "Full name",
+  "nameRequired": "Enter a name",
+  "emailOptional": "Email (optional)",
+  "email": "Email",
+  "emailInvalid": "Enter a valid email address",
+  "getStarted": "Get started",
+  "navHome": "Home",
+  "navServices": "Services",
+  "navBookings": "Bookings",
+  "navProfile": "Profile",
+  "greeting": "Hello, {name}",
+  "@greeting": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "homeSubtitle": "Trusted nurses, at home, when you need them.",
+  "bookService": "Book service",
+  "myBookings": "My bookings",
+  "services": "Services",
+  "viewAll": "View all",
+  "nextBooking": "Next booking",
+  "noUpcomingBooking": "No upcoming bookings. Book a service to get started.",
+  "noServices": "No services yet",
+  "noServicesBody": "Please check back soon.",
+  "pricePerHour": "{price} per hour",
+  "@pricePerHour": {
+    "placeholders": {
+      "price": {
+        "type": "String"
+      }
+    }
+  },
+  "notAvailableNow": "Not available right now",
+  "notAvailableShort": "Unavailable",
+  "bookingsPausedBanner": "Bookings are temporarily unavailable. Please try again later.",
+  "bookNow": "Book now",
+  "priceIncludesTax": "Price includes all taxes. No extra fees.",
+  "leaveBookingTitle": "Leave this booking?",
+  "leaveBookingBody": "What you entered will be cleared.",
+  "keepBooking": "Keep booking",
+  "stepPatientTitle": "Patient",
+  "stepWhenTitle": "Date and time",
+  "stepDurationTitle": "Duration",
+  "stepNurseTitle": "Nurse preference",
+  "stepDetailsTitle": "Details and address",
+  "stepReviewTitle": "Review",
+  "whoIsVisitFor": "Who is this visit for?",
+  "myself": "Myself",
+  "addFamilyMemberPlus": "+ Add family member",
+  "pickADay": "Pick a day",
+  "startTime": "Start time",
+  "noticeHours": "{hours, plural, =1{1 hour} other{{hours} hours}}",
+  "@noticeHours": {
+    "placeholders": {
+      "hours": {
+        "type": "int"
+      }
+    }
+  },
+  "noticeMinutes": "{minutes} minutes",
+  "@noticeMinutes": {
+    "placeholders": {
+      "minutes": {
+        "type": "int"
+      }
+    }
+  },
+  "noticeHint": "Bookings need at least {notice} notice.",
+  "@noticeHint": {
+    "placeholders": {
+      "notice": {
+        "type": "String"
+      }
+    }
+  },
+  "earliestStartToday": "Earliest start today is {time}.",
+  "@earliestStartToday": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "tooSoonShort": "too soon",
+  "bookedShort": "not available",
+  "couldNotLoadTimes": "We couldn't load the times for this day.",
+  "noTimesThisDay": "No times on this day",
+  "noTimesThisDayBody": "Try another day.",
+  "howManyHours": "How many hours?",
+  "hoursCount": "{count, plural, =1{1 hour} other{{count} hours}}",
+  "@hoursCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "durationCapped": "A nurse is free for up to {hours} hours from this start time.",
+  "@durationCapped": {
+    "placeholders": {
+      "hours": {
+        "type": "int"
+      }
+    }
+  },
+  "priceTimesHours": "{price} x {hours, plural, =1{1 hour} other{{hours} hours}}",
+  "@priceTimesHours": {
+    "placeholders": {
+      "price": {
+        "type": "String"
+      },
+      "hours": {
+        "type": "int"
+      }
+    }
+  },
+  "noDurationTitle": "No visit can start at this time",
+  "noDurationBody": "Pick a different start time or day.",
+  "changeDateOrTime": "Change date or time",
+  "whoWouldYouPrefer": "Who would you prefer?",
+  "femaleNurse": "Female nurse",
+  "maleNurse": "Male nurse",
+  "availableForYourTime": "Available for your time",
+  "notAvailableForThisTime": "Not available for this time",
+  "noNurseFreeFor": "No {gender} is free on {when}.",
+  "@noNurseFreeFor": {
+    "placeholders": {
+      "gender": {
+        "type": "String"
+      },
+      "when": {
+        "type": "String"
+      }
+    }
+  },
+  "noNurseFreeBoth": "No nurse is free on {when}.",
+  "@noNurseFreeBoth": {
+    "placeholders": {
+      "when": {
+        "type": "String"
+      }
+    }
+  },
+  "nurseAssignedNote": "We assign a qualified nurse for you. You'll see their name once the booking is confirmed.",
+  "patientDetails": "Patient details",
+  "patientName": "Patient name",
+  "patientAge": "Age",
+  "patientSex": "Sex",
+  "sexMale": "Male",
+  "sexFemale": "Female",
+  "sexOther": "Other",
+  "sexRequired": "Choose one",
+  "conditionNotes": "Condition or notes",
+  "contactPhone": "Contact phone",
+  "contactPhoneOptional": "Contact phone (optional)",
+  "contactPhoneHelp": "The nurse and our team will call this number about the visit.",
+  "ageInvalid": "Enter an age from 0 to 120",
+  "whereShouldNurseCome": "Where should the nurse come?",
+  "currentLocation": "Current location",
+  "pickOnMap": "Pick on map",
+  "couldNotLoadAddresses": "We couldn't load your saved addresses.",
+  "addressRequired": "Choose or add an address with a map pin",
+  "labelHome": "Home",
+  "labelWork": "Work",
+  "labelOther": "Other",
+  "service": "Service",
+  "when": "When",
+  "duration": "Duration",
+  "nurse": "Nurse",
+  "patient": "Patient",
+  "address": "Address",
+  "total": "Total",
+  "amount": "Amount",
+  "paid": "Paid",
+  "nurseGenderLine": "{gender}",
+  "@nurseGenderLine": {
+    "placeholders": {
+      "gender": {
+        "type": "String"
+      }
+    }
+  },
+  "pay": "Pay",
+  "payAmount": "Pay {amount}",
+  "@payAmount": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      }
+    }
+  },
+  "confirmedWhenPaid": "Your booking is confirmed as soon as you pay.",
+  "holdNote": "We hold a nurse for you for 15 minutes while you pay.",
+  "paymentNotCompleted": "Payment was not completed. Your nurse is still held for a few minutes.",
+  "paymentFailed": "Payment didn't go through. Please try again.",
+  "autoCancelledTitle": "We couldn't confirm your visit",
+  "autoCancelledBody": "Your payment arrived after the held time ran out and no nurse was free. {amount} will be refunded in full.",
+  "@autoCancelledBody": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      }
+    }
+  },
+  "noticeNoNurseFree": "No nurse is free for that time any more. Please choose another time. Your other choices are kept.",
+  "noticeHoldExpired": "Your held time ran out. Please pick a time again. Your other choices are kept.",
+  "noticeTooSoon": "That start time is too soon. Please pick a later time.",
+  "noticeTooFar": "That day is too far ahead to book. Please pick an earlier day.",
+  "noticeCrossesMidnight": "A visit must finish by midnight. Please choose an earlier start or fewer hours.",
+  "payUpi": "UPI",
+  "payUpiHint": "Any UPI app",
+  "payCard": "Card",
+  "payCardHint": "Credit or debit",
+  "payNetbanking": "Net banking",
+  "payNetbankingHint": "All major banks",
+  "paySecureTestNote": "Secure payment. This is a test checkout, no real money moves.",
+  "holdTimeLeft": "Time left to pay: {time}",
+  "@holdTimeLeft": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "holdTimeLeftSemantics": "About {minutes, plural, =1{1 minute} other{{minutes} minutes}} left to pay",
+  "@holdTimeLeftSemantics": {
+    "placeholders": {
+      "minutes": {
+        "type": "int"
+      }
+    }
+  },
+  "bookingConfirmed": "Booking confirmed",
+  "bookingNumber": "Booking #{id}",
+  "@bookingNumber": {
+    "placeholders": {
+      "id": {
+        "type": "int"
+      }
+    }
+  },
+  "yourNurse": "Your nurse",
+  "nurseSoon": "Will be shared soon",
+  "smsSentNote": "We have sent you an SMS with these details.",
+  "viewBooking": "View booking",
+  "backToHome": "Back to home",
+  "setLocation": "Set location",
+  "searchPlaces": "Search area, street or landmark",
+  "useCurrentLocation": "Use my current location",
+  "confirmLocation": "Confirm location",
+  "findingAddress": "Finding address...",
+  "addressNotFound": "We couldn't name this spot. You can still use it and add the details next.",
+  "searchFailed": "Search isn't working right now. You can still move the map.",
+  "locationDenied": "Location access is off. You can still search or move the map.",
+  "locationDeniedForever": "Location access is blocked for CareNest. Turn it on in Settings, or search and move the map instead.",
+  "locationOff": "Location is switched off on this phone. You can still search or move the map.",
+  "locationUnavailable": "We couldn't get your location. You can still search or move the map.",
+  "simulatedMapLabel": "Map preview, pin at {point}. Drag to move the pin.",
+  "@simulatedMapLabel": {
+    "placeholders": {
+      "point": {
+        "type": "String"
+      }
+    }
+  },
+  "simulatedMapNote": "Map preview (no Google Maps key)",
+  "addressDetails": "Address details",
+  "editAddress": "Edit address",
+  "houseOrFlat": "House or flat number",
+  "houseRequired": "Enter the house or flat number",
+  "landmarkOptional": "Landmark (optional)",
+  "saveAs": "Save as",
+  "saveForNextTime": "Save for next time",
+  "setAsDefault": "Set as default address",
+  "useThisAddress": "Use this address",
+  "saveAddress": "Save address",
+  "editAreaDetails": "Edit area details",
+  "areaStreet": "Area or street",
+  "city": "City",
+  "stateLabel": "State",
+  "pincode": "Pincode",
+  "tabCurrent": "Current",
+  "tabHistory": "History",
+  "noCurrentBookings": "No current bookings",
+  "noCurrentBookingsBody": "Upcoming and ongoing visits show up here.",
+  "noHistory": "No past bookings",
+  "noHistoryBody": "Finished and cancelled visits show up here.",
+  "bookAService": "Book a service",
+  "statusPendingPayment": "Waiting for payment",
+  "statusExpired": "Expired",
+  "statusConfirmed": "Confirmed",
+  "statusInProgress": "In progress",
+  "statusCompleted": "Completed",
+  "statusCancelled": "Cancelled",
+  "nurseNotAssigned": "Not assigned",
+  "needChangeOrCancel": "Need to change or cancel? Call support on {phone}.",
+  "@needChangeOrCancel": {
+    "placeholders": {
+      "phone": {
+        "type": "String"
+      }
+    }
+  },
+  "callSupport": "Call support",
+  "couldNotOpenDialer": "Could not open the phone app. Please call {phone}.",
+  "@couldNotOpenDialer": {
+    "placeholders": {
+      "phone": {
+        "type": "String"
+      }
+    }
+  },
+  "cancelledByCareNest": "Cancelled by CareNest",
+  "cancelledByYou": "Cancelled",
+  "cancelReason": "Reason: {reason}",
+  "@cancelReason": {
+    "placeholders": {
+      "reason": {
+        "type": "String"
+      }
+    }
+  },
+  "refund": "Refund",
+  "refundStatus": "Refund status",
+  "refundSent": "Sent to your bank",
+  "refundInProgress": "Refund in progress",
+  "refundExpected": "Expected",
+  "refundExpectedDefault": "5 to 7 working days",
+  "bookAgain": "Book again",
+  "editProfile": "Edit profile",
+  "familyMembers": "Family members",
+  "addresses": "Addresses",
+  "privacyPolicy": "Privacy policy",
+  "deleteAccount": "Delete account",
+  "logout": "Log out",
+  "logoutTitle": "Log out?",
+  "logoutBody": "You will need a new code to log in again.",
+  "profileSaved": "Profile saved",
+  "phoneCannotChange": "Your number can't be changed here.",
+  "noFamily": "No family members yet",
+  "noFamilyBody": "Save the people you book for so you do not have to type their details again.",
+  "addFamilyMember": "Add family member",
+  "editFamilyMember": "Edit family member",
+  "addMember": "Add member",
+  "relation": "Relation",
+  "relationHint": "For example Father",
+  "relationRequired": "Enter the relation",
+  "medicalNotes": "Medical notes (optional)",
+  "deleteMember": "Delete this member",
+  "deleteMemberTitle": "Delete {name}?",
+  "@deleteMemberTitle": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "deleteMemberBody": "Past bookings are not affected.",
+  "addAddressPlus": "+ Add address",
+  "noAddresses": "No saved addresses",
+  "noAddressesBody": "Add a place where a nurse should visit.",
+  "defaultLabel": "Default",
+  "deleteAddressTitle": "Delete this address?",
+  "deleteAccountTitle": "Delete your CareNest account",
+  "deleteAccountExplain": "Your personal details and saved family members and addresses will be erased. Booking and payment records are kept without your personal details.",
+  "deleteAccountUpcoming": "If you have an upcoming confirmed booking, please call support first.",
+  "deleteConfirmTitle": "Delete your account?",
+  "deleteConfirmBody": "This cannot be undone.",
+  "deleteMyAccount": "Delete my account"
+}

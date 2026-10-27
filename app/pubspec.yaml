@@ -70,6 +70,8 @@ flutter:
   generate: true
   assets:
     - assets/fonts/Inter-LICENSE.txt
+    - assets/images/logo.png
+    - assets/images/logo_mark.png
   fonts:
     - family: Inter
       fonts:
