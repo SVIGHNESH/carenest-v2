@@ -3,7 +3,7 @@ import { Link } from "@tanstack/react-router";
 import { AlertTriangle } from "lucide-react";
 import { api, unwrap } from "@/api/client";
 import { Badge, Card, CardHeader, EmptyState, ErrorState, Loading, PageHeader } from "@/components/ui";
-import { formatShort, hourLabel, parseSlot, statusInfo } from "@/lib/format";
+import { hourLabel, parseSlot, statusInfo } from "@/lib/format";
 
 export function DashboardPage() {
   const q = useQuery({ queryKey: ["dashboard"], queryFn: () => unwrap(api.GET("/admin/dashboard")), refetchInterval: 60_000 });
@@ -83,7 +83,7 @@ export function DashboardPage() {
           </ul>
         )}
         <p className="border-t border-border bg-surface-sunken px-4 py-2.5 text-xs text-fg-muted">
-          Nurses have no app. If a nurse says an SMS never arrived, open the booking and resend it, or read the day out from here. Last visit today ends {visits.length ? formatShort(visits[visits.length - 1].slot_end) : "-"}.
+          Nurses have no app. If a nurse says an SMS never arrived, open the booking and resend it, or read the day out from here.
         </p>
       </Card>
     </>

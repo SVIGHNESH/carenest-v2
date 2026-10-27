@@ -1,0 +1,10 @@
+[build]
+builder = "DOCKERFILE"
+dockerfilePath = "Dockerfile"
+
+[deploy]
+healthcheckPath = "/health"
+healthcheckTimeout = 60
+restartPolicyType = "ON_FAILURE"
+# Staging: set RUN_WORKER=false, DB_NULL_POOL=true, NURSE_SMS_ENABLED=false and enable
+# Serverless in the service settings. Production: RUN_WORKER=true, DB_NULL_POOL=false.

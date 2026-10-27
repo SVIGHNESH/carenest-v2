@@ -2,3 +2,5 @@ node_modules
 dist
 .env
 v1ref/
+v1ref/
+*.log

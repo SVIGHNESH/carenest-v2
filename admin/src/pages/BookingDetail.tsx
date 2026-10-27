@@ -110,7 +110,7 @@ export function BookingDetailPage() {
           <div className="p-4">
             <DefList
               rows={[
-                ["User asked for", <span className="capitalize">{b.nurse_gender_preference} nurse</span>],
+                ["User asked for", <span className="first-letter:uppercase">{b.nurse_gender_preference} nurse</span>],
                 ["Assigned", b.nurse ? `${b.nurse.name} (${b.nurse.phone})` : "No nurse assigned"],
                 ["Visit link", b.visit_link_opened_at ? `Opened ${formatInstant(b.visit_link_opened_at)}` : live ? "Not opened yet" : "-"],
               ]}

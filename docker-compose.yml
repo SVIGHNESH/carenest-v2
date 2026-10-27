@@ -1,0 +1,13 @@
+# Local Postgres. Keep the major version equal to the Railway Postgres version
+# (verify in the Railway dashboard before first deploy; update here and in CI).
+services:
+  db:
+    image: postgres:17
+    environment:
+      POSTGRES_USER: carenest
+      POSTGRES_HOST_AUTH_METHOD: trust
+      POSTGRES_DB: carenest
+    ports: ["54329:5432"]
+    volumes: ["pgdata:/var/lib/postgresql/data"]
+volumes:
+  pgdata:
