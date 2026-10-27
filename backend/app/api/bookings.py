@@ -1,5 +1,6 @@
 import asyncio
 import json
+import logging
 
 from fastapi import APIRouter, Depends, HTTPException, Request, Response
 from sqlalchemy import select
@@ -156,6 +157,17 @@ async def create_order(body: OrderIn, user: User = Depends(current_user), db: As
     pay = (await db.execute(select(Payment).where(Payment.booking_id == b.id).with_for_update())).scalar_one_or_none()
     if pay is not None and pay.status != "pending":
         raise HTTPException(status_code=409, detail="This booking is already paid.")
+    if pay is not None and pay.order_id and pay.gateway == gw.name:
+        # Retry after a crash: hand back the same order so a payment captured on the first
+        # one can still be matched to this booking.
+        return OrderOut(
+            gateway=gw.name,
+            order_id=pay.order_id,
+            amount=pay.amount,
+            key_id=gw.key_id,
+            booking_id=b.id,
+            hold_expires_at=b.hold_expires_at,
+        )
     try:
         order = await asyncio.to_thread(gw.create_order, b.id, b.amount)
     except GatewayError as exc:
@@ -207,6 +219,9 @@ async def razorpay_webhook(request: Request, db: AsyncSession = Depends(get_db))
         return Response(status_code=200)
     pay = (await db.execute(select(Payment).where(Payment.order_id == order_id))).scalar_one_or_none()
     if pay is None:
+        logging.getLogger(__name__).error(
+            "Webhook for unknown order %s (payment %s): money may be unmatched", order_id, payment_id
+        )
         return Response(status_code=200)
     try:
         await bk.finalize_payment(db, pay.booking_id, payment_id)

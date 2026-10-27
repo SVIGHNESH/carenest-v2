@@ -91,6 +91,24 @@ class Settings(BaseSettings):
         return self.DATABASE_URL.replace("postgresql+asyncpg://", "postgresql://")
 
 
+DEFAULT_SECRET = "dev-secret-change-me-dev-secret-change-me"
+DEFAULT_ADMIN_PASSWORD = "change-me-please"
+
+
+def production_problems(s: "Settings") -> list[str]:
+    """Placeholder values that must never reach production."""
+    problems = []
+    if s.PAYMENT_GATEWAY != "razorpay":
+        problems.append("PAYMENT_GATEWAY must be 'razorpay' (the fake gateway confirms bookings without payment)")
+    if s.SECRET_KEY == DEFAULT_SECRET or len(s.SECRET_KEY) < 32:
+        problems.append("SECRET_KEY must be a long random value")
+    if s.FIRST_ADMIN_PASSWORD == DEFAULT_ADMIN_PASSWORD:
+        problems.append("FIRST_ADMIN_PASSWORD must be changed")
+    if not s.RAZORPAY_WEBHOOK_SECRET:
+        problems.append("RAZORPAY_WEBHOOK_SECRET is required")
+    return problems
+
+
 @lru_cache
 def get_settings() -> Settings:
     return Settings()

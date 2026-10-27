@@ -27,6 +27,9 @@ class Order:
 class PaymentGateway(Protocol):
     name: str
 
+    @property
+    def key_id(self) -> str: ...
+
     def create_order(self, booking_id: int, amount: int) -> Order: ...
     def verify_signature(self, order_id: str, payment_id: str, signature: str) -> bool: ...
     def verify_webhook(self, body: bytes, signature: str) -> bool: ...
@@ -40,6 +43,11 @@ class FakeGateway:
     """Deterministic stand-in. The app's fake sheet signs with `sign()`."""
 
     name = "fake"
+
+    @property
+    def key_id(self) -> str:
+        return "fake_key"
+
     fail_refunds = False  # tests flip this
 
     def create_order(self, booking_id: int, amount: int) -> Order:
@@ -64,6 +72,10 @@ class FakeGateway:
 
 class RazorpayGateway:
     name = "razorpay"
+
+    @property
+    def key_id(self) -> str:
+        return settings.RAZORPAY_KEY_ID
 
     def __init__(self) -> None:
         import razorpay

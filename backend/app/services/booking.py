@@ -539,8 +539,19 @@ async def process_refund(db: AsyncSession, payment: Payment) -> None:
     try:
         refund_id = await asyncio.to_thread(get_gateway().refund, payment.payment_id, payment.amount)
     except GatewayError as exc:
+        first_failure = payment.status != "refund_failed"
         payment.status = "refund_failed"
         payment.refund_error = str(exc)[:500]
+        if first_failure:
+            messages.enqueue_email(
+                db,
+                to=env.ADMIN_NOTIFY_EMAIL,
+                template="admin_notice",
+                subject=f"CareNest: Refund failed for booking #{payment.booking_id}",
+                html=f"<p>The automatic refund of Rs {payment.amount} failed: {payment.refund_error}. Refund it by hand in Razorpay.</p>",
+                recipient_type="admin",
+                booking_id=payment.booking_id,
+            )
         logging.getLogger(__name__).error("Refund failed for payment %s: %s", payment.id, exc)
         return
     payment.refund_id = refund_id

@@ -681,3 +681,64 @@ def test_clean_value_follows_dlt_rules():
     assert len(messages.clean_value("x" * 80)) == 40
     assert not messages.clean_value("http://evil").lower().startswith("http")
     assert User  # imported for factories
+
+
+# --- review follow-ups ---------------------------------------------------------------------
+async def test_create_order_twice_reuses_order_and_late_webhook_still_confirms(client):
+    import hashlib
+    import hmac
+    import json
+
+    sid, _, h, aid, _ = await setup_world()
+    b = (await client.post("/bookings", json=booking_body(sid, aid, tomorrow(10)), headers=h)).json()
+    o1 = (await client.post("/payments/create-order", json={"booking_id": b["id"]}, headers=h)).json()
+    o2 = (await client.post("/payments/create-order", json={"booking_id": b["id"]}, headers=h)).json()
+    assert o1["order_id"] == o2["order_id"]
+    payload = json.dumps(
+        {"event": "payment.captured", "payload": {"payment": {"entity": {"id": "pay_1", "order_id": o1["order_id"]}}}}
+    ).encode()
+    sig = hmac.new(b"fake-gateway-secret", payload, hashlib.sha256).hexdigest()
+    assert (
+        await client.post("/payments/webhook/razorpay", content=payload, headers={"x-razorpay-signature": sig})
+    ).status_code == 200
+    assert (await get_booking(b["id"])).status == "confirmed"
+
+
+async def test_refund_failure_emails_admin_once(client, email):
+    sid, _, h, aid, _ = await setup_world()
+    b = (await client.post("/bookings", json=booking_body(sid, aid, tomorrow(10)), headers=h)).json()
+    await pay(client, h, b["id"])
+    _, ah = await make_admin()
+    FakeGateway.fail_refunds = True
+    await client.post(f"/admin/bookings/{b['id']}/cancel", json={"reason": "x"}, headers=ah)
+    await tasks.job_refunds()
+    await tasks.job_refunds()  # retries must not email again
+    async with SessionLocal() as db:
+        await messages.process_queue(db)
+    assert len([e for e in email.sent if "Refund failed" in e[1]]) == 1
+
+
+def test_now_ist_converts_from_utc_across_midnight():
+    from datetime import UTC
+
+    just_before = datetime(2026, 10, 27, 18, 29, tzinfo=UTC)  # 23:59 IST
+    just_after = datetime(2026, 10, 27, 18, 31, tzinfo=UTC)  # 00:01 IST next day
+    assert now_ist(just_before) == datetime(2026, 10, 27, 23, 59)
+    assert now_ist(just_after) == datetime(2026, 10, 28, 0, 1)
+
+
+def test_production_refuses_placeholder_config():
+    from app.config import Settings, production_problems
+
+    bad = Settings(
+        ENVIRONMENT="production", SECRET_KEY="dev-secret-change-me-dev-secret-change-me", FIRST_ADMIN_PASSWORD="change-me-please"
+    )
+    assert len(production_problems(bad)) == 4
+    good = Settings(
+        ENVIRONMENT="production",
+        PAYMENT_GATEWAY="razorpay",
+        SECRET_KEY="x" * 40,
+        FIRST_ADMIN_PASSWORD="a-real-password",
+        RAZORPAY_WEBHOOK_SECRET="whsec",
+    )
+    assert production_problems(good) == []

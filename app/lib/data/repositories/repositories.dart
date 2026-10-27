@@ -1,5 +1,6 @@
 import '../../core/ist.dart';
 import '../api/api_client.dart';
+import '../api/api_exception.dart';
 import '../api/token_store.dart';
 import '../models/models.dart';
 
@@ -11,6 +12,9 @@ List<T> _list<T>(dynamic d, T Function(Json) f) =>
 // ---------------------------------------------------------------- auth
 abstract class AuthRepository {
   Future<String?> storedToken();
+
+  /// Current user for the stored token, or null when there is no valid session.
+  Future<UserOut?> restoreSession();
   Future<void> sendOtp(String phoneE164);
 
   /// Stores the token when the user already exists.
@@ -26,6 +30,17 @@ class HttpAuthRepository implements AuthRepository {
 
   @override
   Future<String?> storedToken() => _tokens.read();
+
+  @override
+  Future<UserOut?> restoreSession() async {
+    if (await _tokens.read() == null) return null;
+    try {
+      return await _api.get('/users/me', (d) => UserOut.fromJson(d as Json));
+    } on ApiException catch (e) {
+      if (e.kind == ApiErrorKind.unauthorized) return null;
+      rethrow;
+    }
+  }
 
   @override
   Future<void> sendOtp(String phoneE164) => _api.postVoid('/auth/phone/send-otp', body: {'phone': phoneE164});
@@ -151,7 +166,7 @@ class HttpProfileRepository implements ProfileRepository {
   Future<UserOut> updateMe({String? name, String? email}) => _api.patch(
         '/users/me',
         (d) => UserOut.fromJson(d as Json),
-        body: {if (name != null) 'name': name, if (email != null) 'email': email.isEmpty ? null : email},
+        body: {'name': ?name, if (email != null) 'email': email.isEmpty ? null : email},
       );
 
   @override

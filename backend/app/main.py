@@ -8,7 +8,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 
 from app.api import admin_auth, admin_bookings, admin_catalog, auth, bookings, catalog, profile, public
-from app.config import settings
+from app.config import production_problems, settings
 from app.services.errors import BookingError
 
 logger = logging.getLogger(__name__)
@@ -45,6 +45,10 @@ async def lifespan(app: FastAPI):
 
 
 def create_app() -> FastAPI:
+    if settings.is_prod:
+        problems = production_problems(settings)
+        if problems:
+            raise RuntimeError("Unsafe production configuration: " + "; ".join(problems))
     app = FastAPI(title="CareNest API", version="2.0.0", lifespan=lifespan)
     app.add_middleware(
         CORSMiddleware,

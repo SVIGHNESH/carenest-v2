@@ -12,3 +12,7 @@ Updated as work proceeds.
 
 ## Blocked
 - Nothing yet.
+
+## Step 1 (data layer): done
+- ApiClient (Dio), ApiException, TokenStore, models (json_serializable), repositories (auth, profile, catalog, booking, payment) with HTTP implementations.
+- Hand-written client chosen over generated (see README when written).

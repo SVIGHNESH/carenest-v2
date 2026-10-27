@@ -14,7 +14,7 @@ const button = cva(
         primary: "bg-accent-brand text-accent-brand-fg hover:bg-accent-brand-hover",
         outline: "border border-border-strong bg-surface text-fg shadow-xs hover:bg-surface-hover",
         ghost: "text-fg-secondary hover:bg-surface-hover",
-        danger: "bg-danger text-white hover:opacity-90",
+        danger: "bg-danger text-white hover:opacity-90 dark:text-canvas",
         "danger-outline": "border border-danger/40 bg-surface text-danger hover:bg-danger-soft",
       },
       size: { sm: "h-7 px-2.5", md: "h-8 px-3", lg: "h-9 px-4" },

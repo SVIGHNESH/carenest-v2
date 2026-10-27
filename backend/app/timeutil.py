@@ -14,9 +14,9 @@ def utcnow() -> datetime:
     return datetime.now(timezone.utc)
 
 
-def now_ist() -> datetime:
+def now_ist(now_utc: datetime | None = None) -> datetime:
     """Current IST wall-clock time as a naive datetime (slot-comparable)."""
-    return datetime.now(IST).replace(tzinfo=None, microsecond=0)
+    return (now_utc or datetime.now(timezone.utc)).astimezone(IST).replace(tzinfo=None, microsecond=0)
 
 
 def to_ist_naive(dt: datetime) -> datetime:
