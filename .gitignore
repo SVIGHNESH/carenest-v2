@@ -1,6 +1,4 @@
-v1ref/
+node_modules
+dist
 .env
-.DS_Store
-node_modules/
-dist/
-*.log
+v1ref/

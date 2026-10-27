@@ -1,0 +1,15 @@
+include: package:flutter_lints/flutter.yaml
+
+analyzer:
+  exclude:
+    - build/**
+    - android/**
+    - ios/**
+    - linux/**
+    - lib/l10n/gen/**
+    - "**/*.g.dart"
+
+linter:
+  rules:
+    prefer_single_quotes: true
+    avoid_print: false
